@@ -19,7 +19,9 @@ label {
 }
 
 input[type="text"],
+input[type="number"],
 input[type="date"],
+textarea,
 select {
     width: calc(100% - 20px); /* Adjust width to fit inside form padding */
     padding: 10px;
@@ -44,6 +46,7 @@ button:hover {
 }
 
 .add-author,
+.add-img,
 .remove-author {
     background-color: #007bff;
     color: white;
@@ -55,6 +58,7 @@ button:hover {
 }
 
 .add-author:hover,
+.add-img:hover,
 .remove-author:hover {
     background-color: #0056b3;
 }
@@ -73,4 +77,78 @@ button:hover {
 
 #proposal {
     height: 150px;
+}
+
+/* ------------------------------------------------------------ */
+.supplement-info {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 0px 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    width: 145px;
+}
+
+.supplementImg {
+    width: 80%;
+    height: 360px;
+    margin-bottom: 10px;
+    border-radius: 10px;
+}
+
+.add-img {
+    margin-bottom: 10px;
+}
+
+.add-button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 50%;
+    margin-left: 10px;
+    width: 40px;
+    height: 40px;
+}
+
+.add-button:hover {
+    background-color: #45a049;
+}
+
+.remove-supplement-button {
+    height: 20px;
+    width: 20px;
+    background-color: #678968;
+    color: white;
+    font-size: 14px;
+    padding: 0;
+    font-weight: bold;
+    margin-left: 5px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.remove-supplement-button:hover {
+    background-color: #597759;
+}
+
+.img-controller {
+    display: flex;
+}
+
+.remove-img-button {
+    height: 40px;
+    width: 50px;
+    margin-left: auto;
+    background-color: transparent;
+    color: grey;
+    font-size: 20px;
+}
+
+.remove-img-button:hover {
+    background-color: transparent;
 }
