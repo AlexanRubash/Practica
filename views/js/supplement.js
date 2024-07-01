@@ -12,124 +12,89 @@ function updateSupplementId() {
         const currentSupplement = supplement.querySelector('.supplement-info');
         currentSupplement.innerText = `Приложение ${currentId}`;
 
-        const removeSupplementButton = document.createElement('button');
-        removeSupplementButton.innerText = 'X';
-        removeSupplementButton.type = 'button';
+        const removeSupplementButton = currentSupplement.querySelector('.remove-supplement-button');
         removeSupplementButton.id = `remove-supplement-button${currentId}`;
-        removeSupplementButton.className = 'remove-supplement-button';
-        removeSupplementButton.addEventListener('click', () => { 
-            document.getElementById(`supplement${currentId}`).remove()
-            updateSupplementId();
-        });
-        currentSupplement.appendChild(removeSupplementButton);
 
+        const supplementTitleInputs = supplement.querySelectorAll('.supplement-title-input');
+        supplementTitleInputs.forEach(supplementTitleInput => supplementTitleInput.name = `supplements[${currentId}][name]`);
+
+        const images = supplement.querySelectorAll('.upload-img');
+        images.forEach(image => image.name = `supplements[${currentId}][images][]`);
+
+        const titleImages = supplement.querySelectorAll('.img-title-input');
+        titleImages.forEach(titleImage => titleImage.name = `supplements[${currentId}][imagesNames][]`);
     });
 }
 
-
 function addSupplement() {
-    supplementCount++;
-    const supplementId = supplementCount;
-
+    const supplementId = ++supplementCount;
     const supplementContainer = document.getElementById('supplementContainer');
 
     const supplementDiv = document.createElement('div');
     supplementDiv.className = 'supplement-form';
     supplementDiv.id = `supplement${supplementId}`;
-    
-    const supplementInfo = document.createElement('label');
-    supplementInfo.className = 'supplement-info';
-    supplementInfo.innerText = `Приложение ${supplementId}`;
-    supplementInfo.onclick = function() {
-        document.getElementById(`supplement${supplementId}`).scrollIntoView();
-    };
-    supplementDiv.appendChild(supplementInfo);
 
-    const removeSupplementButton = document.createElement('button');
-    removeSupplementButton.innerText = 'X';
-    removeSupplementButton.type = 'button';
-    removeSupplementButton.id = `remove-supplement-button${supplementId}`;
-    removeSupplementButton.className = 'remove-supplement-button';
-    removeSupplementButton.addEventListener('click', () => { 
-        document.getElementById(`supplement${supplementId}`).remove()
-        updateSupplementId();
-    });
-    supplementInfo.appendChild(removeSupplementButton);
-
-    const supplementTitleInput = document.createElement('input');
-    supplementTitleInput.type = 'text';
-    supplementTitleInput.placeholder = 'Название приложения';
-    supplementDiv.appendChild(supplementTitleInput);
-
-    const imgContainer = document.createElement('div');
-    imgContainer.className = 'img-container';
-    supplementDiv.appendChild(imgContainer);
-
-    const addImgLabel = document.createElement('label');
-    addImgLabel.innerText = 'Добавить изображение';
-    addImgLabel.style = 'font-size: 16px';
-
-    const addImageButton = document.createElement('button');
-    addImageButton.type = 'button';
-    addImageButton.className = 'add-img';
-    addImageButton.innerText = '+';
-    addImageButton.onclick = function() {
-        addImage(imgContainer);
-    };
-    addImgLabel.appendChild(addImageButton);
-    supplementDiv.appendChild(addImgLabel);
+    supplementDiv.innerHTML = `
+        <label class="supplement-info">
+            Приложение ${supplementId}
+            <button type="button" id="remove-supplement-button${supplementId}" class="remove-supplement-button">X</button>
+        </label>
+        <input type="text" class="supplement-title-input" placeholder="Название приложения" name="supplements[${supplementId}][name]">
+        <div class="img-container"></div>
+        <label style="font-size: 16px">
+            Добавить изображение
+            <button type="button" class="add-img">+</button>
+        </label>
+    `;
 
     supplementContainer.appendChild(supplementDiv);
 
+    // Event listeners
+    const removeSupplementButton = supplementDiv.querySelector(`#remove-supplement-button${supplementId}`);
+    const addImageButton = supplementDiv.querySelector('.add-img');
+    const supplementInfo = supplementDiv.querySelector('.supplement-info');
+
+    removeSupplementButton.addEventListener('click', () => {
+        supplementDiv.remove();
+        updateSupplementId();
+    });
+
+    addImageButton.addEventListener('click', () => {
+        addImage(supplementDiv.querySelector('.img-container'), supplementId);
+    });
+
+    supplementInfo.addEventListener('click', () => {
+        supplementDiv.scrollIntoView();
+    });
 }
 
-function addImage(container) {
-    imgCount++;
-    const imgId = imgCount;
+function addImage(container, supplementId) {
+    const imgId = ++imgCount;
+
     const imgDiv = document.createElement('div');
     imgDiv.id = `img-div${imgId}`;
-
-    const imgController = document.createElement('div');
-    imgController.className = 'img-controller';
-
-    const uploadImg = document.createElement('input');
-    uploadImg.type = 'file';
-    uploadImg.id = `fileInput${imgId}`;
-    uploadImg.accept = 'image/*';
-    uploadImg.style = 'display:none;';
-    imgController.appendChild(uploadImg);
-
-    const image = document.createElement('img');
-    image.src = './no-photo.png'; 
-    const previewId = `preview${imgId}`;
-    image.id = previewId; 
-    image.className = 'supplementImg'; 
-    image.alt = 'Изображение';
-    imgController.appendChild(image);
-
-    const removeImgButton = document.createElement('button');
-    removeImgButton.innerText = 'X';
-    removeImgButton.type = 'button';
-    removeImgButton.id = `remove-img-button${imgId}`;
-    removeImgButton.className = 'remove-img-button';
-    removeImgButton.addEventListener('click', () => document.getElementById(`img-div${imgId}`).remove());
-    imgController.appendChild(removeImgButton);
-
-    imgDiv.appendChild(imgController);
-
-    const imgTitleInput = document.createElement('input');
-    imgTitleInput.type = 'text';
-    imgTitleInput.placeholder = 'Название изображения';
-    imgDiv.appendChild(imgTitleInput);
+    imgDiv.innerHTML = `
+        <div class="img-controller">
+            <input type="file" id="fileInput${imgId}" accept="image/*" class="upload-img" name="supplements[${supplementId}][images][]" style="display:none;">
+            <img src="./no-photo.png" id="preview${imgId}" class="supplementImg" alt="Изображение">
+            <button type="button" id="remove-img-button${imgId}" class="remove-img-button">X</button>
+        </div>
+        <input type="text" placeholder="Название изображения" class="img-title-input" name="supplements[${supplementId}][imagesNames][]">
+    `;
 
     container.appendChild(imgDiv);
+
+    // Event listeners
+    const uploadImg = imgDiv.querySelector(`#fileInput${imgId}`);
+    const image = imgDiv.querySelector(`#preview${imgId}`);
+    const removeImgButton = imgDiv.querySelector(`#remove-img-button${imgId}`);
 
     uploadImg.addEventListener('change', (event) => {
         const file = event.target.files[0];
         if (file) {
             const reader = new FileReader();
             reader.onload = (e) => {
-                const preview = document.getElementById(previewId);
+                const preview = document.getElementById(`preview${imgId}`);
                 preview.src = e.target.result;
                 preview.style.display = 'block';
             };
@@ -138,39 +103,6 @@ function addImage(container) {
     });
 
     image.addEventListener('click', () => document.getElementById(`fileInput${imgId}`).click());
+
+    removeImgButton.addEventListener('click', () => imgDiv.remove());
 }
-
-
-
-
-// function addImage(container) {
-//     imgCount++;
-    
-//     const imgHtml = `
-//     <div>
-//         <div class="img-controller">
-//             <input type="file" id="fileInput${imgCount}" accept="image/*" style="display:none;">
-//             <img src="./no-photo.png" id="preview${imgCount}" class="supplementImg" alt="Изображение">
-//             <button class="remove-img">X</button>
-//         </div>
-//         <input style="display: block" type="text" placeholder="Название изображения">
-//     </div>
-//     `;
-
-//     container.insertAdjacentHTML('beforeend', imgHtml);
-//         document.getElementById(`fileInput${imgCount}`).addEventListener('change', function(event) {
-//             const file = event.target.files[0];
-//             if (file) {
-//                 const reader = new FileReader();
-//                 reader.onload = function(e) {
-//                     const preview = document.getElementById(`preview${imgCount}`);
-//                     preview.src = e.target.result;
-//                 };
-//                 reader.readAsDataURL(file);
-//             }
-//         });
-    
-//         document.getElementById(`preview${imgCount}`).addEventListener('click', function() {
-//             document.getElementById(`fileInput${imgCount}`).click();
-//         });
-// }
