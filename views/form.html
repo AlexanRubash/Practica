@@ -4,68 +4,112 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Создание акта</title>
-    <link rel="stylesheet" href="/form.css">
+    <link rel="stylesheet" href="./css/form.css">
 </head>
 <body>
 <h1>Минский филиал управления</h1>
-<h2>Создание акта</h2>
+<h2>Создание заявления на рационализаторское предложение</h2>
 <form action="/generate" method="post">
-    <label for="actNumber">Номер акта:</label>
-    <input type="text" id="actNumber" name="actNumber" required><br><br>
+    <!-- <select>
+        <option disabled>Выберите филиал</option>
+        <option value="Чебурашка">ММММ</option>
+        <option selected value="Крокодил Гена">ППП</option>
+        <option value="Шапокляк">АААА</option>
+        <option value="Крыса Лариса">ЫЫЫЫ</option>
+    </select> -->
+    <label for="proposalName">Наименование предложения:</label>
+    <input type="text" id="proposalName" name="proposalName" required><br><br>
 
-    <label for="proposal">Рационализаторское предложение:</label>
-    <input type="text" id="proposal" name="proposal" required><br><br>
+    <label for="problemDescription">Описание существующей проблемы:</label>
+    <textarea id="problemDescription" name="problemDescription" rows="5"></textarea><br><br>
 
-    <label for="date">Дата регистрации:</label>
-    <input type="date" id="date" name="date" required><br><br>
+    <label for="solution">Предлагаемое решение:</label>
+    <textarea id="solution" name="solution" rows="5"></textarea><br><br>
 
-    <div id="authors-container">
+    <label for="result">Получаемый результат:</label>
+    <textarea id="result" name="result" rows="5"></textarea><br><br>
+
+    <div>
         <label for="authors">Авторы:</label>
-        <div class="author-input">
-            <input type="text" name="authors[]" required>
-            <button type="button" class="add-author">+</button>
-        </div>
+        <div id="authors-container"></div>
+        <label>
+            Добавить автора
+            <button type="button" class="add-author" onclick="addAuthor()">+</button>
+        </label>
     </div>
 
+    <label for="infoAboutUseObject">Сведения о предполагаемом объекте использования:</label>
+    <input type="text" id="infoAboutUseObject" name="infoAboutUseObject"><br><br>
 
-    <label for="service">Служба:</label>
-    <input type="text" id="service" name="service" required><br><br>
+    <label for="readinessDegree">Степень готовности предложения к использованию:</label>
+    <input type="text" id="readinessDegree" name="readinessDegree"><br><br>
 
-    <label for="serviceLeader">Начальник службы:</label>
-    <input type="text" id="serviceLeader" name="serviceLeader" required><br><br>
+    <label for="beneficialEffect">Предполагаемый полезный эффект: (экономический или иной полезный):</label>
+    <textarea id="beneficialEffect" name="beneficialEffect" rows="5"></textarea><br><br>
 
-    <label for="serviceLeaderName">ФИО начальника службы:</label>
-    <input type="text" id="serviceLeaderName" name="serviceLeaderName" required><br><br>
+    <label for="effectDescription">Подробное описание эффекта:</label>
+    <textarea id="effectDescription" name="effectDescription" rows="5"></textarea><br><br>
 
-    <label for="fileType">Тип файла:</label>
-    <select id="fileType" name="fileType">
-        <option value="docx">Word</option>
-        <option value="pdf">PDF</option>
-    </select><br><br>
+    <label for="innovation">Вывод о новизне предложения:</label>
+    <input type="text" id="innovation" name="innovation"><br><br>
+    
+    <label for="useful">Вывод о полезности предложения:</label>
+    <input type="text" id="useful" name="useful"><br><br>
+    
+    <label for="expediency">Вывод о целесообразности использования предложения:</label>
+    <input type="text" id="expediency" name="expediency"><br><br>
+    
+    <label for="tradeSecretRegime">Вывод о наличии оснований для установления режима коммерческой тайны:</label>
+    <input type="text" id="tradeSecretRegime" name="tradeSecretRegime"><br><br>
+ 
+    <label>
+        <input type="checkbox" id="industrialSafety" name="industrialSafety">
+        Соответсвует требованиям производственной безопасности предложения
+    </label>
+    <br>
+    <label>
+        <input type="checkbox" id="environmentalSafety" name="environmentalSafety">
+        Соответсвует требованиям экологической безопасности предложения
+    </label><br><br>
+
+    <div style="display: flex; margin-top: 20px">
+        <div style="width: 53%">
+            <label for="tradeSecretRegime">Должность работника, осуществляющего контроль за режим коммерческой тайны:</label>
+            <input type="text" id="tradeSecretRegime" name="tradeSecretRegime"><br><br>
+
+            <label for="tradeSecretRegime">Должность работника, осуществляющего контроль за производственной безопасностью:</label>
+            <input type="text" id="tradeSecretRegime" name="tradeSecretRegime"><br><br>
+
+            <label for="tradeSecretRegime">Должность работника, осуществляющего контроль за экологической безопасностью:</label>
+            <input type="text" id="tradeSecretRegime" name="tradeSecretRegime"><br><br>
+        </div>
+
+        <div style="width: 44%; margin-left: 3%">
+            <label for="tradSecretRegime" style="margin-top: 22px;">Инициалы данного работника:</label>
+            <input type="text" id="tradeSecretRegime" name="tradeSecretRegime"><br><br>
+
+            <label for="tradSecretRegime" style="margin-top: 47px;">Инициалы данного работника:</label>
+            <input type="text" id="tradeSecretRegime" name="tradeSecretRegime"><br><br>
+
+            <label for="tradSecretRegime" style="margin-top: 47px;">Инициалы данного работника:</label>
+            <input type="text" id="tradeSecretRegime" name="tradeSecretRegime"><br><br>
+        </div>
+    </div>
+    
+    <div>
+        <label for="supplements">Приложения:</label>
+        <div id="supplementContainer"></div>
+        <label>
+            Добавить приложение
+            <button type="button" class="add-button" onclick="addSupplement()">+</button>
+        </label>
+    </div>
+    <!-- ddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd -->
 
     <button type="submit">Создать документ</button>
 </form>
 
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const authorsContainer = document.getElementById('authors-container');
-        const addButton = authorsContainer.querySelector('.add-author');
-
-        addButton.addEventListener('click', function() {
-            const newAuthorInput = document.createElement('div');
-            newAuthorInput.classList.add('author-input');
-            newAuthorInput.innerHTML = `
-                <input type="text" name="authors[]" required>
-                <button type="button" class="remove-author">-</button>
-                `;
-            authorsContainer.appendChild(newAuthorInput);
-
-            const removeButton = newAuthorInput.querySelector('.remove-author');
-            removeButton.addEventListener('click', function() {
-                authorsContainer.removeChild(newAuthorInput);
-            });
-        });
-    });
-</script>
+<script src="js/author.js"></script>
+<script src="js/supplement.js"></script>
 </body>
 </html>
