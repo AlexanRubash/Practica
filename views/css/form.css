@@ -78,14 +78,15 @@ button:hover {
 #proposal {
 	height: 150px;
 }
-#formContainer {
-	position: fixed;
+#setting-form-container {
+	position: absolute;
 	z-index: 1000;
-	width: 600px;
-	height: 242px;
+	width: 666px;
+	height: 200px;
 	border: 1px solid black;
 	border-radius: 4px;
-	background: #fff;
+	background: #ececec;
+	padding: 20px;
 }
 /* ------------------------------------------------------------ */
 .supplement-info {

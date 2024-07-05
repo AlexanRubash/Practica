@@ -31,7 +31,7 @@ function addAuthor() {
     const authorsContainer = document.getElementById('authors-container');
 
     const imgHtml = `
-    <div id="author${authorId}">
+    <div id="author${authorId}" class="author">
         <div style="background-color: black; width: 100%; height: 5px">
             <button type="button" id="remove-img-button${authorId}" class="remove-img-button" style="float: right">X</button>
         </div>

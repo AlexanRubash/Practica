@@ -14,11 +14,12 @@ module.exports = {
 		try {
 			const data = req.body
 
-			const supplements = documentService.createSupplements(
+			const supplements = data.supplements === undefined ? [] : documentService.createSupplements(
 				data.supplements,
 				req.files
 			)
-			console.dir(supplements, { depth: null })
+			console.dir(supplements, { depth: null });
+
 			const content = fs.readFileSync(
 				path.resolve('templates/template.docx'),
 				'binary'
@@ -45,9 +46,9 @@ module.exports = {
 				orgName: data.orgName,
 				Boss: data.Boss,
 				proposalName: data.proposalName,
-				problemDescription: data.problemDescription,
-				solution: data.solution,
-				result: data.result,
+				problemDescription: documentService.formatTextWithIndent(data.problemDescription),
+				solution:  documentService.formatTextWithIndent(data.solution),
+				result: documentService.formatTextWithIndent(data.result),
 				authors: documentService.createAuthors(
 					data.authorNumbers,
 					data.authorFIOs,
@@ -59,20 +60,21 @@ module.exports = {
 				),
 				infoAboutUseObject: data.infoAboutUseObject,
 				readinessDegree: data.readinessDegree,
-				beneficialEffect: data.beneficialEffect,
-				effectDescription: data.effectDescription,
+				beneficialEffect: documentService.formatTextWithIndent(data.beneficialEffect),
+				effectDescription: documentService.formatTextWithIndent(data.effectDescription),
 				innovation: data.innovation,
+				useful: data.useful,
 				expediency: data.expediency,
 				tradeSecretRegime: data.tradeSecretRegime,
 				workplaceTradeSecret: data.workplaceTradeSecret,
 				fioTradeSecret: data.fioTradeSecret,
-				industrialSafety: data.industrialSafety ? 'да' : 'нет',
+				industrialSafety: data.industrialSafety ? 'требованиям соответствует' : 'требованиям не соответствует',
 				workplaceIndustrialSafety: data.workplaceIndustrialSafety,
 				fioIndustrialSafety: data.fioIndustrialSafety,
-				environmentalSafety: data.environmentalSafety ? 'да' : 'нет',
+				environmentalSafety: data.environmentalSafety ? 'требованиям соответствует' : 'требованиям не соответствует',
 				workplaceEnvironmentalSafety: data.workplaceEnvironmentalSafety,
 				fioEnvironmentalSafety: data.fioEnvironmentalSafety,
-				supplements: supplements,
+				supplements: supplements
 			})
 
 			const buf = doc.getZip().generate({ type: 'nodebuffer' })
