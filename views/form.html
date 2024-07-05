@@ -9,18 +9,18 @@
 	<body>
 		<h1>Минский филиал управления</h1>
 		<h2>Создание заявления на рационализаторское предложение</h2>
-		<form action="/generate" method="post" enctype="multipart/form-data">
-            <button onclick="showForm()" style="margin-bottom: 20px;">Setting</button>
-		<div class="custom-form-container" id="formContainer" style="display: none;">
-				<div class="custom-form-group">
-					<label for="orgName">Название организации:</label>
-					<input type="text" id="orgName" name="orgName" required />
+		<form action="/generate" method="post"  enctype="multipart/form-data" onsubmit="return isValidForm()">
+            <button type='button' onclick="showSettingForm()" style="margin-bottom: 20px;">Setting</button>
+		<div class="setting-form-container" id="setting-form-container" style="display: none;">
+				<div class="setting-form-group">
+					<label for="org-name">Название организации:</label>
+					<input type="text" id="org-name" name="orgName" required />
 				</div>
-				<div class="custom-form-group">
-					<label for="Boss">Руководитель:</label>
-					<input type="text" id="Boss" name="Boss" required />
+				<div class="setting-form-group">
+					<label for="boss">Руководитель:</label>
+					<input type="text" id="boss" name="boss" required />
 				</div>
-				<div class="custom-form-group">
+				<div class="setting-form-group">
 					</button>
 				</div>
 		</div>
@@ -37,14 +37,15 @@
 				id="problem-description"
 				name="problemDescription"
 				rows="5"
+                required
 			></textarea
 			><br /><br />
 
 			<label for="solution">Предлагаемое решение:</label>
-			<textarea id="solution" name="solution" rows="5"></textarea><br /><br />
+			<textarea id="solution" name="solution" rows="5" required></textarea><br /><br />
 
 			<label for="result">Получаемый результат:</label>
-			<textarea id="result" name="result" rows="5"></textarea><br /><br />
+			<textarea id="result" name="result" rows="5" required></textarea><br /><br />
 
 			<div>
 				<label for="authors-container">Авторы:</label>
@@ -57,32 +58,28 @@
 				</label>
 			</div>
 
-			<label for="info-about-use-object"
-				>Сведения о предполагаемом объекте использования:</label
-			>
+			<label for="info-about-use-object">Сведения о предполагаемом объекте использования:</label>
 			<input
 				type="text"
 				id="info-about-use-object"
 				name="infoAboutUseObject"
+                required
 			/><br /><br />
 
-			<label for="readiness-degree"
-				>Степень готовности предложения к использованию:</label
-			>
+			<label for="readiness-degree">Степень готовности предложения к использованию:</label>
 			<input
 				type="text"
 				id="readiness-degree"
 				name="readinessDegree"
+                required
 			/><br /><br />
 
-			<label for="beneficial-effect"
-				>Предполагаемый полезный эффект: (экономический или иной
-				полезный):</label
-			>
+			<label for="beneficial-effect">Предполагаемый полезный эффект: (экономический или иной полезный):</label>
 			<textarea
 				id="beneficial-effect"
 				name="beneficialEffect"
 				rows="5"
+                required
 			></textarea
 			><br /><br />
 
@@ -91,19 +88,20 @@
 				id="effect-descriptio"
 				name="effectDescription"
 				rows="5"
+                required
 			></textarea
 			><br /><br />
 
 			<label for="innovation">Вывод о новизне предложения:</label>
-			<input type="text" id="innovation" name="innovation" /><br /><br />
+			<input type="text" id="innovation" name="innovation" required/><br /><br />
 
 			<label for="useful">Вывод о полезности предложения:</label>
-			<input type="text" id="useful" name="useful" /><br /><br />
+			<input type="text" id="useful" name="useful" required/><br /><br />
 
 			<label for="expediency"
 				>Вывод о целесообразности использования предложения:</label
 			>
-			<input type="text" id="expediency" name="expediency" /><br /><br />
+			<input type="text" id="expediency" name="expediency" required/><br /><br />
 
 			<label for="trade-secret-regime"
 				>Вывод о наличии оснований для установления режима коммерческой
@@ -113,10 +111,11 @@
 				type="text"
 				id="trade-secret-regime"
 				name="tradeSecretRegime"
+                required
 			/><br /><br />
 
 			<label>
-				<input type="checkbox" id="industrial-safety" name="industrialSafety" />
+				<input type="checkbox" id="industrial-safety" name="industrialSafety" required/>
 				Соответствует требованиям производственной безопасности предложения
 			</label>
 			<br />
@@ -125,6 +124,7 @@
 					type="checkbox"
 					id="environmental-safety"
 					name="environmentalSafety"
+                    required
 				/>
 				Соответствует требованиям экологической безопасности предложения </label
 			><br /><br />
@@ -139,6 +139,7 @@
 						type="text"
 						id="workplace-trade-secret"
 						name="workplaceTradeSecret"
+                        required
 					/><br /><br />
 
 					<label for="workplace-industrial-safety"
@@ -149,6 +150,7 @@
 						type="text"
 						id="workplace-industrial-safety"
 						name="workplaceIndustrialSafety"
+                        required
 					/><br /><br />
 
 					<label for="workplace-environmental-safety"
@@ -159,6 +161,7 @@
 						type="text"
 						id="workplace-environmental-safety"
 						name="workplaceEnvironmentalSafety"
+                        required
 					/><br /><br />
 				</div>
 
@@ -170,6 +173,7 @@
 						type="text"
 						id="fio-trade-secret"
 						name="fioTradeSecret"
+                        required
 					/><br /><br />
 
 					<label for="fio-industrial-safety" style="margin-top: 47px"
@@ -179,6 +183,7 @@
 						type="text"
 						id="fio-industrial-safety"
 						name="fioIndustrialSafety"
+                        required
 					/><br /><br />
 
 					<label for="fio-environmental-safety" style="margin-top: 47px"
@@ -188,6 +193,7 @@
 						type="text"
 						id="fio-environmental-safety"
 						name="fioEnvironmentalSafety"
+                        required
 					/><br /><br />
 				</div>
 			</div>
@@ -208,15 +214,38 @@
 		</form>
 
 		<script src="js/author.js"></script>
-		<script>
-			function showForm() {
-				if (document.getElementById('formContainer').style.display == 'block') {
-					document.getElementById('formContainer').style.display = 'none'
+		<script src="js/supplement.js"></script>
+        <script>
+            function isValidForm() {
+				console.log(document.querySelectorAll('.author'));
+                if(document.querySelectorAll('.author').length === 0) { 
+					alert("Необходимо добавить хотя бы одного автора"); 
+					return false;
+				}
+
+				const authorNumbers = Array.from(document.getElementsByName('authorNumbers[]')).map(authorNumber => authorNumber.value);
+				console.log(Array.from(document.getElementsByName('authorNumbers[]')).map(authorNumber => authorNumber.value));
+				if(authorNumbers.length !== new Set(authorNumbers).size) {
+					alert("Не должно быть одинаковых табельных номеров у авторов"); 
+					return false;
+				}
+
+				console.log( Array.from(document.getElementsByName('percentageContributions[]')).map(percentageContribution => percentageContribution.value));
+				const percentageContributions = Array.from(document.getElementsByName('percentageContributions[]')).map(percentageContribution => percentageContribution.value);
+				console.log(percentageContributions.reduce((accumulator, currentValue) => parseInt(accumulator) + parseInt(currentValue), 0));
+				if(percentageContributions.reduce((accumulator, currentValue) => parseInt(accumulator) + parseInt(currentValue), 0) !== 100) {
+					alert("Суммарный авторский вклад должен состовлять 100%"); 
+					return false;
+				}
+            }
+
+			function showSettingForm() {
+				if (document.getElementById('setting-form-container').style.display == 'block') {
+					document.getElementById('setting-form-container').style.display = 'none'
 				} else {
-					document.getElementById('formContainer').style.display = 'block'
+					document.getElementById('setting-form-container').style.display = 'block'
 				}
 			}
 		</script>
-		<script src="js/supplement.js"></script>
 	</body>
 </html>
