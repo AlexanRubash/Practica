@@ -1,29 +1,3 @@
-// document.addEventListener('DOMContentLoaded', function() {
-//     const authorsContainer = document.getElementById('authors-container');
-//     const addButton = authorsContainer.querySelector('.add-author');
-
-//     addButton.addEventListener('click', function() {
-//         const newAuthorInput = document.createElement('div');
-//         newAuthorInput.classList.add('author-input');
-//         newAuthorInput.innerHTML = `
-//             <select>
-//                 <option selected disabled>Выберите сотрудника</option>
-//                 <option value="Чебурашка">Чебурашка</option>
-//                 <option value="Крокодил Гена">Крокодил Гена</option>
-//                 <option value="Шапокляк">Шапокляк</option>
-//                 <option value="Крыса Лариса">Крыса Лариса</option>
-//             </select>
-//             <button type="button" class="remove-author">-</button>
-//             `;
-//         authorsContainer.appendChild(newAuthorInput);
-
-//         const removeButton = newAuthorInput.querySelector('.remove-author');
-//         removeButton.addEventListener('click', function() {
-//             authorsContainer.removeChild(newAuthorInput);
-//         });
-//     });
-// });
-
 let authorCount = 0;
 
 function addAuthor() {
@@ -31,12 +5,13 @@ function addAuthor() {
     const authorsContainer = document.getElementById('authors-container');
 
     const imgHtml = `
-    <div id="author${authorId}">
+    <div id="author${authorId}" class="author">
         <div style="background-color: black; width: 100%; height: 5px">
             <button type="button" id="remove-img-button${authorId}" class="remove-img-button" style="float: right">X</button>
         </div>
         <div style="display: flex; margin-top: 20px">
             <div style="width: 47%">
+                <input type="hidden" name="authorIDs[]" value="${authorId}">
                 <label for="authorNumber">Табельный номер:</label>
                 <input type="number" id="author-number" name="authorNumbers[]" min="0" required><br><br>
 

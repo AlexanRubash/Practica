@@ -17,7 +17,7 @@ module.exports = {
                 shortAuthorFIO: nameParts.join(' '),
                 authorWorkplace: authorWorkplaces[i],
                 authorWorkPosition: authorWorkPositions[i],
-                authorYearBirh: authorYearsBirh[i],
+                authorYearBirth: authorYearsBitrh[i],
                 contribution: contributions[i],
                 percentageContribution: percentageContributions[i]
             });
