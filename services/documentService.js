@@ -54,5 +54,14 @@ module.exports = {
         }
         
         return transformedSupplements;
+    },
+
+    formatTextWithIndent(text) {
+        // Разделение текста на строки по символам новой строки
+        const lines = text.split('\n');
+        // Добавление отступа к каждой строке
+        const formattedLines = lines.map(line => `          ${line.trim()}`);
+        // Объединение строк обратно в текст с символами новой строки
+        return formattedLines.join('\n');
     }
 }
