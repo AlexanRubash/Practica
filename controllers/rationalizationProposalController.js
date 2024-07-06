@@ -46,7 +46,7 @@ module.exports = {
 
 			doc.render({
 				orgName: data.orgName,
-				Boss: data.Boss,
+				boss: data.boss,
 				proposalName: data.proposalName,
 				problemDescription: documentService.formatTextWithIndent(data.problemDescription),
 				solution:  documentService.formatTextWithIndent(data.solution),
