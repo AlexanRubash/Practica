@@ -1,0 +1,236 @@
+		<form action="/generate_rationalization_proposal" method="post"  enctype="multipart/form-data" onsubmit="return isValidForm()">
+            <button type='button' onclick="showSettingForm()" style="margin-bottom: 20px;">Setting</button>
+			<div class="setting-form-container" id="setting-form-container" style="display: none;">
+				<div class="setting-form-group">
+					<label for="org-name">Название организации:</label>
+					<input type="text" id="org-name" name="orgName" required />
+				</div>
+				<div class="setting-form-group">
+					<label for="boss">Руководитель:</label>
+					<input type="text" id="boss" name="boss" required />
+				</div>
+				<div class="setting-form-group">
+					</button>
+				</div>
+		</div>
+			<label for="proposal-name">Наименование предложения:</label>
+			<input
+				type="text"
+				id="proposal-name"
+				name="proposalName"
+				required
+			/><br /><br />
+
+			<label for="problem-description">Описание существующей проблемы:</label>
+			<textarea
+				id="problem-description"
+				name="problemDescription"
+				rows="5"
+                required
+			></textarea
+			><br /><br />
+
+			<label for="solution">Предлагаемое решение:</label>
+			<textarea id="solution" name="solution" rows="5" required></textarea><br /><br />
+
+			<label for="result">Получаемый результат:</label>
+			<textarea id="result" name="result" rows="5" required></textarea><br /><br />
+
+			<div>
+				<label for="authors-container">Авторы:</label>
+				<div id="authors-container"></div>
+				<label>
+					Добавить автора
+					<button type="button" class="add-author" onclick="addAuthor()">
+						+
+					</button>
+				</label>
+			</div>
+
+			<label for="info-about-use-object">Сведения о предполагаемом объекте использования:</label>
+			<input
+				type="text"
+				id="info-about-use-object"
+				name="infoAboutUseObject"
+                required
+			/><br /><br />
+
+			<label for="readiness-degree">Степень готовности предложения к использованию:</label>
+			<input
+				type="text"
+				id="readiness-degree"
+				name="readinessDegree"
+                required
+			/><br /><br />
+
+			<label for="beneficial-effect">Предполагаемый полезный эффект: (экономический или иной полезный):</label>
+			<textarea
+				id="beneficial-effect"
+				name="beneficialEffect"
+				rows="5"
+                required
+			></textarea
+			><br /><br />
+
+			<label for="effect-description">Подробное описание эффекта:</label>
+			<textarea
+				id="effect-descriptio"
+				name="effectDescription"
+				rows="5"
+                required
+			></textarea
+			><br /><br />
+
+			<label for="innovation">Вывод о новизне предложения:</label>
+			<input type="text" id="innovation" name="innovation" required/><br /><br />
+
+			<label for="useful">Вывод о полезности предложения:</label>
+			<input type="text" id="useful" name="useful" required/><br /><br />
+
+			<label for="expediency"
+				>Вывод о целесообразности использования предложения:</label
+			>
+			<input type="text" id="expediency" name="expediency" required/><br /><br />
+
+			<label for="trade-secret-regime"
+				>Вывод о наличии оснований для установления режима коммерческой
+				тайны:</label
+			>
+			<input
+				type="text"
+				id="trade-secret-regime"
+				name="tradeSecretRegime"
+                required
+			/><br /><br />
+
+			<label>
+				<input type="checkbox" id="industrial-safety" name="industrialSafety"/>
+				Соответствует требованиям производственной безопасности предложения
+			</label>
+			<br />
+			<label>
+				<input
+					type="checkbox"
+					id="environmental-safety"
+					name="environmentalSafety"
+				/>
+				Соответствует требованиям экологической безопасности предложения </label
+			><br /><br />
+
+			<div style="display: flex; margin-top: 20px">
+				<div style="width: 53%">
+					<label for="workplace-trade-secret"
+						>Должность работника, осуществляющего контроль за режим коммерческой
+						тайны:</label
+					>
+					<input
+						type="text"
+						id="workplace-trade-secret"
+						name="workplaceTradeSecret"
+                        required
+					/><br /><br />
+
+					<label for="workplace-industrial-safety"
+						>Должность работника, осуществляющего контроль за производственной
+						безопасностью:</label
+					>
+					<input
+						type="text"
+						id="workplace-industrial-safety"
+						name="workplaceIndustrialSafety"
+                        required
+					/><br /><br />
+
+					<label for="workplace-environmental-safety"
+						>Должность работника, осуществляющего контроль за экологической
+						безопасностью:</label
+					>
+					<input
+						type="text"
+						id="workplace-environmental-safety"
+						name="workplaceEnvironmentalSafety"
+                        required
+					/><br /><br />
+				</div>
+
+				<div style="width: 44%; margin-left: 3%">
+					<label for="fio-trade-secret" style="margin-top: 22px"
+						>Инициалы данного работника:</label
+					>
+					<input
+						type="text"
+						id="fio-trade-secret"
+						name="fioTradeSecret"
+                        required
+					/><br /><br />
+
+					<label for="fio-industrial-safety" style="margin-top: 47px"
+						>Инициалы данного работника:</label
+					>
+					<input
+						type="text"
+						id="fio-industrial-safety"
+						name="fioIndustrialSafety"
+                        required
+					/><br /><br />
+
+					<label for="fio-environmental-safety" style="margin-top: 47px"
+						>Инициалы данного работника:</label
+					>
+					<input
+						type="text"
+						id="fio-environmental-safety"
+						name="fioEnvironmentalSafety"
+                        required
+					/><br /><br />
+				</div>
+			</div>
+
+			<div>
+				<label for="supplements">Приложения:</label>
+				<div id="supplementContainer"></div>
+				<label>
+					Добавить приложение
+					<button type="button" class="add-button" onclick="addSupplement()">
+						+
+					</button>
+				</label>
+			</div>
+
+			<button type="submit">Создать документ</button>
+		</form>
+
+		<script src="js/author.js"></script>
+		<script src="js/supplement.js"></script>
+        <script>
+            function isValidForm() {
+				console.log(document.querySelectorAll('.author'));
+                if(document.querySelectorAll('.author').length === 0) { 
+					alert("Необходимо добавить хотя бы одного автора"); 
+					return false;
+				}
+
+				const authorNumbers = Array.from(document.getElementsByName('authorNumbers[]')).map(authorNumber => authorNumber.value);
+				console.log(Array.from(document.getElementsByName('authorNumbers[]')).map(authorNumber => authorNumber.value));
+				if(authorNumbers.length !== new Set(authorNumbers).size) {
+					alert("Не должно быть одинаковых табельных номеров у авторов"); 
+					return false;
+				}
+
+				console.log( Array.from(document.getElementsByName('percentageContributions[]')).map(percentageContribution => percentageContribution.value));
+				const percentageContributions = Array.from(document.getElementsByName('percentageContributions[]')).map(percentageContribution => percentageContribution.value);
+				console.log(percentageContributions.reduce((accumulator, currentValue) => parseInt(accumulator) + parseInt(currentValue), 0));
+				if(percentageContributions.reduce((accumulator, currentValue) => parseInt(accumulator) + parseInt(currentValue), 0) !== 100) {
+					alert("Суммарный авторский вклад должен состовлять 100%"); 
+					return false;
+				}
+            }
+
+			function showSettingForm() {
+				if (document.getElementById('setting-form-container').style.display == 'block') {
+					document.getElementById('setting-form-container').style.display = 'none'
+				} else {
+					document.getElementById('setting-form-container').style.display = 'block'
+				}
+			}
+		</script>

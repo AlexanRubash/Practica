@@ -1,0 +1,179 @@
+body {
+	font-family: Arial, sans-serif;
+	background-color: #f0f0f0;
+	font-size: 20px;
+}
+
+form {
+	max-width: 800px;
+	background: #fff;
+	padding: 30px;
+	border-radius: 8px;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+label {
+	font-weight: bold;
+	margin-bottom: 8px;
+	display: block;
+}
+
+input[type='text'],
+input[type='number'],
+input[type='date'],
+textarea,
+select {
+	width: calc(100% - 20px); /* Adjust width to fit inside form padding */
+	padding: 10px;
+	margin-bottom: 15px;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	font-size: 20px; /* Устанавливаем размер текста для полей ввода и селектов */
+}
+
+button {
+	background-color: #4caf50;
+	color: white;
+	padding: 10px 20px;
+	border: none;
+	border-radius: 4px;
+	cursor: pointer;
+	font-size: 16px;
+}
+
+button:hover {
+	background-color: #45a049;
+}
+
+a {
+	text-decoration: none;
+}
+
+.add-author,
+.add-img,
+.remove-author {
+	background-color: #007bff;
+	color: white;
+	border: none;
+	padding: 5px 10px;
+	cursor: pointer;
+	border-radius: 50%;
+	margin-left: 10px;
+}
+
+.add-author:hover,
+.add-img:hover,
+.remove-author:hover {
+	background-color: #0056b3;
+}
+
+.author-input {
+	display: flex;
+	align-items: center;
+	margin-bottom: 10px;
+}
+
+.author-input input {
+	flex: 1;
+	margin-right: 10px;
+	padding: 8px;
+}
+
+#proposal {
+	height: 150px;
+}
+#setting-form-container {
+	position: absolute;
+	z-index: 1000;
+	width: 666px;
+	height: 200px;
+	border: 1px solid black;
+	border-radius: 4px;
+	background: #ececec;
+	padding: 20px;
+}
+/* ------------------------------------------------------------ */
+.supplement-info {
+	background-color: #4caf50;
+	color: white;
+	padding: 10px 0px 10px 20px;
+	border: none;
+	border-radius: 4px;
+	cursor: pointer;
+	font-size: 16px;
+	width: 145px;
+}
+
+.supplementImg {
+	width: 80%;
+	height: 360px;
+	margin-bottom: 10px;
+	border-radius: 10px;
+}
+
+.add-img {
+	margin-bottom: 10px;
+}
+
+.add-button {
+	background-color: #4caf50;
+	color: white;
+	border: none;
+	padding: 5px 10px;
+	cursor: pointer;
+	border-radius: 50%;
+	margin-left: 10px;
+	width: 40px;
+	height: 40px;
+}
+
+.add-button:hover {
+	background-color: #45a049;
+}
+
+.remove-supplement-button {
+	height: 20px;
+	width: 20px;
+	background-color: #678968;
+	color: white;
+	font-size: 14px;
+	padding: 0;
+	font-weight: bold;
+	margin-left: 5px;
+	border: none;
+	border-radius: 4px;
+	cursor: pointer;
+}
+
+.remove-supplement-button:hover {
+	background-color: #597759;
+}
+
+.img-controller {
+	display: flex;
+}
+
+.remove-img-button {
+	height: 40px;
+	width: 50px;
+	margin-left: auto;
+	background-color: transparent;
+	color: grey;
+	font-size: 20px;
+}
+
+.remove-img-button:hover {
+	background-color: transparent;
+}
+
+.change-form-button {
+	color: black;
+	padding: 3px 20px;
+	display: block;
+	width: 38%;
+	text-align: left;
+}
+
+.change-form-button:hover {
+	background-color: #fff;
+}

@@ -1,0 +1,52 @@
+<form action="/generate_act" method="post">
+    <label for="actNumber">Номер акта:</label>
+    <input type="text" id="actNumber" name="actNumber" required><br><br>
+
+    <label for="proposal">Рационализаторское предложение:</label>
+    <input type="text" id="proposal" name="proposal" required><br><br>
+
+    <label for="date">Дата регистрации:</label>
+    <input type="date" id="date" name="date" required><br><br>
+
+    <div id="authors-container">
+        <label for="authors">Авторы:</label>
+        <div class="author-input">
+            <input type="text" name="authors[]" required>
+            <button type="button" class="add-author">+</button>
+        </div>
+    </div>
+
+
+    <label for="service">Служба:</label>
+    <input type="text" id="service" name="service" required><br><br>
+
+    <label for="serviceLeader">Начальник службы:</label>
+    <input type="text" id="serviceLeader" name="serviceLeader" required><br><br>
+
+    <label for="serviceLeaderName">ФИО начальника службы:</label>
+    <input type="text" id="serviceLeaderName" name="serviceLeaderName" required><br><br>
+
+    <button type="submit">Создать документ</button>
+</form>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const authorsContainer = document.getElementById('authors-container');
+        const addButton = authorsContainer.querySelector('.add-author');
+
+        addButton.addEventListener('click', function() {
+            const newAuthorInput = document.createElement('div');
+            newAuthorInput.classList.add('author-input');
+            newAuthorInput.innerHTML = `
+                <input type="text" name="authors[]" required>
+                <button type="button" class="remove-author">-</button>
+                `;
+            authorsContainer.appendChild(newAuthorInput);
+
+            const removeButton = newAuthorInput.querySelector('.remove-author');
+            removeButton.addEventListener('click', function() {
+                authorsContainer.removeChild(newAuthorInput);
+            });
+        });
+    });
+</script>

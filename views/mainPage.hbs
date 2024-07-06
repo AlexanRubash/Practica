@@ -1,0 +1,43 @@
+<h1>Минский филиал управления</h1>
+<a href="/rationalization_proposal" id="change-form-button1" class="change-form-button">
+    <h3>Создание заявления на рационализаторское предложение</h3>
+</a>
+<a href="/act" id="change-form-button2" class="change-form-button" style="margin-bottom: 20px;">
+    <h3>Создание акта</h3>
+</a>
+
+{{#if (eq currentForm "rationalizationProposal")}}
+    <style>
+        #change-form-button1 {
+            background-color: #fff;
+            border: 1px solid black;
+            border-radius: 15px;
+        }
+        #change-form-button2 {
+            background-color: #f0f0f0;
+            border: none;
+        }
+    </style>
+    {{> rationalizationProposalForm}}
+
+    <script>
+        async function changeForm() {
+            await fetch()
+        }
+    </script>
+{{/if}}
+{{#if (eq currentForm "act")}}
+    <style>
+        #change-form-button1 {
+            background-color: #f0f0f0;
+            border: none;
+        }
+        #change-form-button2 {
+            background-color: #fff;
+            border: 1px solid black;
+            border-radius: 15px;
+        }
+    </style>
+    {{> actForm}}
+{{/if}}
+		

@@ -1,13 +1,31 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
+const hbs = require("hbs");
+const expressHbs = require("express-handlebars");
 const multer = require('multer');
-const documentController = require('./controllers/documentController');
-
-
+const rationalizationProposalController = require('./controllers/rationalizationProposalController');
+const actController = require('./controllers/actController');
 
 const app = express();
-app.use(express.static(path.join(__dirname, 'views')));
+
+app.engine("hbs", expressHbs.engine({
+    layoutsDir: "views/layouts", 
+    defaultLayout: "main",
+    extname: "hbs",
+	partialsDir: path.join(__dirname, 'views/partials'),
+    helpers: {
+		eq: (a, b) => {
+			return a === b;
+		}
+    }
+}))
+
+app.set("view engine", "hbs");
+hbs.registerPartials(__dirname + "/views/partials");
+app.use(express.static(path.join(__dirname, 'static')));
+
+
 app.use(bodyParser.urlencoded({ extended: true }));
 
 const storage = multer.diskStorage({
@@ -22,8 +40,13 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage });
 
 
-app.get('/', async (req, res) => documentController.index(req, res));
-app.post('/generate', upload.any(), async (req, res) => documentController.addDocument(req, res));
+app.get('/', async (req, res) => res.redirect('/rationalization_proposal'));
+
+app.get('/rationalization_proposal', async (req, res) => rationalizationProposalController.index(req, res));
+app.post('/generate_rationalization_proposal', upload.any(), async (req, res) => rationalizationProposalController.addDocument(req, res));
+
+app.get('/act', async (req, res) => actController.index(req, res));
+app.post('/generate_act', upload.any(), async (req, res) => actController.addDocument(req, res));
 
 const PORT = 3000;
 app.listen(PORT, () => {
