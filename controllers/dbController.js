@@ -57,8 +57,7 @@ async function saveDocumentData(data, files) {
         const documentID = documentResult.insertId;
 
         for (let i = 0; i < data.authorNumbers.length; i++) {
-            // Calculate authorShortName from authorFIO
-            const authorShortName = calculateShortName(data.authorFIOs[i]); // Implement this function
+            const authorShortName = calculateShortName(data.authorFIOs[i]);
 
             const [authorResult] = await connection.execute(`
                 INSERT INTO authors (
@@ -95,6 +94,7 @@ async function saveDocumentData(data, files) {
         }
 
         await connection.commit();
+        return documentID;  // Return the documentID for use in saveDocumentToDB
     } catch (error) {
         await connection.rollback();
         throw error;
@@ -102,21 +102,6 @@ async function saveDocumentData(data, files) {
         connection.release();
     }
 }
-
-function calculateShortName(fullName) {
-    // Implement logic to convert full name to short name (e.g., "Фамилия Имя Отчество" -> "Фамилия И. О.")
-    if (!fullName) return null;
-
-    const parts = fullName.split(' ');
-    if (parts.length < 3) return fullName; // If the format is incorrect, return full name
-
-    const lastName = parts[0];
-    const firstName = parts[1].charAt(0);
-    const middleName = parts[2].charAt(0);
-
-    return `${lastName} ${firstName}. ${middleName}.`;
-}
-
 async function fetchDocumentData() {
     const connection = await sourcePool.getConnection();
 
@@ -133,9 +118,6 @@ async function fetchDocumentData() {
 
     return { document: documentRows[0], authors: authorRows, supplements: supplementRows };
 }
-
-
-const { Base64Encode } = require('base64-stream'); // добавьте этот модуль для преобразования изображений в Base64
 
 async function createDocument(data) {
     const content = fs.readFileSync(path.resolve('templates/template.docx'), 'binary');
@@ -203,15 +185,31 @@ async function createDocument(data) {
 
     return doc.getZip().generate({ type: 'nodebuffer' });
 }
-async function saveDocumentToDB(buffer) {
+async function saveDocumentDB(req, res, dbDocumentId) {
+    try {
+        const data = await fetchDocumentData();
+        const documentBuffer = await createDocument(data);
+        const documentName = data.document.proposalName;
+        const documentId = await saveDocumentToDB(documentBuffer, dbDocumentId, documentName);  // Pass the documentID to saveDocumentToDB
+
+        res.status(200).send({ message: 'Document saved successfully', documentId });
+    } catch (error) {
+        console.error('Error saving document:', error);
+        if (!res.headersSent) {
+            res.status(500).send({ message: 'Failed to save document' });
+        }
+    }
+}
+
+async function saveDocumentToDB(buffer, dbDocumentId, documentName) {
     const connection = await targetPool.getConnection();
 
     try {
         await connection.beginTransaction();
 
         const [result] = await connection.execute(`
-            INSERT INTO documents (document_content) VALUES (?)
-        `, [buffer]);
+            INSERT INTO documents (document_content, db_document_id, name) VALUES (?, ?, ?)
+        `, [buffer, dbDocumentId, documentName]);
 
         await connection.commit();
         return result.insertId;
@@ -223,28 +221,13 @@ async function saveDocumentToDB(buffer) {
     }
 }
 
-async function saveDocumentDB(req, res) {
-    try {
-        const data = await fetchDocumentData();
-        const documentBuffer = await createDocument(data);
-        const documentId = await saveDocumentToDB(documentBuffer);
-
-        res.status(200).send({ message: 'Document saved successfully', documentId });
-    } catch (error) {
-        console.error('Error saving document:', error);
-        if (!res.headersSent) {
-            res.status(500).send({ message: 'Failed to save document' });
-        }
-    }
-}
-
 async function downloadDocument(req, res) {
     const documentId = req.params.id;
 
     const connection = await targetPool.getConnection();
     try {
         const [rows] = await connection.query(`
-            SELECT document_content FROM documents WHERE id = ?
+            SELECT document_content, name FROM documents WHERE id = ?
         `, [documentId]);
 
         if (rows.length === 0) {
@@ -252,8 +235,11 @@ async function downloadDocument(req, res) {
         }
 
         const documentBuffer = rows[0].document_content;
+        let documentName = rows[0].name;
 
-        res.setHeader('Content-Disposition', `attachment; filename=document_${documentId}.docx`);
+        // Encode the documentName using encodeURIComponent
+        documentName = encodeURIComponent(documentName);
+        res.setHeader('Content-Disposition', `attachment; filename*=UTF-8''%D0%A0%D0%9F_${documentName}.docx`);
         res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document');
         res.send(documentBuffer);
     } catch (error) {
@@ -262,6 +248,20 @@ async function downloadDocument(req, res) {
     } finally {
         connection.release();
     }
+}
+
+function calculateShortName(fullName) {
+    // Implement logic to convert full name to short name (e.g., "Фамилия Имя Отчество" -> "Фамилия И. О.")
+    if (!fullName) return null;
+
+    const parts = fullName.split(' ');
+    if (parts.length < 3) return fullName; // If the format is incorrect, return full name
+
+    const lastName = parts[0];
+    const firstName = parts[1].charAt(0);
+    const middleName = parts[2].charAt(0);
+
+    return `${lastName} ${firstName}. ${middleName}.`;
 }
 
 module.exports = {

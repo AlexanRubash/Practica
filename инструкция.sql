@@ -10,13 +10,9 @@ CREATE DATABASE IF NOT EXISTS documents_db;
 
 USE documents_db;
 -- Таблица документов метаданных (без изменений)
-CREATE DATABASE IF NOT EXISTS documents_db;
-
-USE documents_db;
-
--- Таблица документов метаданных
 CREATE OR REPLACE TABLE documents_metadates (
                                                 metadataID INT PRIMARY KEY AUTO_INCREMENT,
+
                                                 orgName TEXT,
                                                 Boss TEXT,
                                                 problemDescription LONGTEXT,
@@ -37,11 +33,10 @@ CREATE OR REPLACE TABLE documents_metadates (
                                                 fioIndustrialSafety TEXT,
                                                 environmentalSafety TEXT,
                                                 workplaceEnvironmentalSafety TEXT,
-                                                fioEnvironmentalSafety TEXT,
-                                                timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+                                                fioEnvironmentalSafety TEXT
 );
 
--- Таблица авторов
+-- Таблица авторов (без изменений)
 CREATE OR REPLACE TABLE authors (
                                     authorID INT PRIMARY KEY AUTO_INCREMENT,
                                     inDocumentID INT,
@@ -52,25 +47,23 @@ CREATE OR REPLACE TABLE authors (
                                     percentageContribution TEXT,
                                     authorNumber INT,
                                     authorYearBirth INT,
-                                    contribution TEXT,
-                                    timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+                                    contribution TEXT
 );
 
--- Таблица приложений
+-- Таблица приложений (без изменений)
 CREATE OR REPLACE TABLE supplements (
                                         supplementID INT PRIMARY KEY AUTO_INCREMENT,
                                         name TEXT,
                                         image LONGBLOB,
-                                        imageName TEXT,
-                                        timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+                                        imageName TEXT
 );
-
 CREATE OR REPLACE TABLE documents (
                                       documentID INT PRIMARY KEY AUTO_INCREMENT,
                                       metadataID INT,
-                                      FOREIGN KEY (metadataID) REFERENCES documents_metadates(metadataID),
-                                      timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+                                      FOREIGN KEY (metadataID) REFERENCES documents_metadates(metadataID)
 );
+
+
 
 -- Промежуточная таблица для связи документов и авторов
 CREATE OR REPLACE TABLE document_authors (
@@ -90,7 +83,8 @@ CREATE OR REPLACE TABLE document_supplements (
                                                  FOREIGN KEY (documentID) REFERENCES documents(documentID),
                                                  FOREIGN KEY (supplementID) REFERENCES supplements(supplementID)
 );
-
+ALTER TABLE documents_metadates ADD COLUMN timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP;
+-- В базе данных documents_main
 CREATE DATABASE IF NOT EXISTS documents_main;
 USE documents_main;
 
@@ -98,7 +92,9 @@ CREATE OR REPLACE TABLE documents (
                                       id INT AUTO_INCREMENT PRIMARY KEY,
                                       name VARCHAR(255),
                                       document_content LONGBLOB,
-                                      timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+                                      timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                                      db_document_id INT,
+                                      FOREIGN KEY (db_document_id) REFERENCES documents_db.documents(documentID) ON DELETE CASCADE
 );
 
 --запускаем dbindex.js

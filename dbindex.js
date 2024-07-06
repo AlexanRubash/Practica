@@ -24,8 +24,8 @@ app.get('/', async (req, res) => documentController.index(req, res));
 app.post('/generate', upload.any(), async (req, res) => {
     try {
         const data = req.body;
-        await documentController.saveDocumentData(data, req.files);
-        await documentController.saveDocumentDB(req, res);
+        const dbDocumentId = await documentController.saveDocumentData(data, req.files);  // Get the documentID from documents_db
+        await documentController.saveDocumentDB(req, res, dbDocumentId);  // Pass the documentID to saveDocumentDB
     } catch (error) {
         console.error('Ошибка при сохранении данных:', error.message);
         if (!res.headersSent) {
@@ -33,6 +33,7 @@ app.post('/generate', upload.any(), async (req, res) => {
         }
     }
 });
+
 
 app.get('/download/:id', async (req, res) => {
     try {
