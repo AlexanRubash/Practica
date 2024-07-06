@@ -19,7 +19,7 @@ function addAuthor() {
                 <input type="text" id="author-fio" name="authorFIOs[]" required><br><br>
 
                 <label for="author-year-birh">Год рождения:</label>
-                <input type="number" id="author-year-birh" name="authorYearsBirh[]" min="1900" max="${new Date().getFullYear()}" step="1"  required><br><br>
+                <input type="number" id="author-year-birh" name="authorYearsBirth[]" min="1900" max="${new Date().getFullYear()}" step="1"  required><br><br>
 
                 <label for="authorWorkplace">Место работы:</label>
                 <input type="text" id="author-workplace" name="authorWorkplaces[]" required><br><br>

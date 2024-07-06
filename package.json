@@ -10,6 +10,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "base64-stream": "^1.0.0",
     "body-parser": "^1.20.2",
     "convertapi": "^1.14.0",
     "docx-templates": "^4.13.0",

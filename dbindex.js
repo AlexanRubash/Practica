@@ -21,18 +21,27 @@ const upload = multer({ storage: storage });
 
 app.get('/', async (req, res) => documentController.index(req, res));
 
-// Изменим метод POST для сохранения данных в базу данных
 app.post('/generate', upload.any(), async (req, res) => {
     try {
         const data = req.body;
-
-        // Вызываем функцию из контроллера для сохранения данных в БД
         await documentController.saveDocumentData(data, req.files);
-
-        res.send('Данные успешно сохранены в базе данных');
+        await documentController.saveDocumentDB(req, res);
     } catch (error) {
         console.error('Ошибка при сохранении данных:', error.message);
-        res.status(500).send('Ошибка при сохранении данных. Обратитесь к администратору.');
+        if (!res.headersSent) {
+            res.status(500).send('Ошибка при сохранении данных. Обратитесь к администратору.');
+        }
+    }
+});
+
+app.get('/download/:id', async (req, res) => {
+    try {
+        await documentController.downloadDocument(req, res);
+    } catch (error) {
+        console.error('Ошибка при загрузке документа:', error.message);
+        if (!res.headersSent) {
+            res.status(500).send('Ошибка при загрузке документа. Обратитесь к администратору.');
+        }
     }
 });
 
