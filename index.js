@@ -4,7 +4,7 @@ const path = require('path');
 const hbs = require("hbs");
 const expressHbs = require("express-handlebars");
 const multer = require('multer');
-const rationalizationProposalController = require('./controllers/rationalizationProposalController');
+const proposalController = require('./controllers/proposalController');
 const actController = require('./controllers/actController');
 
 const app = express();
@@ -17,6 +17,11 @@ app.engine("hbs", expressHbs.engine({
     helpers: {
 		eq: (a, b) => {
 			return a === b;
+		},
+		json: function(context) {
+      if(!context) return JSON.stringify({});;
+
+			return JSON.stringify(context);
 		}
     }
 }))
@@ -42,8 +47,8 @@ const upload = multer({ storage: storage });
 
 app.get('/', async (req, res) => res.redirect('/rationalization_proposal'));
 
-app.get('/rationalization_proposal', async (req, res) => rationalizationProposalController.index(req, res));
-app.post('/generate_rationalization_proposal', upload.any(), async (req, res) => rationalizationProposalController.addDocument(req, res));
+app.get('/proposal', async (req, res) => proposalController.index(req, res));
+app.post('/generate_proposal', upload.any(), async (req, res) => proposalController.addDocument(req, res));
 
 app.get('/act', async (req, res) => actController.index(req, res));
 app.post('/generate_act', upload.any(), async (req, res) => actController.addDocument(req, res));

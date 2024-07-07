@@ -45,7 +45,6 @@ CREATE OR REPLACE TABLE documents_metadates (
 -- Таблица авторов
 CREATE OR REPLACE TABLE authors (
                                     authorID INT PRIMARY KEY AUTO_INCREMENT,
-                                    inDocumentID INT,
                                     authorFIO TEXT,
                                     shortAuthorFIO TEXT,
                                     authorWorkPosition TEXT,
@@ -76,7 +75,6 @@ CREATE OR REPLACE TABLE documents (
 -- Промежуточная таблица для связи документов и авторов
 CREATE OR REPLACE TABLE document_authors (
                                              documentID INT,
-                                             inDocumentID INT,
                                              authorID INT,
                                              PRIMARY KEY (documentID, authorID),
                                              FOREIGN KEY (documentID) REFERENCES documents(documentID),

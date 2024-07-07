@@ -1,12 +1,12 @@
 <h1>Минский филиал управления</h1>
-<a href="/rationalization_proposal" id="change-form-button1" class="change-form-button">
+<a href="/proposal" id="change-form-button1" class="change-form-button">
     <h3>Создание заявления на рационализаторское предложение</h3>
 </a>
 <a href="/act" id="change-form-button2" class="change-form-button" style="margin-bottom: 20px;">
     <h3>Создание акта</h3>
 </a>
 
-{{#if (eq currentForm "rationalizationProposal")}}
+{{#if (eq currentForm "proposal")}}
     <style>
         #change-form-button1 {
             background-color: #fff;
@@ -18,7 +18,7 @@
             border: none;
         }
     </style>
-    {{> rationalizationProposalForm}}
+    {{> proposalForm}}
 {{/if}}
 {{#if (eq currentForm "act")}}
     <style>

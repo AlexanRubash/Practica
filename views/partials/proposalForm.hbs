@@ -1,0 +1,204 @@
+<form action="/generate_proposal" method="post"  enctype="multipart/form-data" onsubmit="return isValidForm()">
+	<label for="rationalization-proposals">Выберите рационализаторское предложение</label>
+	<select id="rationalization-proposals" name="rationalizationProposals" onchange="selectRationalizationProposal()">
+		<option value="/proposal">Новое рационализаторское предложение</option>
+		{{#each proposals}}
+		 	{{#if (eq this.documentID ../proposal.documentID)}} 
+				<option selected value="/proposal?id={{this.documentID}}">{{this.documents_metadates.proposalName}}</option>
+			{{else}}
+				<option value="/proposal?id={{this.documentID}}">{{this.documents_metadates.proposalName}}</option>
+			{{/if}}
+		{{/each}}
+	</select>
+	<br/><br/>
+
+    <button type='button' onclick="showSettingForm()" style="margin-bottom: 20px;">Setting</button>
+
+	<div class="setting-form-container" id="setting-form-container" style="display: none;">
+		<div class="setting-form-group">
+			<label for="org-name">Название организации</label>
+			<input type="text" id="org-name" name="orgName" value="{{proposal.documents_metadates.orgName}}" required/>
+		</div>
+
+		<div class="setting-form-group">
+			<label for="boss">Руководитель:</label>
+			<input type="text" id="boss" name="boss" value="{{proposal.documents_metadates.boss}}" required />
+		</div>
+
+		<div class="setting-form-group"></div>
+	</div>
+
+	<label for="proposal-name">Наименование предложения{{proposal.documentID}}:</label>
+	<input type="text" id="proposal-name" name="proposalName" value="{{proposal.documents_metadates.proposalName}}" required/>
+	<br/><br/>
+
+	<label for="problem-description">Описание существующей проблемы:</label>
+	<textarea id="problem-description" name="problemDescription" rows="5" required>{{proposal.documents_metadates.problemDescription}}</textarea><br/><br />
+
+	<label for="solution">Предлагаемое решение:</label>
+	<textarea id="solution" name="solution" rows="5" required>{{proposal.documents_metadates.result}}</textarea><br /><br />
+
+	<label for="result">Получаемый результат:</label>
+	<textarea id="result" name="result" rows="5" required>{{proposal.documents_metadates.result}}</textarea><br /><br />
+
+	<div>
+		<label for="authors-container">Авторы:</label>
+		<div id="authors-container"></div>
+		<label>
+			Добавить автора
+			<button type="button" class="add-author" onclick="addAuthor()">
+				+
+			</button>
+		</label>
+	</div>
+
+	<label for="info-about-use-object">Сведения о предполагаемом объекте использования:</label>
+	<input type="text" id="info-about-use-object" name="infoAboutUseObject" value="{{proposal.documents_metadates.infoAboutUseObject}}" required/>
+	<br/><br/>
+
+	<label for="readiness-degree">Степень готовности предложения к использованию:</label>
+	<input type="text" id="readiness-degree" name="readinessDegree" value="{{proposal.documents_metadates.readinessDegree}}" required/>
+	<br/><br/>
+
+	<label for="beneficial-effect">Предполагаемый полезный эффект: (экономический или иной полезный):</label>
+	<textarea id="beneficial-effect" name="beneficialEffect" rows="5" required>{{proposal.documents_metadates.beneficialEffect}}</textarea><br /><br />
+
+	<label for="effect-description">Подробное описание эффекта:</label>
+	<textarea id="effect-descriptio" name="effectDescription" rows="5" required>{{proposal.documents_metadates.effectDescription}}</textarea>
+	<br/><br/>
+
+	<label for="innovation">Вывод о новизне предложения:</label>
+	<input type="text" id="innovation" name="innovation" value="{{proposal.documents_metadates.innovation}}"  required/><br /><br />
+
+	<label for="useful">Вывод о полезности предложения:</label>
+	<input type="text" id="useful" name="useful" value="{{proposal.documents_metadates.useful}}" required/><br /><br />
+
+	<label for="expediency">Вывод о целесообразности использования предложения:</label>
+	<input type="text" id="expediency" name="expediency" value="{{proposal.documents_metadates.expediency}}" required/><br /><br />
+
+	<label for="trade-secret-regime">Вывод о наличии оснований для установления режима коммерческой тайны:</label>
+	<input type="text" id="trade-secret-regime" name="tradeSecretRegime" value="{{proposal.documents_metadates.tradeSecretRegime}}" required/><br /><br />
+
+	<label>
+		<input type="checkbox" id="industrial-safety" name="industrialSafety"/>
+		Соответствует требованиям производственной безопасности предложения
+	</label>
+	<br/>
+
+	<label>
+		<input type="checkbox" id="environmental-safety" name="environmentalSafety"/>
+		Соответствует требованиям экологической безопасности предложения 
+	</label>
+	<br/><br/>
+
+	<div style="display: flex; margin-top: 20px">
+		<div style="width: 53%">
+			<label for="workplace-trade-secret">
+				Должность работника, осуществляющего контроль за режим коммерческой тайны:
+			</label>
+			<input type="text" id="workplace-trade-secret" name="workplaceTradeSecret" value="{{proposal.documents_metadates.workplaceTradeSecret}}" required/>
+			<br/><br/>
+
+			<label for="workplace-industrial-safety">Должность работника, осуществляющего контроль за производственной безопасностью:</label>
+			<input type="text" id="workplace-industrial-safety" name="workplaceIndustrialSafety" value="{{proposal.documents_metadates.workplaceIndustrialSafety}}" required/>
+			<br/><br/>
+
+			<label for="workplace-environmental-safety">Должность работника, осуществляющего контроль за экологической безопасностью:</label>
+			<input type="text" id="workplace-environmental-safety" name="workplaceEnvironmentalSafety" value="{{proposal.documents_metadates.workplaceEnvironmentalSafety}}" required/><br/><br/>
+		</div>
+
+		<div style="width: 44%; margin-left: 3%">
+			<label for="fio-trade-secret" style="margin-top: 22px">Инициалы данного работника:</label>
+			<input type="text" id="fio-trade-secret" name="fioTradeSecret" value="{{proposal.documents_metadates.fioTradeSecret}}" required/>
+			<br/><br/>
+
+			<label for="fio-industrial-safety" style="margin-top: 47px">Инициалы данного работника:</label>
+			<input type="text" id="fio-industrial-safety" name="fioIndustrialSafety" value="{{proposal.documents_metadates.fioIndustrialSafety}}" required/>
+			<br/><br/>
+
+			<label for="fio-environmental-safety" style="margin-top: 47px">Инициалы данного работника:</label>
+			<input type="text" id="fio-environmental-safety" name="fioEnvironmentalSafety" value="{{proposal.documents_metadates.fioEnvironmentalSafety}}" required/><br /><br />
+		</div>
+	</div>
+
+	<div>
+		<label for="supplements">Приложения:</label>
+		<div id="supplementContainer"></div>
+		<label>
+			Добавить приложение
+			<button type="button" class="add-button" onclick="addSupplement()">
+				+
+			</button>
+		</label>
+	</div>
+
+	<div style="display: flex;">
+		{{#if isEditPage}}
+			<button type="submit">Изменить документ</button>
+			<button type="submit" style="background-color: red; margin-left: 20px;">Удалить документ</button>
+		{{else}}
+			<button type="submit">Создать документ</button>
+		{{/if}}
+	</div>
+</form>
+
+<script src="js/supplement.js"></script>
+<script src="js/author.js"></script>
+<script>
+    function isValidForm() {
+		console.log(document.querySelectorAll('.author'));
+        if(document.querySelectorAll('.author').length === 0) { 
+			alert("Необходимо добавить хотя бы одного автора"); 
+			return false;
+		}
+
+		const authorNumbers = Array.from(document.getElementsByName('authorNumbers[]')).map(authorNumber => authorNumber.value);
+		console.log(Array.from(document.getElementsByName('authorNumbers[]')).map(authorNumber => authorNumber.value));
+		if(authorNumbers.length !== new Set(authorNumbers).size) {
+			alert("Не должно быть одинаковых табельных номеров у авторов"); 
+			return false;
+		}
+
+		console.log( Array.from(document.getElementsByName('percentageContributions[]')).map(percentageContribution => percentageContribution.value));
+		const percentageContributions = Array.from(document.getElementsByName('percentageContributions[]')).map(percentageContribution => percentageContribution.value);
+		console.log(percentageContributions.reduce((accumulator, currentValue) => parseInt(accumulator) + parseInt(currentValue), 0));
+		if(percentageContributions.reduce((accumulator, currentValue) => parseInt(accumulator) + parseInt(currentValue), 0) !== 100) {
+			alert("Суммарный авторский вклад должен состовлять 100%"); 
+			return false;
+		}
+    }
+
+	function showSettingForm() {
+		if (document.getElementById('setting-form-container').style.display == 'block') {
+			document.getElementById('setting-form-container').style.display = 'none'
+		} else {
+			document.getElementById('setting-form-container').style.display = 'block'
+		}
+	}
+
+	function selectRationalizationProposal() {
+		const select = document.getElementById("rationalization-proposals");
+
+    	fetch(select.options[select.selectedIndex].value)
+			.then(response => response.text()) // Получаем текстовое содержимое ответа
+			.then(html => {
+				// Загрузка полученного HTML на страницу
+				document.open();
+				document.write(html);
+				document.close();
+			})
+			.catch(error => console.error('Ошибка при загрузке страницы:', error));
+	}
+
+	document.addEventListener('DOMContentLoaded', (event) => {
+		console.log("DOM полностью загружен и разобран {{proposal.documents_metadates.fioTradeSecret}}");
+		const authors = {{{json proposal}}}.document_authors;
+		const supplements = {{{json proposal}}}.document_supplements;
+
+		console.log(authors);
+		console.log(supplements);
+
+		if(authors) authors.map(author => addAuthor(author.authors));
+		if(supplements) supplements.map(supplement => addSupplement(supplement.supplements));
+	});
+</script>

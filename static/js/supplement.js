@@ -24,7 +24,15 @@ function updateSupplementId() {
     });
 }
 
-function addSupplement() {
+function addSupplement(supplement) {
+    if(!supplement) {
+        supplement = {
+            name: '',
+            image: false,
+            imageName: '',
+        }
+    }
+
     const currentSupplementId = ++supplementId;
     const supplementContainer = document.getElementById('supplementContainer');
 
@@ -37,7 +45,7 @@ function addSupplement() {
             Приложение ${++supplementCount}
             <button type="button" id="remove-supplement-button${currentSupplementId}" class="remove-supplement-button">X</button>
         </label>
-        <input type="text" class="supplement-title-input" placeholder="Название приложения" name="supplements[${currentSupplementId}][name]">
+        <input type="text" class="supplement-title-input" placeholder="Название приложения" name="supplements[${currentSupplementId}][name]" value='${supplement.name}'>
         <div class="img-container"></div>
         <label style="font-size: 16px">
             Добавить изображение
@@ -64,20 +72,36 @@ function addSupplement() {
     supplementInfo.addEventListener('click', () => {
         supplementDiv.scrollIntoView();
     });
+
+    addImage(supplementDiv.querySelector('.img-container'), currentSupplementId, { image: supplement.image, imageName: supplement.imageName})
 }
 
-function addImage(container, currentSupplementId) {
+function addImage(container, currentSupplementId, img) {
+    if(!img) {
+        img = {
+            image: false,
+            imageName: '',
+        }
+    }
+
     const currentImgId = ++imgId;
 
     const imgDiv = document.createElement('div');
     imgDiv.id = `img-div${currentImgId}`;
-    imgDiv.innerHTML = `
+    imgDiv.innerHTML = img.image ? `
+        <div class="img-controller">
+            <input type="file" id="fileInput${currentImgId}" accept="image/*" class="upload-img" name="supplements[${currentSupplementId}][images][]" style="display:none;">
+            <img src="${img.image.toString('base64')}" id="preview${currentImgId}" class="supplementImg" alt="Изображение">
+            <button type="button" id="remove-img-button${currentImgId}" class="remove-img-button">X</button>
+        </div>
+        <input type="text" placeholder="Название изображения" class="img-title-input" name="supplements[${currentSupplementId}][imagesNames][]" value='${img.imageName}'>
+    `:`
         <div class="img-controller">
             <input type="file" id="fileInput${currentImgId}" accept="image/*" class="upload-img" name="supplements[${currentSupplementId}][images][]" style="display:none;">
             <img src="./no-photo.png" id="preview${currentImgId}" class="supplementImg" alt="Изображение">
             <button type="button" id="remove-img-button${currentImgId}" class="remove-img-button">X</button>
         </div>
-        <input type="text" placeholder="Название изображения" class="img-title-input" name="supplements[${currentSupplementId}][imagesNames][]">
+        <input type="text" placeholder="Название изображения" class="img-title-input" name="supplements[${currentSupplementId}][imagesNames][]" value='${img.imageName}'>
     `;
 
     container.appendChild(imgDiv);

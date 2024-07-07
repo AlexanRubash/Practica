@@ -1,0 +1,16 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "./generated/client2"
+}
+
+datasource documents_main {
+  provider = "mysql"
+  url      = env("DATABASE_URL_2")
+}
+
+model documents {
+  id               Int       @id @default(autoincrement())
+  name             String?   @documents_main.VarChar(255)
+  document_content Bytes?
+  timestamp        DateTime? @default(now()) @documents_main.Timestamp(0)
+}

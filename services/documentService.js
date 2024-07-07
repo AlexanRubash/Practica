@@ -1,80 +1,105 @@
+const fs = require('fs');
+const path = require('path');
+const PizZip = require('pizzip');
+const Docxtemplater = require('docxtemplater');
+const ImageModule = require('docxtemplater-image-module-free');
+const formatService = require('./formatService'); 
+
 module.exports = {
-    formatDate(inputDate) {
-        const dateObj = new Date(inputDate);
-        const day = dateObj.getDate();
-        const month = dateObj.getMonth() + 1;
-        const year = dateObj.getFullYear();
-    
-        // Ensure two-digit format for day and month
-        const formattedDay = day < 10 ? `0${day}` : day;
-        const formattedMonth = month < 10 ? `0${month}` : month;
-    
-        return `${formattedDay}.${formattedMonth}.${year}`;
-    },
+    createWordDocument(data, files) {
+        try {
+            const supplements = data.supplements === undefined ? [] : formatService.createSupplements(
+                data.supplements,
+                files
+            )
+            console.dir(supplements, { depth: null });
 
-    createAuthors(authorNumbers, authorFIOs, authorWorkplaces, authorWorkPositions, authorYearsBirh, contributions, percentageContributions ) {
-        const authors = [];
+            const content = fs.readFileSync(
+                path.resolve('templates/proposal_template.docx'),
+                'binary'
+            )
+            const zip = new PizZip(content)
 
-        for (let i = 0; i < authorNumbers.length; i++) {
-            let nameParts = authorFIOs[i].split(' ');
+            const opts = {
+                centered: false,
+                getImage: function (tagValue, tagName) {
+                    return fs.readFileSync(tagValue, 'binary')
+                },
+                getSize: function (img, tagValue, tagName) {
+                    // Задаем размеры изображений, можно изменить по необходимости
+                    return [365, 260]
+                },
+            }
+            const doc = new Docxtemplater(zip, {
+                paragraphLoop: true,
+                linebreaks: true,
+                modules: [new ImageModule(opts)],
+            })
 
-            if (nameParts.length >= 3) {
-                nameParts[1] = nameParts[1].charAt(0) + '.';
-                nameParts[2] = nameParts[2].charAt(0) + '.';
+            doc.render({
+                orgName: data.orgName,
+                boss: data.boss,
+                proposalName: data.proposalName,
+                problemDescription: formatService.formatTextWithIndent(data.problemDescription),
+                solution:  formatService.formatTextWithIndent(data.solution),
+                result: formatService.formatTextWithIndent(data.result),
+                authors: formatService.createAuthors(
+                    data.authorNumbers,
+                    data.authorFIOs,
+                    data.authorWorkplaces,
+                    data.authorWorkPositions,
+                    data.authorYearsBirth,
+                    data.contributions,
+                    data.percentageContributions
+                ),
+                infoAboutUseObject: data.infoAboutUseObject,
+                readinessDegree: data.readinessDegree,
+                beneficialEffect: formatService.formatTextWithIndent(data.beneficialEffect),
+                effectDescription: formatService.formatTextWithIndent(data.effectDescription),
+                innovation: data.innovation,
+                useful: data.useful,
+                expediency: data.expediency,
+                tradeSecretRegime: data.tradeSecretRegime,
+                workplaceTradeSecret: data.workplaceTradeSecret,
+                fioTradeSecret: data.fioTradeSecret,
+                industrialSafety: data.industrialSafety ? 'требованиям соответствует' : 'требованиям не соответствует',
+                workplaceIndustrialSafety: data.workplaceIndustrialSafety,
+                fioIndustrialSafety: data.fioIndustrialSafety,
+                environmentalSafety: data.environmentalSafety ? 'требованиям соответствует' : 'требованиям не соответствует',
+                workplaceEnvironmentalSafety: data.workplaceEnvironmentalSafety,
+                fioEnvironmentalSafety: data.fioEnvironmentalSafety,
+                supplements: supplements
+            })
+
+            const buf = doc.getZip().generate({ type: 'nodebuffer' })
+
+            const generatedDir = './generated/proposals'
+            if (!fs.existsSync(generatedDir)) {
+                fs.mkdirSync(generatedDir)
             }
 
-            authors.push({ 
-                indexAuthor: i + 1,
-                authorNumber: authorNumbers[i], 
-                authorFIO: authorFIOs[i],
-                shortAuthorFIO: nameParts.join(' '),
-                authorWorkplace: authorWorkplaces[i],
-                authorWorkPosition: authorWorkPositions[i],
-                authorYearBirh: authorYearsBirh[i],
-                contribution: contributions[i],
-                percentageContribution: percentageContributions[i]
-            });
-        }
-        
-        console.log(authors);
-        return authors;
-    },
+            const fileName = `Рационализаторское предложение.docx`
+            const outputPath = path.resolve(generatedDir, fileName)
 
-    createSupplements(supplements, files) {
-        const transformedSupplements = [];
+            fs.writeFileSync(outputPath, buf)
 
-        
-        for (let i = 1; i < supplements.length; i++) {
-            let paths = files.filter(file => parseInt(file.fieldname.match(/\[(\d+)\]/)[1]) === i).map(file => file.path);
-            console.log(paths);
+            // Пример удаления всех загруженных файлов
+            if (files) {
+                files.forEach(file => {
+                    const filePath = file.path
 
-            let images = [];
-            for (let j = 0; j < paths.length; j++) {
-                images.push({
-                    indexImage: j + 1,
-                    image: paths[j],
-                    imageName: supplements[i].imagesNames[j]
+                    fs.unlink(filePath, err => {
+                        if (err) {
+                            return
+                        }
+                    })
                 })
             }
 
-            console.log(images);
-
-            transformedSupplements.push({
-                indexSupplement: i,
-                name: supplements[i].name,
-                images: images
-            })
-        }
-        
-        return transformedSupplements;
-    },
-
-    formatTextWithIndent(text) {
-        // Разделение текста на строки по символам новой строки
-        const lines = text.split('\n');
-        // Добавление отступа к каждой строке
-        const formattedLines = lines.map(line => `          ${line.trim()}`);
-        // Объединение строк обратно в текст с символами новой строки
-        return formattedLines.join('\n');
+            return outputPath;
+        } catch (error) {
+            console.error(error);
+			throw error;
+		} 
     }
 }
