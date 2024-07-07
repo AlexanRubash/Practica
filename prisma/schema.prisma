@@ -1,0 +1,92 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model authors {
+  authorID               Int                @id @default(autoincrement())
+  inDocumentID           Int?
+  authorFIO              String?            @db.Text
+  shortAuthorFIO         String?            @db.Text
+  authorWorkPosition     String?            @db.Text
+  authorWorkplace        String?            @db.Text
+  percentageContribution String?            @db.Text
+  authorNumber           Int?
+  authorYearBirth        Int?
+  contribution           String?            @db.Text
+  timestamp              DateTime?          @default(now()) @db.Timestamp(0)
+  document_authors       document_authors[]
+}
+
+model document_authors {
+  documentID   Int
+  inDocumentID Int?
+  authorID     Int
+  documents    documents @relation(fields: [documentID], references: [documentID], onUpdate: Restrict, map: "document_authors_ibfk_1")
+  authors      authors   @relation(fields: [authorID], references: [authorID], onUpdate: Restrict, map: "document_authors_ibfk_2")
+
+  @@id([documentID, authorID])
+  @@index([authorID], map: "authorID")
+}
+
+model document_supplements {
+  documentID   Int
+  supplementID Int
+  documents    documents   @relation(fields: [documentID], references: [documentID], onUpdate: Restrict, map: "document_supplements_ibfk_1")
+  supplements  supplements @relation(fields: [supplementID], references: [supplementID], onUpdate: Restrict, map: "document_supplements_ibfk_2")
+
+  @@id([documentID, supplementID])
+  @@index([supplementID], map: "supplementID")
+}
+
+model documents {
+  documentID           Int                    @id @default(autoincrement())
+  metadataID           Int?
+  timestamp            DateTime?              @default(now()) @db.Timestamp(0)
+  document_authors     document_authors[]
+  document_supplements document_supplements[]
+  documents_metadates  documents_metadates?   @relation(fields: [metadataID], references: [metadataID], onDelete: Restrict, onUpdate: Restrict, map: "documents_ibfk_1")
+
+  @@index([metadataID], map: "metadataID")
+}
+
+model documents_metadates {
+  metadataID                   Int         @id @default(autoincrement())
+  orgName                      String?     @db.Text
+  boss                         String?     @db.Text
+  proposalName                 String?     @db.Text
+  problemDescription           String?     @db.LongText
+  solution                     String?     @db.LongText
+  result                       String?     @db.LongText
+  infoAboutUseObject           String?     @db.Text
+  readinessDegree              String?     @db.Text
+  beneficialEffect             String?     @db.Text
+  effectDescription            String?     @db.Text
+  innovation                   String?     @db.Text
+  useful                       String?     @db.Text
+  expediency                   String?     @db.Text
+  tradeSecretRegime            String?     @db.Text
+  workplaceTradeSecret         String?     @db.Text
+  fioTradeSecret               String?     @db.Text
+  industrialSafety             String?     @db.Text
+  workplaceIndustrialSafety    String?     @db.Text
+  fioIndustrialSafety          String?     @db.Text
+  environmentalSafety          String?     @db.Text
+  workplaceEnvironmentalSafety String?     @db.Text
+  fioEnvironmentalSafety       String?     @db.Text
+  timestamp                    DateTime?   @default(now()) @db.Timestamp(0)
+  documents                    documents[]
+}
+
+model supplements {
+  supplementID         Int                    @id @default(autoincrement())
+  name                 String?                @db.Text
+  image                Bytes?
+  imageName            String?                @db.Text
+  timestamp            DateTime?              @default(now()) @db.Timestamp(0)
+  document_supplements document_supplements[]
+}

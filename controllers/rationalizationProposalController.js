@@ -4,12 +4,58 @@ const PizZip = require('pizzip')
 const Docxtemplater = require('docxtemplater')
 const documentService = require('../services/documentService')
 const ImageModule = require('docxtemplater-image-module-free')
+const { PrismaClient } = require('@prisma/client');
+const prisma = new PrismaClient();
 
 module.exports = {
 	async index(req, res) {
-		res.render("mainPage", { 
-			currentForm: 'rationalizationProposal',
-		});
+		const propsals = await prisma.documents.findMany({
+			select: {
+				documentID: true,
+				documents_metadates: {
+				  	select: {
+						proposalName: true,
+				  	},
+				},
+			},
+		})
+		console.log(propsals);
+
+		console.log(req.query.id);
+		if(!req.query.id) {
+			res.render("mainPage", { 
+				propsals: propsals,
+				currentForm: 'rationalizationProposal',
+				isEditPage: false
+			});
+		}
+		else {
+			const proposal = await prisma.documents.findUnique({
+				where: {
+				  	documentID: parseInt(req.query.id),
+				},
+				include: {
+				  	documents_metadates: true,
+				  	document_authors: {
+						include: {
+					  		authors: true,
+						},
+				  	},
+				  	document_supplements: {
+						include: {
+					  		supplements: true,
+						},
+				  	},
+				},
+			})
+			console.log(proposal);
+
+			res.render("mainPage", { 
+				propsals: propsals,
+				currentForm: 'rationalizationProposal',
+				isEditPage: true
+			});
+		}
 	},
 
 	async addDocument(req, res) {

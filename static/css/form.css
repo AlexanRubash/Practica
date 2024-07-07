@@ -92,6 +92,11 @@ a {
 	background: #ececec;
 	padding: 20px;
 }
+
+#rationalization-proposals option:first-child {
+	color: #6e6e6e; /* Цвет текста для первого элемента */
+}
+
 /* ------------------------------------------------------------ */
 .supplement-info {
 	background-color: #4caf50;
