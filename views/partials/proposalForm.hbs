@@ -28,7 +28,7 @@
 		<div class="setting-form-group"></div>
 	</div>
 
-	<label for="proposal-name">Наименование предложения{{proposal.documentID}}:</label>
+	<label for="proposal-name">Наименование предложения:</label>
 	<input type="text" id="proposal-name" name="proposalName" value="{{proposal.documents_metadates.proposalName}}" required/>
 	<br/><br/>
 
@@ -79,14 +79,23 @@
 	<label for="trade-secret-regime">Вывод о наличии оснований для установления режима коммерческой тайны:</label>
 	<input type="text" id="trade-secret-regime" name="tradeSecretRegime" value="{{proposal.documents_metadates.tradeSecretRegime}}" required/><br /><br />
 
+
 	<label>
-		<input type="checkbox" id="industrial-safety" name="industrialSafety"/>
+		{{#if (eq proposal.documents_metadates.industrialSafety "true")}}
+			<input type="checkbox" id="industrial-safety" name="industrialSafety" checked/>
+		{{else}}
+			<input type="checkbox" id="industrial-safety" name="industrialSafety"/>
+		{{/if}}
 		Соответствует требованиям производственной безопасности предложения
 	</label>
 	<br/>
 
 	<label>
-		<input type="checkbox" id="environmental-safety" name="environmentalSafety"/>
+		{{#if (eq proposal.documents_metadates.environmentalSafety "true")}}
+			<input type="checkbox" id="environmental-safety" name="environmentalSafety" checked/>
+		{{else}}
+			<input type="checkbox" id="environmental-safety" name="environmentalSafety"/>
+		{{/if}}
 		Соответствует требованиям экологической безопасности предложения 
 	</label>
 	<br/><br/>
@@ -178,7 +187,13 @@
 		}
 	}
 
-	document.addEventListener('DOMContentLoaded', (event) => {
+	async function urlToFile(url, filename, mimeType) {
+		const response = await fetch(url);
+		const blob = await response.blob();
+		return new File([blob], filename, { type: mimeType });
+	}
+
+	document.addEventListener('DOMContentLoaded', async (event) => {
 		console.log("DOM полностью загружен и разобран {{proposal.documents_metadates.fioTradeSecret}}");
 		const authors = {{{json proposal}}}.document_authors;
 		const supplements = {{{json proposal}}}.document_supplements;
@@ -188,5 +203,29 @@
 
 		if(authors) authors.map(author => addAuthor(author.authors));
 		if(supplements) supplements.map(supplement => addSupplement(supplement.supplements));
+
+		///////////////////////////////////////////////////////////
+	    let i = 0;
+		const uploadImgs = document.querySelectorAll('.upload-img');
+		console.log('hyu');
+		console.log(uploadImgs);
+		for (const uploadImg of uploadImgs) {
+			const previewId = uploadImg.getAttribute('img-id');
+			console.log('ss' + previewId);
+			const preview = document.getElementById(previewId);
+			console.log('dd' + preview);
+
+			// Устанавливаем изображение из URL в input file
+			try {
+				const file = await urlToFile(preview.src, `image.jpg${++i}`, "image/jpeg");
+				const dataTransfer = new DataTransfer();
+				dataTransfer.items.add(file);
+				uploadImg.files = dataTransfer.files;
+			} catch (error) {
+				console.error('Error loading image:', error);
+			}
+
+		}
 	});
+
 </script>

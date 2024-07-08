@@ -4,7 +4,8 @@ const hbs = require("hbs");
 const expressHbs = require("express-handlebars");
 const multer = require('multer');
 const path = require('path');
-const proposalRouter = require('./routers/proposalRouters')();
+const proposalRouter = require('./routers/proposalRouter')();
+const actRouter = require('./routers/actRouter')();
 const actController = require('./controllers/actController');
 
 const app = express();
@@ -48,9 +49,9 @@ const upload = multer({ storage: storage });
 app.get('/', async (req, res) => res.redirect('/proposal'));
 
 app.use('/proposal', proposalRouter);
+app.use('/act', actRouter);
 
-app.get('/act', async (req, res) => actController.index(req, res));
-app.post('/generate_act', upload.any(), async (req, res) => actController.addDocument(req, res));
+app.use((req, res, next) => res.status(404).send("Not Found"));
 
 const PORT = 3000;
 app.listen(PORT, () => {

@@ -65,6 +65,9 @@ module.exports = {
 			// Начинаем транзакцию
 			const result = await documentsDB.$transaction(async (documentsDB) => {
 				// Создание записи в таблице documents_metadates
+				industrialSafety = data.industrialSafety ? 'true' : 'false';
+				console.log(data.environmentalSafety);
+
 				const docMetadata = await documentsDB.documents_metadates.create({
 					data: {
 						orgName: data.orgName,
@@ -83,10 +86,10 @@ module.exports = {
 						tradeSecretRegime: data.tradeSecretRegime,
 						workplaceTradeSecret: data.workplaceTradeSecret,
 						fioTradeSecret: data.fioTradeSecret,
-						industrialSafety: data.industrialSafety,
+						industrialSafety: data.industrialSafety ? 'true' : 'false',
 						workplaceIndustrialSafety: data.workplaceIndustrialSafety,
 						fioIndustrialSafety: data.fioIndustrialSafety,
-						environmentalSafety: data.environmentalSafety,
+						environmentalSafety: data.environmentalSafety ? 'true' : 'false',
 						workplaceEnvironmentalSafety: data.workplaceEnvironmentalSafety,
 						fioEnvironmentalSafety: data.fioEnvironmentalSafety,
 					}
@@ -226,6 +229,7 @@ module.exports = {
 				}
 
 				// Обновить метаданные документа
+				console.log(data.industrialSafety);
 				const docMetadata = await documentsDB.documents_metadates.update({
 					where: {
 					metadataID: document.metadataID
@@ -247,10 +251,10 @@ module.exports = {
 					tradeSecretRegime: data.tradeSecretRegime,
 					workplaceTradeSecret: data.workplaceTradeSecret,
 					fioTradeSecret: data.fioTradeSecret,
-					industrialSafety: data.industrialSafety,
+					industrialSafety: data.industrialSafety ? 'true' : 'false',
 					workplaceIndustrialSafety: data.workplaceIndustrialSafety,
 					fioIndustrialSafety: data.fioIndustrialSafety,
-					environmentalSafety: data.environmentalSafety,
+					environmentalSafety: data.environmentalSafety ? 'true' : 'false',
 					workplaceEnvironmentalSafety: data.workplaceEnvironmentalSafety,
 					fioEnvironmentalSafety: data.fioEnvironmentalSafety,
 					}

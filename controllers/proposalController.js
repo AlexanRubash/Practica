@@ -1,5 +1,6 @@
 const dbService = require('../services/dbService'); 
 const documentService = require('../services/documentService'); 
+const fs = require('fs');
 
 const documentsDB = dbService.documentsDB;
 const documentsMain = dbService.documentsMain;
@@ -40,13 +41,29 @@ module.exports = {
 				  	},
 				  	document_supplements: {
 						include: {
-					  		supplements: true,
+						  supplements: {
+							include: {
+							  images: true, // Включаем связанные записи из таблицы images
+							},
+						  },
 						},
-				  	},
+					},
 				},
 			})
 			console.log(proposal);
 
+			proposal.document_supplements.forEach(supplement => {
+			supplement.supplements.images.forEach(image => {
+				console.log(image.image);
+				const base64Image = image.image ? image.image.toString('base64') : null; // Здесь исправлено
+				const imgSrc = `data:image/png;base64,${base64Image}`;
+
+				image.image = imgSrc;
+			});
+			});
+
+
+			
 			res.render("mainPage", { 
 				proposals: proposals,
 				proposal: proposal,
@@ -93,7 +110,7 @@ module.exports = {
 	async editDocument(req, res) {
 		try {
 			const dbDocumentId =  await dbService.editDocumentData(req.body, req.files, parseInt(req.params.id));
-			
+			res.redirect('/proposal');
 		} catch (error) {
 			console.error('Ошибка при создании DOCX:', error.message)
 			res.status(500).send('Ошибка при создании документа. Обратитесь к администратору.')
