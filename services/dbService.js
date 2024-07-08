@@ -1,4 +1,5 @@
 const formatService = require('./formatService'); 
+const fs = require('fs');
 
 const mysql = require('mysql2/promise');
 const { PrismaClient: PrismaClient1 } = require('../prisma/generated/client1');
@@ -42,87 +43,418 @@ module.exports = {
     documentsMain,
 
     async saveDocumentData(data, files) {
-        const connection = await sourcePool.getConnection();
+		
+		console.log(data.supplements);
 
+		const supplements = data.supplements === undefined ? [] : formatService.createSupplements(
+			data.supplements,
+			files
+		);
+		
+		const authors = formatService.createAuthors(
+			data.authorNumbers,
+			data.authorFIOs,
+			data.authorWorkplaces,
+			data.authorWorkPositions,
+			data.authorYearsBirth,
+			data.contributions,
+			data.percentageContributions
+		);
+	
 		try {
-			await connection.beginTransaction();
+			// Начинаем транзакцию
+			const result = await documentsDB.$transaction(async (documentsDB) => {
+				// Создание записи в таблице documents_metadates
+				const docMetadata = await documentsDB.documents_metadates.create({
+					data: {
+						orgName: data.orgName,
+						boss: data.boss,
+						problemDescription: data.problemDescription,
+						solution: data.solution,
+						result: data.result,
+						proposalName: data.proposalName,
+						infoAboutUseObject: data.infoAboutUseObject,
+						readinessDegree: data.readinessDegree,
+						beneficialEffect: data.beneficialEffect,
+						effectDescription: data.effectDescription,
+						innovation: data.innovation,
+						useful: data.useful,
+						expediency: data.expediency,
+						tradeSecretRegime: data.tradeSecretRegime,
+						workplaceTradeSecret: data.workplaceTradeSecret,
+						fioTradeSecret: data.fioTradeSecret,
+						industrialSafety: data.industrialSafety,
+						workplaceIndustrialSafety: data.workplaceIndustrialSafety,
+						fioIndustrialSafety: data.fioIndustrialSafety,
+						environmentalSafety: data.environmentalSafety,
+						workplaceEnvironmentalSafety: data.workplaceEnvironmentalSafety,
+						fioEnvironmentalSafety: data.fioEnvironmentalSafety,
+					}
+				});
+	
+				const metadataID = docMetadata.metadataID;
+	
+				// Создание записи в таблице documents
+				const doc = await documentsDB.documents.create({
+					data: {
+						metadataID: metadataID,
+					},
+				});
+	
+				const documentID = doc.documentID;
+	
+				// Создание записей в таблице authors и документирование их связей
+				for (let i = 0; i < authors.length; i++) {
+					const author = await documentsDB.authors.create({
+						data: {
+							authorFIO: authors[i].authorFIO,
+							shortAuthorFIO: authors[i].shortAuthorFIO,
+							authorYearBirth: parseInt(authors[i].authorYearBirth),
+							authorWorkplace: authors[i].authorWorkplace,
+							authorWorkPosition: authors[i].authorWorkPosition,
+							contribution: authors[i].contribution,
+							percentageContribution: parseInt(authors[i].percentageContribution),
+							authorNumber: parseInt(authors[i].authorNumber),
+						}
+					});
+	
+					await documentsDB.document_authors.create({
+						data: {
+							documentID: documentID,
+							authorID: author.authorID
+						}
+					});
+				}
+	
+				// Создание записей в таблице supplements и документирование их связей
+				for (const supplement of supplements) {
+					const supp = await documentsDB.supplements.create({
+						data: {
+						  	name: supplement.name,
+						  	images: {
+								create: supplement.images.map(image => ({
+							  		image: fs.readFileSync(image.image),
+							  		imageName: image.imageName,
+								})),
+						  	},
+						},
+						include: {
+						  images: true, // Включаем связанные записи для проверки
+						},
+					});
 
-			const [docResult] = await connection.execute(`
-				INSERT INTO documents_metadates (
-					orgName, boss, problemDescription, solution, result, 
-					proposalName, infoAboutUseObject, readinessDegree, 
-					beneficialEffect, effectDescription, innovation, useful, expediency, 
-					tradeSecretRegime, workplaceTradeSecret, fioTradeSecret, 
-					industrialSafety, workplaceIndustrialSafety, fioIndustrialSafety, 
-					environmentalSafety, workplaceEnvironmentalSafety, fioEnvironmentalSafety
-				) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-			`, [
-				data.orgName || null, data.Boss || null, data.problemDescription || null, data.solution || null,
-				data.result || null, data.proposalName || null, data.infoAboutUseObject || null,
-				data.readinessDegree || null, data.beneficialEffect || null, data.effectDescription || null,
-				data.innovation || null, data.useful || null, data.expediency || null, data.tradeSecretRegime || null, data.workplaceTradeSecret || null,
-				data.fioTradeSecret || null, data.industrialSafety ? 1 : 0, data.workplaceIndustrialSafety || null,
-				data.fioIndustrialSafety || null, data.environmentalSafety ? 1 : 0, data.workplaceEnvironmentalSafety || null,
-				data.fioEnvironmentalSafety || null
-			]);
-
-			const metadataID = docResult.insertId;
-
-			const [documentResult] = await connection.execute(`
-				INSERT INTO documents (metadataID) VALUES (?)
-			`, [metadataID]);
-
-			const documentID = documentResult.insertId;
-
-			for (let i = 0; i < data.authorNumbers.length; i++) {
-				const authorShortName = calculateShortName(data.authorFIOs[i]);
-				console.log(data.authorYearsBirth[i]);
-				const [authorResult] = await connection.execute(`
-					INSERT INTO authors (
-						authorFIO, shortAuthorFIO, authorYearBirth, authorWorkplace,
-						authorWorkPosition, contribution, percentageContribution,
-						authorNumber
-					) VALUES (?, ?, ?, ?, ?, ?, ?, ?)
-				`, [
-					data.authorFIOs[i] || null,
-					authorShortName || null,
-					data.authorYearsBirth[i] || null,
-					data.authorWorkplaces[i] || null,
-					data.authorWorkPositions[i] || null,
-					data.contributions[i] || null, 
-					data.percentageContributions[i] || null,
-					data.authorNumbers[i] || null
-				]);
-
-				await connection.execute(`
-					INSERT INTO document_authors (documentID, authorID) VALUES (?, ?)
-				`, [documentID, authorResult.insertId]);
-			}
-
-			// const supplements = documentService.createSupplements(data.supplements, files);
-
-			// for (const supplement of supplements) {
-			// 	for (const image of supplement.images) {
-			// 		let imageBuffer = fs.readFileSync(image.image);
-
-			// 		const [supplementResult] = await connection.execute(`
-			// 			INSERT INTO supplements (name, image, imageName) VALUES (?, ?, ?)
-			// 		`, [supplement.name || null, imageBuffer || null, image.imageName || null]);
-
-			// 		await connection.execute(`
-			// 			INSERT INTO document_supplements (documentID, supplementID) VALUES (?, ?)
-			// 		`, [documentID, supplementResult.insertId]);
-			// 	}
-			// }
-
-			await connection.commit();
-			return documentID;  // Return the documentID for use in saveDocumentToDB
+					await documentsDB.document_supplements.create({
+						data: {
+							documentID: documentID,
+							supplementID: supp.supplementID
+						}
+					});
+				}
+	
+				return documentID;
+			});
+			return result;
 		} catch (error) {
 			console.error(error);
-			await connection.rollback();
 			throw error;
-		} finally {
-			connection.release();
-		} 
-    }
+		}
+	},
+
+	async saveDocumentToDB(buffer, dbDocumentId, documentName) {
+		try {
+			console.log(dbDocumentId);
+			const result = await documentsMain.documents.create({
+				data : {
+					document_content: buffer,
+					db_document_id: dbDocumentId,
+					name: documentName
+				}
+			})
+
+			return result.id
+		} catch (error) {
+			console.error(error);
+			throw error;
+		}
+	},
+
+	async getDocumentFromDB(id) {
+		try {
+			console.log(id)
+			const document = await documentsMain.documents.findFirst({
+				where : {
+					db_document_id: id
+				}
+			})
+			console.log(document);
+
+			return document
+		} catch (error) {
+			console.error(error);
+			throw error;
+		}
+	},
+
+	async editDocumentData(data, files, id) {
+		const supplements = data.supplements === undefined ? [] : formatService.createSupplements(
+			data.supplements,
+			files
+		);
+	
+		const authors = formatService.createAuthors(
+			data.authorNumbers,
+			data.authorFIOs,
+			data.authorWorkplaces,
+			data.authorWorkPositions,
+			data.authorYearsBirth,
+			data.contributions,
+			data.percentageContributions
+		);
+	
+		try {
+			// Начинаем транзакцию
+			await documentsMain.$transaction(async (documentsMain) => {
+				// Получить документ по ID
+				const document = await documentsDB.documents.findUnique({
+					where: {
+					documentID: id
+					}
+				});
+
+				if (!document) {
+					throw new Error('Document not found');
+				}
+
+				// Обновить метаданные документа
+				const docMetadata = await documentsDB.documents_metadates.update({
+					where: {
+					metadataID: document.metadataID
+					},
+					data: {
+					orgName: data.orgName,
+					boss: data.boss,
+					problemDescription: data.problemDescription,
+					solution: data.solution,
+					result: data.result,
+					proposalName: data.proposalName,
+					infoAboutUseObject: data.infoAboutUseObject,
+					readinessDegree: data.readinessDegree,
+					beneficialEffect: data.beneficialEffect,
+					effectDescription: data.effectDescription,
+					innovation: data.innovation,
+					useful: data.useful,
+					expediency: data.expediency,
+					tradeSecretRegime: data.tradeSecretRegime,
+					workplaceTradeSecret: data.workplaceTradeSecret,
+					fioTradeSecret: data.fioTradeSecret,
+					industrialSafety: data.industrialSafety,
+					workplaceIndustrialSafety: data.workplaceIndustrialSafety,
+					fioIndustrialSafety: data.fioIndustrialSafety,
+					environmentalSafety: data.environmentalSafety,
+					workplaceEnvironmentalSafety: data.workplaceEnvironmentalSafety,
+					fioEnvironmentalSafety: data.fioEnvironmentalSafety,
+					}
+				});
+
+				// Удалить авторов, связанных с документом
+				const authorsToDelete = await documentsDB.document_authors.findMany({
+					where: {
+					documentID: id
+					},
+					select: {
+					authorID: true
+					}
+				});
+
+				await documentsDB.document_authors.deleteMany({
+					where: {
+					documentID: id
+					}
+				});
+
+				const deleteAuthorsPromises = authorsToDelete.map(async (author) => {
+					await documentsDB.authors.delete({
+					where: {
+						authorID: author.authorID
+					}
+					});
+				});
+
+				await Promise.all(deleteAuthorsPromises);
+
+				// Добавить новых авторов и связи с документом
+				for (const authorData of authors) {
+					const newAuthor = await documentsDB.authors.create({
+					data: {
+						authorFIO: authorData.authorFIO,
+						shortAuthorFIO: authorData.shortAuthorFIO,
+						authorYearBirth: parseInt(authorData.authorYearBirth),
+						authorWorkplace: authorData.authorWorkplace,
+						authorWorkPosition: authorData.authorWorkPosition,
+						contribution: authorData.contribution,
+						percentageContribution: parseInt(authorData.percentageContribution),
+						authorNumber: parseInt(authorData.authorNumber),
+					}
+					});
+
+					await documentsDB.document_authors.create({
+					data: {
+						documentID: id,
+						authorID: newAuthor.authorID
+					}
+					});
+				}
+
+				// Удалить supplements и связанные с ними данные
+				const supplementsToDelete = await documentsDB.document_supplements.findMany({
+					where: {
+					documentID: id
+					},
+					select: {
+					supplementID: true
+					}
+				});
+
+				await documentsDB.document_supplements.deleteMany({
+					where: {
+					documentID: id
+					}
+				});
+
+				const deleteSupplementsPromises = supplementsToDelete.map(async (supplement) => {
+					await documentsDB.images.deleteMany({
+					where: {
+						supplementID: supplement.supplementID
+					}
+					});
+
+					await documentsDB.supplements.delete({
+					where: {
+						supplementID: supplement.supplementID
+					}
+					});
+				});
+
+				await Promise.all(deleteSupplementsPromises);
+
+				// Добавить новые supplements и связанные с ними images
+				for (const supplement of supplements) {
+					const newSupplement = await documentsDB.supplements.create({
+					data: {
+						name: supplement.name,
+						images: {
+						create: supplement.images.map(image => ({
+							image: fs.readFileSync(image.image),
+							imageName: image.imageName,
+						})),
+						},
+					},
+					include: {
+						images: true, // Включаем связанные записи для проверки
+					},
+					});
+
+					await documentsDB.document_supplements.create({
+					data: {
+						documentID: id,
+						supplementID: newSupplement.supplementID
+					}
+					});
+				}
+				});
+	
+		} catch (error) {
+			console.error(error);
+			throw error;
+		}
+	},
+
+	async deleteDocumentFromDB(id) {
+		try {
+			await documentsMain.documents.deleteMany({
+				where : {
+					db_document_id: id
+				}
+			})
+			
+			await documentsDB.$transaction(async (documentsDB) => {
+				// Удалить связанные записи в document_authors
+				await documentsDB.document_authors.deleteMany({
+				  where: {
+					documentID: id,
+				  },
+				});
+		  
+				// Удалить связанные записи в document_supplements
+				const documentSupplements = await documentsDB.document_supplements.findMany({
+				  where: {
+					documentID: id,
+				  },
+				  include: {
+					supplements: {
+					  include: {
+						images: true,
+					  },
+					},
+				  },
+				});
+		  
+				// Удалить связанные изображения
+				for (const documentSupplement of documentSupplements) {
+				  await documentsDB.images.deleteMany({
+					where: {
+					  supplementID: documentSupplement.supplementID,
+					},
+				  });
+				}
+		  
+				// Удалить связанные записи в supplements
+				await documentsDB.document_supplements.deleteMany({
+					where: {
+					  documentID: id,
+					},
+				  });
+				  
+				await documentsDB.supplements.deleteMany({
+				  where: {
+					supplementID: {
+					  in: documentSupplements.map((ds) => ds.supplementID),
+					},
+				  },
+				});
+		  
+				// Удалить записи в document_supplements
+			
+		  
+				// Удалить сам документ
+				await documentsDB.documents.delete({
+				  where: {
+					documentID: id,
+				  },
+				});
+		  
+				// Если есть связи в documents_metadates, удалите их
+				const documentMetadata = await documentsDB.documents.findUnique({
+				  where: {
+					documentID: id,
+				  },
+				  select: {
+					metadataID: true,
+				  },
+				});
+		  
+				if (documentMetadata && documentMetadata.metadataID) {
+				  await documentsDB.documents_metadates.delete({
+					where: {
+					  metadataID: documentMetadata.metadataID,
+					},
+				  });
+				}
+			  });
+		} catch (error) {
+			console.error(error);
+			throw error;
+		}
+	},
+	
 }

@@ -13,4 +13,7 @@ model documents {
   name             String?   @documents_main.VarChar(255)
   document_content Bytes?
   timestamp        DateTime? @default(now()) @documents_main.Timestamp(0)
+  db_document_id   Int?
+
+  @@index([db_document_id], map: "db_document_id")
 }

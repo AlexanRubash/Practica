@@ -6,7 +6,7 @@ const ImageModule = require('docxtemplater-image-module-free');
 const formatService = require('./formatService'); 
 
 module.exports = {
-    createWordDocument(data, files) {
+    createDocument(data, files) {
         try {
             const supplements = data.supplements === undefined ? [] : formatService.createSupplements(
                 data.supplements,
@@ -96,7 +96,7 @@ module.exports = {
                 })
             }
 
-            return outputPath;
+            return buf;
         } catch (error) {
             console.error(error);
 			throw error;

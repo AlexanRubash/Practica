@@ -123,7 +123,8 @@ exports.Prisma.DocumentsScalarFieldEnum = {
   id: 'id',
   name: 'name',
   document_content: 'document_content',
-  timestamp: 'timestamp'
+  timestamp: 'timestamp',
+  db_document_id: 'db_document_id'
 };
 
 exports.Prisma.SortOrder = {

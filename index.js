@@ -1,10 +1,10 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const path = require('path');
 const hbs = require("hbs");
 const expressHbs = require("express-handlebars");
 const multer = require('multer');
-const proposalController = require('./controllers/proposalController');
+const path = require('path');
+const proposalRouter = require('./routers/proposalRouters')();
 const actController = require('./controllers/actController');
 
 const app = express();
@@ -45,10 +45,9 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage });
 
 
-app.get('/', async (req, res) => res.redirect('/rationalization_proposal'));
+app.get('/', async (req, res) => res.redirect('/proposal'));
 
-app.get('/proposal', async (req, res) => proposalController.index(req, res));
-app.post('/generate_proposal', upload.any(), async (req, res) => proposalController.addDocument(req, res));
+app.use('/proposal', proposalRouter);
 
 app.get('/act', async (req, res) => actController.index(req, res));
 app.post('/generate_act', upload.any(), async (req, res) => actController.addDocument(req, res));

@@ -1,6 +1,6 @@
-<form action="/generate_proposal" method="post"  enctype="multipart/form-data" onsubmit="return isValidForm()">
+<form action="/{{#if isEditPage}}proposal/edit/{{proposal.documentID}}{{else}}proposal/generate{{/if}}" method="post"  enctype="multipart/form-data" onsubmit="return isValidForm()">
 	<label for="rationalization-proposals">Выберите рационализаторское предложение</label>
-	<select id="rationalization-proposals" name="rationalizationProposals" onchange="selectRationalizationProposal()">
+	<select id="rationalization-proposals" name="rationalizationProposals" onchange="selectProposal()">
 		<option value="/proposal">Новое рационализаторское предложение</option>
 		{{#each proposals}}
 		 	{{#if (eq this.documentID ../proposal.documentID)}} 
@@ -135,7 +135,8 @@
 	<div style="display: flex;">
 		{{#if isEditPage}}
 			<button type="submit">Изменить документ</button>
-			<button type="submit" style="background-color: red; margin-left: 20px;">Удалить документ</button>
+			<a href="/proposal/delete/{{proposal.documentID}}" class="document_controler" style="background-color: red; margin-left: 20px;">Удалить документ</a>
+			<a href="/proposal/download/{{proposal.documentID}}" class="document_controler" style="background-color: blue; margin-left: 20px;">Скачать документ</a>
 		{{else}}
 			<button type="submit">Создать документ</button>
 		{{/if}}
@@ -144,6 +145,7 @@
 
 <script src="js/supplement.js"></script>
 <script src="js/author.js"></script>
+<script src="js/ui_interface_requests.js"></script>
 <script>
     function isValidForm() {
 		console.log(document.querySelectorAll('.author'));
@@ -174,20 +176,6 @@
 		} else {
 			document.getElementById('setting-form-container').style.display = 'block'
 		}
-	}
-
-	function selectRationalizationProposal() {
-		const select = document.getElementById("rationalization-proposals");
-
-    	fetch(select.options[select.selectedIndex].value)
-			.then(response => response.text()) // Получаем текстовое содержимое ответа
-			.then(html => {
-				// Загрузка полученного HTML на страницу
-				document.open();
-				document.write(html);
-				document.close();
-			})
-			.catch(error => console.error('Ошибка при загрузке страницы:', error));
 	}
 
 	document.addEventListener('DOMContentLoaded', (event) => {

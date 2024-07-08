@@ -888,10 +888,12 @@ export namespace Prisma {
 
   export type DocumentsAvgAggregateOutputType = {
     id: number | null
+    db_document_id: number | null
   }
 
   export type DocumentsSumAggregateOutputType = {
     id: number | null
+    db_document_id: number | null
   }
 
   export type DocumentsMinAggregateOutputType = {
@@ -899,6 +901,7 @@ export namespace Prisma {
     name: string | null
     document_content: Buffer | null
     timestamp: Date | null
+    db_document_id: number | null
   }
 
   export type DocumentsMaxAggregateOutputType = {
@@ -906,6 +909,7 @@ export namespace Prisma {
     name: string | null
     document_content: Buffer | null
     timestamp: Date | null
+    db_document_id: number | null
   }
 
   export type DocumentsCountAggregateOutputType = {
@@ -913,16 +917,19 @@ export namespace Prisma {
     name: number
     document_content: number
     timestamp: number
+    db_document_id: number
     _all: number
   }
 
 
   export type DocumentsAvgAggregateInputType = {
     id?: true
+    db_document_id?: true
   }
 
   export type DocumentsSumAggregateInputType = {
     id?: true
+    db_document_id?: true
   }
 
   export type DocumentsMinAggregateInputType = {
@@ -930,6 +937,7 @@ export namespace Prisma {
     name?: true
     document_content?: true
     timestamp?: true
+    db_document_id?: true
   }
 
   export type DocumentsMaxAggregateInputType = {
@@ -937,6 +945,7 @@ export namespace Prisma {
     name?: true
     document_content?: true
     timestamp?: true
+    db_document_id?: true
   }
 
   export type DocumentsCountAggregateInputType = {
@@ -944,6 +953,7 @@ export namespace Prisma {
     name?: true
     document_content?: true
     timestamp?: true
+    db_document_id?: true
     _all?: true
   }
 
@@ -1038,6 +1048,7 @@ export namespace Prisma {
     name: string | null
     document_content: Buffer | null
     timestamp: Date | null
+    db_document_id: number | null
     _count: DocumentsCountAggregateOutputType | null
     _avg: DocumentsAvgAggregateOutputType | null
     _sum: DocumentsSumAggregateOutputType | null
@@ -1064,6 +1075,7 @@ export namespace Prisma {
     name?: boolean
     document_content?: boolean
     timestamp?: boolean
+    db_document_id?: boolean
   }, ExtArgs["result"]["documents"]>
 
 
@@ -1072,6 +1084,7 @@ export namespace Prisma {
     name?: boolean
     document_content?: boolean
     timestamp?: boolean
+    db_document_id?: boolean
   }
 
 
@@ -1083,6 +1096,7 @@ export namespace Prisma {
       name: string | null
       document_content: Buffer | null
       timestamp: Date | null
+      db_document_id: number | null
     }, ExtArgs["result"]["documents"]>
     composites: {}
   }
@@ -1456,6 +1470,7 @@ export namespace Prisma {
     readonly name: FieldRef<"documents", 'String'>
     readonly document_content: FieldRef<"documents", 'Bytes'>
     readonly timestamp: FieldRef<"documents", 'DateTime'>
+    readonly db_document_id: FieldRef<"documents", 'Int'>
   }
     
 
@@ -1747,7 +1762,8 @@ export namespace Prisma {
     id: 'id',
     name: 'name',
     document_content: 'document_content',
-    timestamp: 'timestamp'
+    timestamp: 'timestamp',
+    db_document_id: 'db_document_id'
   };
 
   export type DocumentsScalarFieldEnum = (typeof DocumentsScalarFieldEnum)[keyof typeof DocumentsScalarFieldEnum]
@@ -1820,6 +1836,7 @@ export namespace Prisma {
     name?: StringNullableFilter<"documents"> | string | null
     document_content?: BytesNullableFilter<"documents"> | Buffer | null
     timestamp?: DateTimeNullableFilter<"documents"> | Date | string | null
+    db_document_id?: IntNullableFilter<"documents"> | number | null
   }
 
   export type documentsOrderByWithRelationInput = {
@@ -1827,6 +1844,7 @@ export namespace Prisma {
     name?: SortOrderInput | SortOrder
     document_content?: SortOrderInput | SortOrder
     timestamp?: SortOrderInput | SortOrder
+    db_document_id?: SortOrderInput | SortOrder
   }
 
   export type documentsWhereUniqueInput = Prisma.AtLeast<{
@@ -1837,6 +1855,7 @@ export namespace Prisma {
     name?: StringNullableFilter<"documents"> | string | null
     document_content?: BytesNullableFilter<"documents"> | Buffer | null
     timestamp?: DateTimeNullableFilter<"documents"> | Date | string | null
+    db_document_id?: IntNullableFilter<"documents"> | number | null
   }, "id">
 
   export type documentsOrderByWithAggregationInput = {
@@ -1844,6 +1863,7 @@ export namespace Prisma {
     name?: SortOrderInput | SortOrder
     document_content?: SortOrderInput | SortOrder
     timestamp?: SortOrderInput | SortOrder
+    db_document_id?: SortOrderInput | SortOrder
     _count?: documentsCountOrderByAggregateInput
     _avg?: documentsAvgOrderByAggregateInput
     _max?: documentsMaxOrderByAggregateInput
@@ -1859,12 +1879,14 @@ export namespace Prisma {
     name?: StringNullableWithAggregatesFilter<"documents"> | string | null
     document_content?: BytesNullableWithAggregatesFilter<"documents"> | Buffer | null
     timestamp?: DateTimeNullableWithAggregatesFilter<"documents"> | Date | string | null
+    db_document_id?: IntNullableWithAggregatesFilter<"documents"> | number | null
   }
 
   export type documentsCreateInput = {
     name?: string | null
     document_content?: Buffer | null
     timestamp?: Date | string | null
+    db_document_id?: number | null
   }
 
   export type documentsUncheckedCreateInput = {
@@ -1872,12 +1894,14 @@ export namespace Prisma {
     name?: string | null
     document_content?: Buffer | null
     timestamp?: Date | string | null
+    db_document_id?: number | null
   }
 
   export type documentsUpdateInput = {
     name?: NullableStringFieldUpdateOperationsInput | string | null
     document_content?: NullableBytesFieldUpdateOperationsInput | Buffer | null
     timestamp?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    db_document_id?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
   export type documentsUncheckedUpdateInput = {
@@ -1885,6 +1909,7 @@ export namespace Prisma {
     name?: NullableStringFieldUpdateOperationsInput | string | null
     document_content?: NullableBytesFieldUpdateOperationsInput | Buffer | null
     timestamp?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    db_document_id?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
   export type documentsCreateManyInput = {
@@ -1892,12 +1917,14 @@ export namespace Prisma {
     name?: string | null
     document_content?: Buffer | null
     timestamp?: Date | string | null
+    db_document_id?: number | null
   }
 
   export type documentsUpdateManyMutationInput = {
     name?: NullableStringFieldUpdateOperationsInput | string | null
     document_content?: NullableBytesFieldUpdateOperationsInput | Buffer | null
     timestamp?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    db_document_id?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
   export type documentsUncheckedUpdateManyInput = {
@@ -1905,6 +1932,7 @@ export namespace Prisma {
     name?: NullableStringFieldUpdateOperationsInput | string | null
     document_content?: NullableBytesFieldUpdateOperationsInput | Buffer | null
     timestamp?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    db_document_id?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
   export type IntFilter<$PrismaModel = never> = {
@@ -1950,6 +1978,17 @@ export namespace Prisma {
     not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
   }
 
+  export type IntNullableFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | null
+    notIn?: number[] | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableFilter<$PrismaModel> | number | null
+  }
+
   export type SortOrderInput = {
     sort: SortOrder
     nulls?: NullsOrder
@@ -1960,10 +1999,12 @@ export namespace Prisma {
     name?: SortOrder
     document_content?: SortOrder
     timestamp?: SortOrder
+    db_document_id?: SortOrder
   }
 
   export type documentsAvgOrderByAggregateInput = {
     id?: SortOrder
+    db_document_id?: SortOrder
   }
 
   export type documentsMaxOrderByAggregateInput = {
@@ -1971,6 +2012,7 @@ export namespace Prisma {
     name?: SortOrder
     document_content?: SortOrder
     timestamp?: SortOrder
+    db_document_id?: SortOrder
   }
 
   export type documentsMinOrderByAggregateInput = {
@@ -1978,10 +2020,12 @@ export namespace Prisma {
     name?: SortOrder
     document_content?: SortOrder
     timestamp?: SortOrder
+    db_document_id?: SortOrder
   }
 
   export type documentsSumOrderByAggregateInput = {
     id?: SortOrder
+    db_document_id?: SortOrder
   }
 
   export type IntWithAggregatesFilter<$PrismaModel = never> = {
@@ -2041,6 +2085,22 @@ export namespace Prisma {
     _max?: NestedDateTimeNullableFilter<$PrismaModel>
   }
 
+  export type IntNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | null
+    notIn?: number[] | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedIntNullableFilter<$PrismaModel>
+    _max?: NestedIntNullableFilter<$PrismaModel>
+  }
+
   export type NullableStringFieldUpdateOperationsInput = {
     set?: string | null
   }
@@ -2051,6 +2111,14 @@ export namespace Prisma {
 
   export type NullableDateTimeFieldUpdateOperationsInput = {
     set?: Date | string | null
+  }
+
+  export type NullableIntFieldUpdateOperationsInput = {
+    set?: number | null
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
   }
 
   export type IntFieldUpdateOperationsInput = {
@@ -2104,6 +2172,17 @@ export namespace Prisma {
     not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
   }
 
+  export type NestedIntNullableFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | null
+    notIn?: number[] | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableFilter<$PrismaModel> | number | null
+  }
+
   export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel>
     in?: number[]
@@ -2148,17 +2227,6 @@ export namespace Prisma {
     _max?: NestedStringNullableFilter<$PrismaModel>
   }
 
-  export type NestedIntNullableFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel> | null
-    in?: number[] | null
-    notIn?: number[] | null
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntNullableFilter<$PrismaModel> | number | null
-  }
-
   export type NestedBytesNullableWithAggregatesFilter<$PrismaModel = never> = {
     equals?: Buffer | BytesFieldRefInput<$PrismaModel> | null
     in?: Buffer[] | null
@@ -2181,6 +2249,33 @@ export namespace Prisma {
     _count?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedDateTimeNullableFilter<$PrismaModel>
     _max?: NestedDateTimeNullableFilter<$PrismaModel>
+  }
+
+  export type NestedIntNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | null
+    notIn?: number[] | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedIntNullableFilter<$PrismaModel>
+    _max?: NestedIntNullableFilter<$PrismaModel>
+  }
+
+  export type NestedFloatNullableFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | null
+    notIn?: number[] | null
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatNullableFilter<$PrismaModel> | number | null
   }
 
 

@@ -14,22 +14,12 @@ model authors {
   shortAuthorFIO         String?            @documents_db.Text
   authorWorkPosition     String?            @documents_db.Text
   authorWorkplace        String?            @documents_db.Text
-  percentageContribution String?            @documents_db.Text
+  percentageContribution Int?
   authorNumber           Int?
   authorYearBirth        Int?
   contribution           String?            @documents_db.Text
   timestamp              DateTime?          @default(now()) @documents_db.Timestamp(0)
   document_authors       document_authors[]
-}
-
-model document_authors {
-  documentID Int
-  authorID   Int
-  documents  documents @relation(fields: [documentID], references: [documentID], onUpdate: Restrict, map: "document_authors_ibfk_1")
-  authors    authors   @relation(fields: [authorID], references: [authorID], onUpdate: Restrict, map: "document_authors_ibfk_2")
-
-  @@id([documentID, authorID])
-  @@index([authorID], map: "authorID")
 }
 
 model document_supplements {
@@ -84,8 +74,28 @@ model documents_metadates {
 model supplements {
   supplementID         Int                    @id @default(autoincrement())
   name                 String?                @documents_db.Text
-  image                Bytes?
-  imageName            String?                @documents_db.Text
   timestamp            DateTime?              @default(now()) @documents_db.Timestamp(0)
   document_supplements document_supplements[]
+  images               images[]
+}
+
+model images {
+  imageID      Int          @id @default(autoincrement())
+  supplementID Int?
+  image        Bytes?
+  imageName    String?      @documents_db.Text
+  timestamp    DateTime?    @default(now()) @documents_db.Timestamp(0)
+  supplements  supplements? @relation(fields: [supplementID], references: [supplementID], onDelete: Restrict, onUpdate: Restrict, map: "images_ibfk_1")
+
+  @@index([supplementID], map: "supplementID")
+}
+
+model document_authors {
+  documentID Int
+  authorID   Int
+  documents  documents @relation(fields: [documentID], references: [documentID], onUpdate: Restrict, map: "document_authors_ibfk_1")
+  authors    authors   @relation(fields: [authorID], references: [authorID], onUpdate: Restrict, map: "document_authors_ibfk_2")
+
+  @@id([documentID, authorID])
+  @@index([authorID], map: "authorID")
 }

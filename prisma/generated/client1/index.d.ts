@@ -19,11 +19,6 @@ export type PrismaPromise<T> = $Public.PrismaPromise<T>
  */
 export type authors = $Result.DefaultSelection<Prisma.$authorsPayload>
 /**
- * Model document_authors
- * 
- */
-export type document_authors = $Result.DefaultSelection<Prisma.$document_authorsPayload>
-/**
  * Model document_supplements
  * 
  */
@@ -43,6 +38,16 @@ export type documents_metadates = $Result.DefaultSelection<Prisma.$documents_met
  * 
  */
 export type supplements = $Result.DefaultSelection<Prisma.$supplementsPayload>
+/**
+ * Model images
+ * 
+ */
+export type images = $Result.DefaultSelection<Prisma.$imagesPayload>
+/**
+ * Model document_authors
+ * 
+ */
+export type document_authors = $Result.DefaultSelection<Prisma.$document_authorsPayload>
 
 /**
  * ##  Prisma Client ʲˢ
@@ -177,16 +182,6 @@ export class PrismaClient<
   get authors(): Prisma.authorsDelegate<ExtArgs>;
 
   /**
-   * `prisma.document_authors`: Exposes CRUD operations for the **document_authors** model.
-    * Example usage:
-    * ```ts
-    * // Fetch zero or more Document_authors
-    * const document_authors = await prisma.document_authors.findMany()
-    * ```
-    */
-  get document_authors(): Prisma.document_authorsDelegate<ExtArgs>;
-
-  /**
    * `prisma.document_supplements`: Exposes CRUD operations for the **document_supplements** model.
     * Example usage:
     * ```ts
@@ -225,6 +220,26 @@ export class PrismaClient<
     * ```
     */
   get supplements(): Prisma.supplementsDelegate<ExtArgs>;
+
+  /**
+   * `prisma.images`: Exposes CRUD operations for the **images** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Images
+    * const images = await prisma.images.findMany()
+    * ```
+    */
+  get images(): Prisma.imagesDelegate<ExtArgs>;
+
+  /**
+   * `prisma.document_authors`: Exposes CRUD operations for the **document_authors** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Document_authors
+    * const document_authors = await prisma.document_authors.findMany()
+    * ```
+    */
+  get document_authors(): Prisma.document_authorsDelegate<ExtArgs>;
 }
 
 export namespace Prisma {
@@ -703,11 +718,12 @@ export namespace Prisma {
 
   export const ModelName: {
     authors: 'authors',
-    document_authors: 'document_authors',
     document_supplements: 'document_supplements',
     documents: 'documents',
     documents_metadates: 'documents_metadates',
-    supplements: 'supplements'
+    supplements: 'supplements',
+    images: 'images',
+    document_authors: 'document_authors'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -723,7 +739,7 @@ export namespace Prisma {
 
   export type TypeMap<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> = {
     meta: {
-      modelProps: "authors" | "document_authors" | "document_supplements" | "documents" | "documents_metadates" | "supplements"
+      modelProps: "authors" | "document_supplements" | "documents" | "documents_metadates" | "supplements" | "images" | "document_authors"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -790,72 +806,6 @@ export namespace Prisma {
           count: {
             args: Prisma.authorsCountArgs<ExtArgs>
             result: $Utils.Optional<AuthorsCountAggregateOutputType> | number
-          }
-        }
-      }
-      document_authors: {
-        payload: Prisma.$document_authorsPayload<ExtArgs>
-        fields: Prisma.document_authorsFieldRefs
-        operations: {
-          findUnique: {
-            args: Prisma.document_authorsFindUniqueArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$document_authorsPayload> | null
-          }
-          findUniqueOrThrow: {
-            args: Prisma.document_authorsFindUniqueOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$document_authorsPayload>
-          }
-          findFirst: {
-            args: Prisma.document_authorsFindFirstArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$document_authorsPayload> | null
-          }
-          findFirstOrThrow: {
-            args: Prisma.document_authorsFindFirstOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$document_authorsPayload>
-          }
-          findMany: {
-            args: Prisma.document_authorsFindManyArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$document_authorsPayload>[]
-          }
-          create: {
-            args: Prisma.document_authorsCreateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$document_authorsPayload>
-          }
-          createMany: {
-            args: Prisma.document_authorsCreateManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          delete: {
-            args: Prisma.document_authorsDeleteArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$document_authorsPayload>
-          }
-          update: {
-            args: Prisma.document_authorsUpdateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$document_authorsPayload>
-          }
-          deleteMany: {
-            args: Prisma.document_authorsDeleteManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          updateMany: {
-            args: Prisma.document_authorsUpdateManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          upsert: {
-            args: Prisma.document_authorsUpsertArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$document_authorsPayload>
-          }
-          aggregate: {
-            args: Prisma.Document_authorsAggregateArgs<ExtArgs>
-            result: $Utils.Optional<AggregateDocument_authors>
-          }
-          groupBy: {
-            args: Prisma.document_authorsGroupByArgs<ExtArgs>
-            result: $Utils.Optional<Document_authorsGroupByOutputType>[]
-          }
-          count: {
-            args: Prisma.document_authorsCountArgs<ExtArgs>
-            result: $Utils.Optional<Document_authorsCountAggregateOutputType> | number
           }
         }
       }
@@ -1123,6 +1073,138 @@ export namespace Prisma {
           }
         }
       }
+      images: {
+        payload: Prisma.$imagesPayload<ExtArgs>
+        fields: Prisma.imagesFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.imagesFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$imagesPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.imagesFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$imagesPayload>
+          }
+          findFirst: {
+            args: Prisma.imagesFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$imagesPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.imagesFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$imagesPayload>
+          }
+          findMany: {
+            args: Prisma.imagesFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$imagesPayload>[]
+          }
+          create: {
+            args: Prisma.imagesCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$imagesPayload>
+          }
+          createMany: {
+            args: Prisma.imagesCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          delete: {
+            args: Prisma.imagesDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$imagesPayload>
+          }
+          update: {
+            args: Prisma.imagesUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$imagesPayload>
+          }
+          deleteMany: {
+            args: Prisma.imagesDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.imagesUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.imagesUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$imagesPayload>
+          }
+          aggregate: {
+            args: Prisma.ImagesAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateImages>
+          }
+          groupBy: {
+            args: Prisma.imagesGroupByArgs<ExtArgs>
+            result: $Utils.Optional<ImagesGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.imagesCountArgs<ExtArgs>
+            result: $Utils.Optional<ImagesCountAggregateOutputType> | number
+          }
+        }
+      }
+      document_authors: {
+        payload: Prisma.$document_authorsPayload<ExtArgs>
+        fields: Prisma.document_authorsFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.document_authorsFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$document_authorsPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.document_authorsFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$document_authorsPayload>
+          }
+          findFirst: {
+            args: Prisma.document_authorsFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$document_authorsPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.document_authorsFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$document_authorsPayload>
+          }
+          findMany: {
+            args: Prisma.document_authorsFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$document_authorsPayload>[]
+          }
+          create: {
+            args: Prisma.document_authorsCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$document_authorsPayload>
+          }
+          createMany: {
+            args: Prisma.document_authorsCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          delete: {
+            args: Prisma.document_authorsDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$document_authorsPayload>
+          }
+          update: {
+            args: Prisma.document_authorsUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$document_authorsPayload>
+          }
+          deleteMany: {
+            args: Prisma.document_authorsDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.document_authorsUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.document_authorsUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$document_authorsPayload>
+          }
+          aggregate: {
+            args: Prisma.Document_authorsAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateDocument_authors>
+          }
+          groupBy: {
+            args: Prisma.document_authorsGroupByArgs<ExtArgs>
+            result: $Utils.Optional<Document_authorsGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.document_authorsCountArgs<ExtArgs>
+            result: $Utils.Optional<Document_authorsCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -1387,10 +1469,12 @@ export namespace Prisma {
 
   export type SupplementsCountOutputType = {
     document_supplements: number
+    images: number
   }
 
   export type SupplementsCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     document_supplements?: boolean | SupplementsCountOutputTypeCountDocument_supplementsArgs
+    images?: boolean | SupplementsCountOutputTypeCountImagesArgs
   }
 
   // Custom InputTypes
@@ -1409,6 +1493,13 @@ export namespace Prisma {
    */
   export type SupplementsCountOutputTypeCountDocument_supplementsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: document_supplementsWhereInput
+  }
+
+  /**
+   * SupplementsCountOutputType without action
+   */
+  export type SupplementsCountOutputTypeCountImagesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: imagesWhereInput
   }
 
 
@@ -1430,12 +1521,14 @@ export namespace Prisma {
 
   export type AuthorsAvgAggregateOutputType = {
     authorID: number | null
+    percentageContribution: number | null
     authorNumber: number | null
     authorYearBirth: number | null
   }
 
   export type AuthorsSumAggregateOutputType = {
     authorID: number | null
+    percentageContribution: number | null
     authorNumber: number | null
     authorYearBirth: number | null
   }
@@ -1446,7 +1539,7 @@ export namespace Prisma {
     shortAuthorFIO: string | null
     authorWorkPosition: string | null
     authorWorkplace: string | null
-    percentageContribution: string | null
+    percentageContribution: number | null
     authorNumber: number | null
     authorYearBirth: number | null
     contribution: string | null
@@ -1459,7 +1552,7 @@ export namespace Prisma {
     shortAuthorFIO: string | null
     authorWorkPosition: string | null
     authorWorkplace: string | null
-    percentageContribution: string | null
+    percentageContribution: number | null
     authorNumber: number | null
     authorYearBirth: number | null
     contribution: string | null
@@ -1483,12 +1576,14 @@ export namespace Prisma {
 
   export type AuthorsAvgAggregateInputType = {
     authorID?: true
+    percentageContribution?: true
     authorNumber?: true
     authorYearBirth?: true
   }
 
   export type AuthorsSumAggregateInputType = {
     authorID?: true
+    percentageContribution?: true
     authorNumber?: true
     authorYearBirth?: true
   }
@@ -1625,7 +1720,7 @@ export namespace Prisma {
     shortAuthorFIO: string | null
     authorWorkPosition: string | null
     authorWorkplace: string | null
-    percentageContribution: string | null
+    percentageContribution: number | null
     authorNumber: number | null
     authorYearBirth: number | null
     contribution: string | null
@@ -1696,7 +1791,7 @@ export namespace Prisma {
       shortAuthorFIO: string | null
       authorWorkPosition: string | null
       authorWorkplace: string | null
-      percentageContribution: string | null
+      percentageContribution: number | null
       authorNumber: number | null
       authorYearBirth: number | null
       contribution: string | null
@@ -2076,7 +2171,7 @@ export namespace Prisma {
     readonly shortAuthorFIO: FieldRef<"authors", 'String'>
     readonly authorWorkPosition: FieldRef<"authors", 'String'>
     readonly authorWorkplace: FieldRef<"authors", 'String'>
-    readonly percentageContribution: FieldRef<"authors", 'String'>
+    readonly percentageContribution: FieldRef<"authors", 'Int'>
     readonly authorNumber: FieldRef<"authors", 'Int'>
     readonly authorYearBirth: FieldRef<"authors", 'Int'>
     readonly contribution: FieldRef<"authors", 'String'>
@@ -2411,894 +2506,6 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: authorsInclude<ExtArgs> | null
-  }
-
-
-  /**
-   * Model document_authors
-   */
-
-  export type AggregateDocument_authors = {
-    _count: Document_authorsCountAggregateOutputType | null
-    _avg: Document_authorsAvgAggregateOutputType | null
-    _sum: Document_authorsSumAggregateOutputType | null
-    _min: Document_authorsMinAggregateOutputType | null
-    _max: Document_authorsMaxAggregateOutputType | null
-  }
-
-  export type Document_authorsAvgAggregateOutputType = {
-    documentID: number | null
-    authorID: number | null
-  }
-
-  export type Document_authorsSumAggregateOutputType = {
-    documentID: number | null
-    authorID: number | null
-  }
-
-  export type Document_authorsMinAggregateOutputType = {
-    documentID: number | null
-    authorID: number | null
-  }
-
-  export type Document_authorsMaxAggregateOutputType = {
-    documentID: number | null
-    authorID: number | null
-  }
-
-  export type Document_authorsCountAggregateOutputType = {
-    documentID: number
-    authorID: number
-    _all: number
-  }
-
-
-  export type Document_authorsAvgAggregateInputType = {
-    documentID?: true
-    authorID?: true
-  }
-
-  export type Document_authorsSumAggregateInputType = {
-    documentID?: true
-    authorID?: true
-  }
-
-  export type Document_authorsMinAggregateInputType = {
-    documentID?: true
-    authorID?: true
-  }
-
-  export type Document_authorsMaxAggregateInputType = {
-    documentID?: true
-    authorID?: true
-  }
-
-  export type Document_authorsCountAggregateInputType = {
-    documentID?: true
-    authorID?: true
-    _all?: true
-  }
-
-  export type Document_authorsAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which document_authors to aggregate.
-     */
-    where?: document_authorsWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of document_authors to fetch.
-     */
-    orderBy?: document_authorsOrderByWithRelationInput | document_authorsOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the start position
-     */
-    cursor?: document_authorsWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` document_authors from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` document_authors.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Count returned document_authors
-    **/
-    _count?: true | Document_authorsCountAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to average
-    **/
-    _avg?: Document_authorsAvgAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to sum
-    **/
-    _sum?: Document_authorsSumAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the minimum value
-    **/
-    _min?: Document_authorsMinAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the maximum value
-    **/
-    _max?: Document_authorsMaxAggregateInputType
-  }
-
-  export type GetDocument_authorsAggregateType<T extends Document_authorsAggregateArgs> = {
-        [P in keyof T & keyof AggregateDocument_authors]: P extends '_count' | 'count'
-      ? T[P] extends true
-        ? number
-        : GetScalarType<T[P], AggregateDocument_authors[P]>
-      : GetScalarType<T[P], AggregateDocument_authors[P]>
-  }
-
-
-
-
-  export type document_authorsGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: document_authorsWhereInput
-    orderBy?: document_authorsOrderByWithAggregationInput | document_authorsOrderByWithAggregationInput[]
-    by: Document_authorsScalarFieldEnum[] | Document_authorsScalarFieldEnum
-    having?: document_authorsScalarWhereWithAggregatesInput
-    take?: number
-    skip?: number
-    _count?: Document_authorsCountAggregateInputType | true
-    _avg?: Document_authorsAvgAggregateInputType
-    _sum?: Document_authorsSumAggregateInputType
-    _min?: Document_authorsMinAggregateInputType
-    _max?: Document_authorsMaxAggregateInputType
-  }
-
-  export type Document_authorsGroupByOutputType = {
-    documentID: number
-    authorID: number
-    _count: Document_authorsCountAggregateOutputType | null
-    _avg: Document_authorsAvgAggregateOutputType | null
-    _sum: Document_authorsSumAggregateOutputType | null
-    _min: Document_authorsMinAggregateOutputType | null
-    _max: Document_authorsMaxAggregateOutputType | null
-  }
-
-  type GetDocument_authorsGroupByPayload<T extends document_authorsGroupByArgs> = Prisma.PrismaPromise<
-    Array<
-      PickEnumerable<Document_authorsGroupByOutputType, T['by']> &
-        {
-          [P in ((keyof T) & (keyof Document_authorsGroupByOutputType))]: P extends '_count'
-            ? T[P] extends boolean
-              ? number
-              : GetScalarType<T[P], Document_authorsGroupByOutputType[P]>
-            : GetScalarType<T[P], Document_authorsGroupByOutputType[P]>
-        }
-      >
-    >
-
-
-  export type document_authorsSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    documentID?: boolean
-    authorID?: boolean
-    documents?: boolean | documentsDefaultArgs<ExtArgs>
-    authors?: boolean | authorsDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["document_authors"]>
-
-
-  export type document_authorsSelectScalar = {
-    documentID?: boolean
-    authorID?: boolean
-  }
-
-  export type document_authorsInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    documents?: boolean | documentsDefaultArgs<ExtArgs>
-    authors?: boolean | authorsDefaultArgs<ExtArgs>
-  }
-
-  export type $document_authorsPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    name: "document_authors"
-    objects: {
-      documents: Prisma.$documentsPayload<ExtArgs>
-      authors: Prisma.$authorsPayload<ExtArgs>
-    }
-    scalars: $Extensions.GetPayloadResult<{
-      documentID: number
-      authorID: number
-    }, ExtArgs["result"]["document_authors"]>
-    composites: {}
-  }
-
-  type document_authorsGetPayload<S extends boolean | null | undefined | document_authorsDefaultArgs> = $Result.GetResult<Prisma.$document_authorsPayload, S>
-
-  type document_authorsCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
-    Omit<document_authorsFindManyArgs, 'select' | 'include' | 'distinct'> & {
-      select?: Document_authorsCountAggregateInputType | true
-    }
-
-  export interface document_authorsDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
-    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['document_authors'], meta: { name: 'document_authors' } }
-    /**
-     * Find zero or one Document_authors that matches the filter.
-     * @param {document_authorsFindUniqueArgs} args - Arguments to find a Document_authors
-     * @example
-     * // Get one Document_authors
-     * const document_authors = await prisma.document_authors.findUnique({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findUnique<T extends document_authorsFindUniqueArgs>(args: SelectSubset<T, document_authorsFindUniqueArgs<ExtArgs>>): Prisma__document_authorsClient<$Result.GetResult<Prisma.$document_authorsPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
-
-    /**
-     * Find one Document_authors that matches the filter or throw an error with `error.code='P2025'` 
-     * if no matches were found.
-     * @param {document_authorsFindUniqueOrThrowArgs} args - Arguments to find a Document_authors
-     * @example
-     * // Get one Document_authors
-     * const document_authors = await prisma.document_authors.findUniqueOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findUniqueOrThrow<T extends document_authorsFindUniqueOrThrowArgs>(args: SelectSubset<T, document_authorsFindUniqueOrThrowArgs<ExtArgs>>): Prisma__document_authorsClient<$Result.GetResult<Prisma.$document_authorsPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
-
-    /**
-     * Find the first Document_authors that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {document_authorsFindFirstArgs} args - Arguments to find a Document_authors
-     * @example
-     * // Get one Document_authors
-     * const document_authors = await prisma.document_authors.findFirst({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findFirst<T extends document_authorsFindFirstArgs>(args?: SelectSubset<T, document_authorsFindFirstArgs<ExtArgs>>): Prisma__document_authorsClient<$Result.GetResult<Prisma.$document_authorsPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
-
-    /**
-     * Find the first Document_authors that matches the filter or
-     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {document_authorsFindFirstOrThrowArgs} args - Arguments to find a Document_authors
-     * @example
-     * // Get one Document_authors
-     * const document_authors = await prisma.document_authors.findFirstOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findFirstOrThrow<T extends document_authorsFindFirstOrThrowArgs>(args?: SelectSubset<T, document_authorsFindFirstOrThrowArgs<ExtArgs>>): Prisma__document_authorsClient<$Result.GetResult<Prisma.$document_authorsPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
-
-    /**
-     * Find zero or more Document_authors that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {document_authorsFindManyArgs} args - Arguments to filter and select certain fields only.
-     * @example
-     * // Get all Document_authors
-     * const document_authors = await prisma.document_authors.findMany()
-     * 
-     * // Get first 10 Document_authors
-     * const document_authors = await prisma.document_authors.findMany({ take: 10 })
-     * 
-     * // Only select the `documentID`
-     * const document_authorsWithDocumentIDOnly = await prisma.document_authors.findMany({ select: { documentID: true } })
-     * 
-     */
-    findMany<T extends document_authorsFindManyArgs>(args?: SelectSubset<T, document_authorsFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$document_authorsPayload<ExtArgs>, T, "findMany">>
-
-    /**
-     * Create a Document_authors.
-     * @param {document_authorsCreateArgs} args - Arguments to create a Document_authors.
-     * @example
-     * // Create one Document_authors
-     * const Document_authors = await prisma.document_authors.create({
-     *   data: {
-     *     // ... data to create a Document_authors
-     *   }
-     * })
-     * 
-     */
-    create<T extends document_authorsCreateArgs>(args: SelectSubset<T, document_authorsCreateArgs<ExtArgs>>): Prisma__document_authorsClient<$Result.GetResult<Prisma.$document_authorsPayload<ExtArgs>, T, "create">, never, ExtArgs>
-
-    /**
-     * Create many Document_authors.
-     * @param {document_authorsCreateManyArgs} args - Arguments to create many Document_authors.
-     * @example
-     * // Create many Document_authors
-     * const document_authors = await prisma.document_authors.createMany({
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     *     
-     */
-    createMany<T extends document_authorsCreateManyArgs>(args?: SelectSubset<T, document_authorsCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Delete a Document_authors.
-     * @param {document_authorsDeleteArgs} args - Arguments to delete one Document_authors.
-     * @example
-     * // Delete one Document_authors
-     * const Document_authors = await prisma.document_authors.delete({
-     *   where: {
-     *     // ... filter to delete one Document_authors
-     *   }
-     * })
-     * 
-     */
-    delete<T extends document_authorsDeleteArgs>(args: SelectSubset<T, document_authorsDeleteArgs<ExtArgs>>): Prisma__document_authorsClient<$Result.GetResult<Prisma.$document_authorsPayload<ExtArgs>, T, "delete">, never, ExtArgs>
-
-    /**
-     * Update one Document_authors.
-     * @param {document_authorsUpdateArgs} args - Arguments to update one Document_authors.
-     * @example
-     * // Update one Document_authors
-     * const document_authors = await prisma.document_authors.update({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-     */
-    update<T extends document_authorsUpdateArgs>(args: SelectSubset<T, document_authorsUpdateArgs<ExtArgs>>): Prisma__document_authorsClient<$Result.GetResult<Prisma.$document_authorsPayload<ExtArgs>, T, "update">, never, ExtArgs>
-
-    /**
-     * Delete zero or more Document_authors.
-     * @param {document_authorsDeleteManyArgs} args - Arguments to filter Document_authors to delete.
-     * @example
-     * // Delete a few Document_authors
-     * const { count } = await prisma.document_authors.deleteMany({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     * 
-     */
-    deleteMany<T extends document_authorsDeleteManyArgs>(args?: SelectSubset<T, document_authorsDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Update zero or more Document_authors.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {document_authorsUpdateManyArgs} args - Arguments to update one or more rows.
-     * @example
-     * // Update many Document_authors
-     * const document_authors = await prisma.document_authors.updateMany({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-     */
-    updateMany<T extends document_authorsUpdateManyArgs>(args: SelectSubset<T, document_authorsUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Create or update one Document_authors.
-     * @param {document_authorsUpsertArgs} args - Arguments to update or create a Document_authors.
-     * @example
-     * // Update or create a Document_authors
-     * const document_authors = await prisma.document_authors.upsert({
-     *   create: {
-     *     // ... data to create a Document_authors
-     *   },
-     *   update: {
-     *     // ... in case it already exists, update
-     *   },
-     *   where: {
-     *     // ... the filter for the Document_authors we want to update
-     *   }
-     * })
-     */
-    upsert<T extends document_authorsUpsertArgs>(args: SelectSubset<T, document_authorsUpsertArgs<ExtArgs>>): Prisma__document_authorsClient<$Result.GetResult<Prisma.$document_authorsPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
-
-
-    /**
-     * Count the number of Document_authors.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {document_authorsCountArgs} args - Arguments to filter Document_authors to count.
-     * @example
-     * // Count the number of Document_authors
-     * const count = await prisma.document_authors.count({
-     *   where: {
-     *     // ... the filter for the Document_authors we want to count
-     *   }
-     * })
-    **/
-    count<T extends document_authorsCountArgs>(
-      args?: Subset<T, document_authorsCountArgs>,
-    ): Prisma.PrismaPromise<
-      T extends $Utils.Record<'select', any>
-        ? T['select'] extends true
-          ? number
-          : GetScalarType<T['select'], Document_authorsCountAggregateOutputType>
-        : number
-    >
-
-    /**
-     * Allows you to perform aggregations operations on a Document_authors.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {Document_authorsAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
-     * @example
-     * // Ordered by age ascending
-     * // Where email contains prisma.io
-     * // Limited to the 10 users
-     * const aggregations = await prisma.user.aggregate({
-     *   _avg: {
-     *     age: true,
-     *   },
-     *   where: {
-     *     email: {
-     *       contains: "prisma.io",
-     *     },
-     *   },
-     *   orderBy: {
-     *     age: "asc",
-     *   },
-     *   take: 10,
-     * })
-    **/
-    aggregate<T extends Document_authorsAggregateArgs>(args: Subset<T, Document_authorsAggregateArgs>): Prisma.PrismaPromise<GetDocument_authorsAggregateType<T>>
-
-    /**
-     * Group by Document_authors.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {document_authorsGroupByArgs} args - Group by arguments.
-     * @example
-     * // Group by city, order by createdAt, get count
-     * const result = await prisma.user.groupBy({
-     *   by: ['city', 'createdAt'],
-     *   orderBy: {
-     *     createdAt: true
-     *   },
-     *   _count: {
-     *     _all: true
-     *   },
-     * })
-     * 
-    **/
-    groupBy<
-      T extends document_authorsGroupByArgs,
-      HasSelectOrTake extends Or<
-        Extends<'skip', Keys<T>>,
-        Extends<'take', Keys<T>>
-      >,
-      OrderByArg extends True extends HasSelectOrTake
-        ? { orderBy: document_authorsGroupByArgs['orderBy'] }
-        : { orderBy?: document_authorsGroupByArgs['orderBy'] },
-      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
-      ByFields extends MaybeTupleToUnion<T['by']>,
-      ByValid extends Has<ByFields, OrderFields>,
-      HavingFields extends GetHavingFields<T['having']>,
-      HavingValid extends Has<ByFields, HavingFields>,
-      ByEmpty extends T['by'] extends never[] ? True : False,
-      InputErrors extends ByEmpty extends True
-      ? `Error: "by" must not be empty.`
-      : HavingValid extends False
-      ? {
-          [P in HavingFields]: P extends ByFields
-            ? never
-            : P extends string
-            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
-            : [
-                Error,
-                'Field ',
-                P,
-                ` in "having" needs to be provided in "by"`,
-              ]
-        }[HavingFields]
-      : 'take' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "take", you also need to provide "orderBy"'
-      : 'skip' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "skip", you also need to provide "orderBy"'
-      : ByValid extends True
-      ? {}
-      : {
-          [P in OrderFields]: P extends ByFields
-            ? never
-            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-        }[OrderFields]
-    >(args: SubsetIntersection<T, document_authorsGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetDocument_authorsGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
-  /**
-   * Fields of the document_authors model
-   */
-  readonly fields: document_authorsFieldRefs;
-  }
-
-  /**
-   * The delegate class that acts as a "Promise-like" for document_authors.
-   * Why is this prefixed with `Prisma__`?
-   * Because we want to prevent naming conflicts as mentioned in
-   * https://github.com/prisma/prisma-client-js/issues/707
-   */
-  export interface Prisma__document_authorsClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
-    readonly [Symbol.toStringTag]: "PrismaPromise"
-    documents<T extends documentsDefaultArgs<ExtArgs> = {}>(args?: Subset<T, documentsDefaultArgs<ExtArgs>>): Prisma__documentsClient<$Result.GetResult<Prisma.$documentsPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
-    authors<T extends authorsDefaultArgs<ExtArgs> = {}>(args?: Subset<T, authorsDefaultArgs<ExtArgs>>): Prisma__authorsClient<$Result.GetResult<Prisma.$authorsPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
-    /**
-     * Attaches callbacks for the resolution and/or rejection of the Promise.
-     * @param onfulfilled The callback to execute when the Promise is resolved.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of which ever callback is executed.
-     */
-    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
-    /**
-     * Attaches a callback for only the rejection of the Promise.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of the callback.
-     */
-    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
-    /**
-     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
-     * resolved value cannot be modified from the callback.
-     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
-     * @returns A Promise for the completion of the callback.
-     */
-    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
-  }
-
-
-
-
-  /**
-   * Fields of the document_authors model
-   */ 
-  interface document_authorsFieldRefs {
-    readonly documentID: FieldRef<"document_authors", 'Int'>
-    readonly authorID: FieldRef<"document_authors", 'Int'>
-  }
-    
-
-  // Custom InputTypes
-  /**
-   * document_authors findUnique
-   */
-  export type document_authorsFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the document_authors
-     */
-    select?: document_authorsSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: document_authorsInclude<ExtArgs> | null
-    /**
-     * Filter, which document_authors to fetch.
-     */
-    where: document_authorsWhereUniqueInput
-  }
-
-  /**
-   * document_authors findUniqueOrThrow
-   */
-  export type document_authorsFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the document_authors
-     */
-    select?: document_authorsSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: document_authorsInclude<ExtArgs> | null
-    /**
-     * Filter, which document_authors to fetch.
-     */
-    where: document_authorsWhereUniqueInput
-  }
-
-  /**
-   * document_authors findFirst
-   */
-  export type document_authorsFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the document_authors
-     */
-    select?: document_authorsSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: document_authorsInclude<ExtArgs> | null
-    /**
-     * Filter, which document_authors to fetch.
-     */
-    where?: document_authorsWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of document_authors to fetch.
-     */
-    orderBy?: document_authorsOrderByWithRelationInput | document_authorsOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for document_authors.
-     */
-    cursor?: document_authorsWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` document_authors from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` document_authors.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of document_authors.
-     */
-    distinct?: Document_authorsScalarFieldEnum | Document_authorsScalarFieldEnum[]
-  }
-
-  /**
-   * document_authors findFirstOrThrow
-   */
-  export type document_authorsFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the document_authors
-     */
-    select?: document_authorsSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: document_authorsInclude<ExtArgs> | null
-    /**
-     * Filter, which document_authors to fetch.
-     */
-    where?: document_authorsWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of document_authors to fetch.
-     */
-    orderBy?: document_authorsOrderByWithRelationInput | document_authorsOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for document_authors.
-     */
-    cursor?: document_authorsWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` document_authors from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` document_authors.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of document_authors.
-     */
-    distinct?: Document_authorsScalarFieldEnum | Document_authorsScalarFieldEnum[]
-  }
-
-  /**
-   * document_authors findMany
-   */
-  export type document_authorsFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the document_authors
-     */
-    select?: document_authorsSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: document_authorsInclude<ExtArgs> | null
-    /**
-     * Filter, which document_authors to fetch.
-     */
-    where?: document_authorsWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of document_authors to fetch.
-     */
-    orderBy?: document_authorsOrderByWithRelationInput | document_authorsOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for listing document_authors.
-     */
-    cursor?: document_authorsWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` document_authors from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` document_authors.
-     */
-    skip?: number
-    distinct?: Document_authorsScalarFieldEnum | Document_authorsScalarFieldEnum[]
-  }
-
-  /**
-   * document_authors create
-   */
-  export type document_authorsCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the document_authors
-     */
-    select?: document_authorsSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: document_authorsInclude<ExtArgs> | null
-    /**
-     * The data needed to create a document_authors.
-     */
-    data: XOR<document_authorsCreateInput, document_authorsUncheckedCreateInput>
-  }
-
-  /**
-   * document_authors createMany
-   */
-  export type document_authorsCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to create many document_authors.
-     */
-    data: document_authorsCreateManyInput | document_authorsCreateManyInput[]
-    skipDuplicates?: boolean
-  }
-
-  /**
-   * document_authors update
-   */
-  export type document_authorsUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the document_authors
-     */
-    select?: document_authorsSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: document_authorsInclude<ExtArgs> | null
-    /**
-     * The data needed to update a document_authors.
-     */
-    data: XOR<document_authorsUpdateInput, document_authorsUncheckedUpdateInput>
-    /**
-     * Choose, which document_authors to update.
-     */
-    where: document_authorsWhereUniqueInput
-  }
-
-  /**
-   * document_authors updateMany
-   */
-  export type document_authorsUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to update document_authors.
-     */
-    data: XOR<document_authorsUpdateManyMutationInput, document_authorsUncheckedUpdateManyInput>
-    /**
-     * Filter which document_authors to update
-     */
-    where?: document_authorsWhereInput
-  }
-
-  /**
-   * document_authors upsert
-   */
-  export type document_authorsUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the document_authors
-     */
-    select?: document_authorsSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: document_authorsInclude<ExtArgs> | null
-    /**
-     * The filter to search for the document_authors to update in case it exists.
-     */
-    where: document_authorsWhereUniqueInput
-    /**
-     * In case the document_authors found by the `where` argument doesn't exist, create a new document_authors with this data.
-     */
-    create: XOR<document_authorsCreateInput, document_authorsUncheckedCreateInput>
-    /**
-     * In case the document_authors was found with the provided `where` argument, update it with this data.
-     */
-    update: XOR<document_authorsUpdateInput, document_authorsUncheckedUpdateInput>
-  }
-
-  /**
-   * document_authors delete
-   */
-  export type document_authorsDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the document_authors
-     */
-    select?: document_authorsSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: document_authorsInclude<ExtArgs> | null
-    /**
-     * Filter which document_authors to delete.
-     */
-    where: document_authorsWhereUniqueInput
-  }
-
-  /**
-   * document_authors deleteMany
-   */
-  export type document_authorsDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which document_authors to delete
-     */
-    where?: document_authorsWhereInput
-  }
-
-  /**
-   * document_authors without action
-   */
-  export type document_authorsDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the document_authors
-     */
-    select?: document_authorsSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: document_authorsInclude<ExtArgs> | null
   }
 
 
@@ -6317,24 +5524,18 @@ export namespace Prisma {
   export type SupplementsMinAggregateOutputType = {
     supplementID: number | null
     name: string | null
-    image: Buffer | null
-    imageName: string | null
     timestamp: Date | null
   }
 
   export type SupplementsMaxAggregateOutputType = {
     supplementID: number | null
     name: string | null
-    image: Buffer | null
-    imageName: string | null
     timestamp: Date | null
   }
 
   export type SupplementsCountAggregateOutputType = {
     supplementID: number
     name: number
-    image: number
-    imageName: number
     timestamp: number
     _all: number
   }
@@ -6351,24 +5552,18 @@ export namespace Prisma {
   export type SupplementsMinAggregateInputType = {
     supplementID?: true
     name?: true
-    image?: true
-    imageName?: true
     timestamp?: true
   }
 
   export type SupplementsMaxAggregateInputType = {
     supplementID?: true
     name?: true
-    image?: true
-    imageName?: true
     timestamp?: true
   }
 
   export type SupplementsCountAggregateInputType = {
     supplementID?: true
     name?: true
-    image?: true
-    imageName?: true
     timestamp?: true
     _all?: true
   }
@@ -6462,8 +5657,6 @@ export namespace Prisma {
   export type SupplementsGroupByOutputType = {
     supplementID: number
     name: string | null
-    image: Buffer | null
-    imageName: string | null
     timestamp: Date | null
     _count: SupplementsCountAggregateOutputType | null
     _avg: SupplementsAvgAggregateOutputType | null
@@ -6489,10 +5682,9 @@ export namespace Prisma {
   export type supplementsSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     supplementID?: boolean
     name?: boolean
-    image?: boolean
-    imageName?: boolean
     timestamp?: boolean
     document_supplements?: boolean | supplements$document_supplementsArgs<ExtArgs>
+    images?: boolean | supplements$imagesArgs<ExtArgs>
     _count?: boolean | SupplementsCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["supplements"]>
 
@@ -6500,13 +5692,12 @@ export namespace Prisma {
   export type supplementsSelectScalar = {
     supplementID?: boolean
     name?: boolean
-    image?: boolean
-    imageName?: boolean
     timestamp?: boolean
   }
 
   export type supplementsInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     document_supplements?: boolean | supplements$document_supplementsArgs<ExtArgs>
+    images?: boolean | supplements$imagesArgs<ExtArgs>
     _count?: boolean | SupplementsCountOutputTypeDefaultArgs<ExtArgs>
   }
 
@@ -6514,12 +5705,11 @@ export namespace Prisma {
     name: "supplements"
     objects: {
       document_supplements: Prisma.$document_supplementsPayload<ExtArgs>[]
+      images: Prisma.$imagesPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       supplementID: number
       name: string | null
-      image: Buffer | null
-      imageName: string | null
       timestamp: Date | null
     }, ExtArgs["result"]["supplements"]>
     composites: {}
@@ -6862,6 +6052,7 @@ export namespace Prisma {
   export interface Prisma__supplementsClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     document_supplements<T extends supplements$document_supplementsArgs<ExtArgs> = {}>(args?: Subset<T, supplements$document_supplementsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$document_supplementsPayload<ExtArgs>, T, "findMany"> | Null>
+    images<T extends supplements$imagesArgs<ExtArgs> = {}>(args?: Subset<T, supplements$imagesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$imagesPayload<ExtArgs>, T, "findMany"> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -6893,8 +6084,6 @@ export namespace Prisma {
   interface supplementsFieldRefs {
     readonly supplementID: FieldRef<"supplements", 'Int'>
     readonly name: FieldRef<"supplements", 'String'>
-    readonly image: FieldRef<"supplements", 'Bytes'>
-    readonly imageName: FieldRef<"supplements", 'String'>
     readonly timestamp: FieldRef<"supplements", 'DateTime'>
   }
     
@@ -7215,6 +6404,26 @@ export namespace Prisma {
   }
 
   /**
+   * supplements.images
+   */
+  export type supplements$imagesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the images
+     */
+    select?: imagesSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: imagesInclude<ExtArgs> | null
+    where?: imagesWhereInput
+    orderBy?: imagesOrderByWithRelationInput | imagesOrderByWithRelationInput[]
+    cursor?: imagesWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ImagesScalarFieldEnum | ImagesScalarFieldEnum[]
+  }
+
+  /**
    * supplements without action
    */
   export type supplementsDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -7226,6 +6435,1826 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: supplementsInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model images
+   */
+
+  export type AggregateImages = {
+    _count: ImagesCountAggregateOutputType | null
+    _avg: ImagesAvgAggregateOutputType | null
+    _sum: ImagesSumAggregateOutputType | null
+    _min: ImagesMinAggregateOutputType | null
+    _max: ImagesMaxAggregateOutputType | null
+  }
+
+  export type ImagesAvgAggregateOutputType = {
+    imageID: number | null
+    supplementID: number | null
+  }
+
+  export type ImagesSumAggregateOutputType = {
+    imageID: number | null
+    supplementID: number | null
+  }
+
+  export type ImagesMinAggregateOutputType = {
+    imageID: number | null
+    supplementID: number | null
+    image: Buffer | null
+    imageName: string | null
+    timestamp: Date | null
+  }
+
+  export type ImagesMaxAggregateOutputType = {
+    imageID: number | null
+    supplementID: number | null
+    image: Buffer | null
+    imageName: string | null
+    timestamp: Date | null
+  }
+
+  export type ImagesCountAggregateOutputType = {
+    imageID: number
+    supplementID: number
+    image: number
+    imageName: number
+    timestamp: number
+    _all: number
+  }
+
+
+  export type ImagesAvgAggregateInputType = {
+    imageID?: true
+    supplementID?: true
+  }
+
+  export type ImagesSumAggregateInputType = {
+    imageID?: true
+    supplementID?: true
+  }
+
+  export type ImagesMinAggregateInputType = {
+    imageID?: true
+    supplementID?: true
+    image?: true
+    imageName?: true
+    timestamp?: true
+  }
+
+  export type ImagesMaxAggregateInputType = {
+    imageID?: true
+    supplementID?: true
+    image?: true
+    imageName?: true
+    timestamp?: true
+  }
+
+  export type ImagesCountAggregateInputType = {
+    imageID?: true
+    supplementID?: true
+    image?: true
+    imageName?: true
+    timestamp?: true
+    _all?: true
+  }
+
+  export type ImagesAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which images to aggregate.
+     */
+    where?: imagesWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of images to fetch.
+     */
+    orderBy?: imagesOrderByWithRelationInput | imagesOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: imagesWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` images from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` images.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned images
+    **/
+    _count?: true | ImagesCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: ImagesAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: ImagesSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: ImagesMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: ImagesMaxAggregateInputType
+  }
+
+  export type GetImagesAggregateType<T extends ImagesAggregateArgs> = {
+        [P in keyof T & keyof AggregateImages]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateImages[P]>
+      : GetScalarType<T[P], AggregateImages[P]>
+  }
+
+
+
+
+  export type imagesGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: imagesWhereInput
+    orderBy?: imagesOrderByWithAggregationInput | imagesOrderByWithAggregationInput[]
+    by: ImagesScalarFieldEnum[] | ImagesScalarFieldEnum
+    having?: imagesScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: ImagesCountAggregateInputType | true
+    _avg?: ImagesAvgAggregateInputType
+    _sum?: ImagesSumAggregateInputType
+    _min?: ImagesMinAggregateInputType
+    _max?: ImagesMaxAggregateInputType
+  }
+
+  export type ImagesGroupByOutputType = {
+    imageID: number
+    supplementID: number | null
+    image: Buffer | null
+    imageName: string | null
+    timestamp: Date | null
+    _count: ImagesCountAggregateOutputType | null
+    _avg: ImagesAvgAggregateOutputType | null
+    _sum: ImagesSumAggregateOutputType | null
+    _min: ImagesMinAggregateOutputType | null
+    _max: ImagesMaxAggregateOutputType | null
+  }
+
+  type GetImagesGroupByPayload<T extends imagesGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<ImagesGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof ImagesGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], ImagesGroupByOutputType[P]>
+            : GetScalarType<T[P], ImagesGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type imagesSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    imageID?: boolean
+    supplementID?: boolean
+    image?: boolean
+    imageName?: boolean
+    timestamp?: boolean
+    supplements?: boolean | images$supplementsArgs<ExtArgs>
+  }, ExtArgs["result"]["images"]>
+
+
+  export type imagesSelectScalar = {
+    imageID?: boolean
+    supplementID?: boolean
+    image?: boolean
+    imageName?: boolean
+    timestamp?: boolean
+  }
+
+  export type imagesInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    supplements?: boolean | images$supplementsArgs<ExtArgs>
+  }
+
+  export type $imagesPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "images"
+    objects: {
+      supplements: Prisma.$supplementsPayload<ExtArgs> | null
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      imageID: number
+      supplementID: number | null
+      image: Buffer | null
+      imageName: string | null
+      timestamp: Date | null
+    }, ExtArgs["result"]["images"]>
+    composites: {}
+  }
+
+  type imagesGetPayload<S extends boolean | null | undefined | imagesDefaultArgs> = $Result.GetResult<Prisma.$imagesPayload, S>
+
+  type imagesCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<imagesFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: ImagesCountAggregateInputType | true
+    }
+
+  export interface imagesDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['images'], meta: { name: 'images' } }
+    /**
+     * Find zero or one Images that matches the filter.
+     * @param {imagesFindUniqueArgs} args - Arguments to find a Images
+     * @example
+     * // Get one Images
+     * const images = await prisma.images.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends imagesFindUniqueArgs>(args: SelectSubset<T, imagesFindUniqueArgs<ExtArgs>>): Prisma__imagesClient<$Result.GetResult<Prisma.$imagesPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one Images that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {imagesFindUniqueOrThrowArgs} args - Arguments to find a Images
+     * @example
+     * // Get one Images
+     * const images = await prisma.images.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends imagesFindUniqueOrThrowArgs>(args: SelectSubset<T, imagesFindUniqueOrThrowArgs<ExtArgs>>): Prisma__imagesClient<$Result.GetResult<Prisma.$imagesPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first Images that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {imagesFindFirstArgs} args - Arguments to find a Images
+     * @example
+     * // Get one Images
+     * const images = await prisma.images.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends imagesFindFirstArgs>(args?: SelectSubset<T, imagesFindFirstArgs<ExtArgs>>): Prisma__imagesClient<$Result.GetResult<Prisma.$imagesPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first Images that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {imagesFindFirstOrThrowArgs} args - Arguments to find a Images
+     * @example
+     * // Get one Images
+     * const images = await prisma.images.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends imagesFindFirstOrThrowArgs>(args?: SelectSubset<T, imagesFindFirstOrThrowArgs<ExtArgs>>): Prisma__imagesClient<$Result.GetResult<Prisma.$imagesPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more Images that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {imagesFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Images
+     * const images = await prisma.images.findMany()
+     * 
+     * // Get first 10 Images
+     * const images = await prisma.images.findMany({ take: 10 })
+     * 
+     * // Only select the `imageID`
+     * const imagesWithImageIDOnly = await prisma.images.findMany({ select: { imageID: true } })
+     * 
+     */
+    findMany<T extends imagesFindManyArgs>(args?: SelectSubset<T, imagesFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$imagesPayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a Images.
+     * @param {imagesCreateArgs} args - Arguments to create a Images.
+     * @example
+     * // Create one Images
+     * const Images = await prisma.images.create({
+     *   data: {
+     *     // ... data to create a Images
+     *   }
+     * })
+     * 
+     */
+    create<T extends imagesCreateArgs>(args: SelectSubset<T, imagesCreateArgs<ExtArgs>>): Prisma__imagesClient<$Result.GetResult<Prisma.$imagesPayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many Images.
+     * @param {imagesCreateManyArgs} args - Arguments to create many Images.
+     * @example
+     * // Create many Images
+     * const images = await prisma.images.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends imagesCreateManyArgs>(args?: SelectSubset<T, imagesCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a Images.
+     * @param {imagesDeleteArgs} args - Arguments to delete one Images.
+     * @example
+     * // Delete one Images
+     * const Images = await prisma.images.delete({
+     *   where: {
+     *     // ... filter to delete one Images
+     *   }
+     * })
+     * 
+     */
+    delete<T extends imagesDeleteArgs>(args: SelectSubset<T, imagesDeleteArgs<ExtArgs>>): Prisma__imagesClient<$Result.GetResult<Prisma.$imagesPayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one Images.
+     * @param {imagesUpdateArgs} args - Arguments to update one Images.
+     * @example
+     * // Update one Images
+     * const images = await prisma.images.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends imagesUpdateArgs>(args: SelectSubset<T, imagesUpdateArgs<ExtArgs>>): Prisma__imagesClient<$Result.GetResult<Prisma.$imagesPayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more Images.
+     * @param {imagesDeleteManyArgs} args - Arguments to filter Images to delete.
+     * @example
+     * // Delete a few Images
+     * const { count } = await prisma.images.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends imagesDeleteManyArgs>(args?: SelectSubset<T, imagesDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Images.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {imagesUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Images
+     * const images = await prisma.images.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends imagesUpdateManyArgs>(args: SelectSubset<T, imagesUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one Images.
+     * @param {imagesUpsertArgs} args - Arguments to update or create a Images.
+     * @example
+     * // Update or create a Images
+     * const images = await prisma.images.upsert({
+     *   create: {
+     *     // ... data to create a Images
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Images we want to update
+     *   }
+     * })
+     */
+    upsert<T extends imagesUpsertArgs>(args: SelectSubset<T, imagesUpsertArgs<ExtArgs>>): Prisma__imagesClient<$Result.GetResult<Prisma.$imagesPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of Images.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {imagesCountArgs} args - Arguments to filter Images to count.
+     * @example
+     * // Count the number of Images
+     * const count = await prisma.images.count({
+     *   where: {
+     *     // ... the filter for the Images we want to count
+     *   }
+     * })
+    **/
+    count<T extends imagesCountArgs>(
+      args?: Subset<T, imagesCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], ImagesCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Images.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ImagesAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends ImagesAggregateArgs>(args: Subset<T, ImagesAggregateArgs>): Prisma.PrismaPromise<GetImagesAggregateType<T>>
+
+    /**
+     * Group by Images.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {imagesGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends imagesGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: imagesGroupByArgs['orderBy'] }
+        : { orderBy?: imagesGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, imagesGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetImagesGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the images model
+   */
+  readonly fields: imagesFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for images.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__imagesClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    supplements<T extends images$supplementsArgs<ExtArgs> = {}>(args?: Subset<T, images$supplementsArgs<ExtArgs>>): Prisma__supplementsClient<$Result.GetResult<Prisma.$supplementsPayload<ExtArgs>, T, "findUniqueOrThrow"> | null, null, ExtArgs>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the images model
+   */ 
+  interface imagesFieldRefs {
+    readonly imageID: FieldRef<"images", 'Int'>
+    readonly supplementID: FieldRef<"images", 'Int'>
+    readonly image: FieldRef<"images", 'Bytes'>
+    readonly imageName: FieldRef<"images", 'String'>
+    readonly timestamp: FieldRef<"images", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * images findUnique
+   */
+  export type imagesFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the images
+     */
+    select?: imagesSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: imagesInclude<ExtArgs> | null
+    /**
+     * Filter, which images to fetch.
+     */
+    where: imagesWhereUniqueInput
+  }
+
+  /**
+   * images findUniqueOrThrow
+   */
+  export type imagesFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the images
+     */
+    select?: imagesSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: imagesInclude<ExtArgs> | null
+    /**
+     * Filter, which images to fetch.
+     */
+    where: imagesWhereUniqueInput
+  }
+
+  /**
+   * images findFirst
+   */
+  export type imagesFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the images
+     */
+    select?: imagesSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: imagesInclude<ExtArgs> | null
+    /**
+     * Filter, which images to fetch.
+     */
+    where?: imagesWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of images to fetch.
+     */
+    orderBy?: imagesOrderByWithRelationInput | imagesOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for images.
+     */
+    cursor?: imagesWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` images from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` images.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of images.
+     */
+    distinct?: ImagesScalarFieldEnum | ImagesScalarFieldEnum[]
+  }
+
+  /**
+   * images findFirstOrThrow
+   */
+  export type imagesFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the images
+     */
+    select?: imagesSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: imagesInclude<ExtArgs> | null
+    /**
+     * Filter, which images to fetch.
+     */
+    where?: imagesWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of images to fetch.
+     */
+    orderBy?: imagesOrderByWithRelationInput | imagesOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for images.
+     */
+    cursor?: imagesWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` images from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` images.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of images.
+     */
+    distinct?: ImagesScalarFieldEnum | ImagesScalarFieldEnum[]
+  }
+
+  /**
+   * images findMany
+   */
+  export type imagesFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the images
+     */
+    select?: imagesSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: imagesInclude<ExtArgs> | null
+    /**
+     * Filter, which images to fetch.
+     */
+    where?: imagesWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of images to fetch.
+     */
+    orderBy?: imagesOrderByWithRelationInput | imagesOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing images.
+     */
+    cursor?: imagesWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` images from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` images.
+     */
+    skip?: number
+    distinct?: ImagesScalarFieldEnum | ImagesScalarFieldEnum[]
+  }
+
+  /**
+   * images create
+   */
+  export type imagesCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the images
+     */
+    select?: imagesSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: imagesInclude<ExtArgs> | null
+    /**
+     * The data needed to create a images.
+     */
+    data?: XOR<imagesCreateInput, imagesUncheckedCreateInput>
+  }
+
+  /**
+   * images createMany
+   */
+  export type imagesCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many images.
+     */
+    data: imagesCreateManyInput | imagesCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * images update
+   */
+  export type imagesUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the images
+     */
+    select?: imagesSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: imagesInclude<ExtArgs> | null
+    /**
+     * The data needed to update a images.
+     */
+    data: XOR<imagesUpdateInput, imagesUncheckedUpdateInput>
+    /**
+     * Choose, which images to update.
+     */
+    where: imagesWhereUniqueInput
+  }
+
+  /**
+   * images updateMany
+   */
+  export type imagesUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update images.
+     */
+    data: XOR<imagesUpdateManyMutationInput, imagesUncheckedUpdateManyInput>
+    /**
+     * Filter which images to update
+     */
+    where?: imagesWhereInput
+  }
+
+  /**
+   * images upsert
+   */
+  export type imagesUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the images
+     */
+    select?: imagesSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: imagesInclude<ExtArgs> | null
+    /**
+     * The filter to search for the images to update in case it exists.
+     */
+    where: imagesWhereUniqueInput
+    /**
+     * In case the images found by the `where` argument doesn't exist, create a new images with this data.
+     */
+    create: XOR<imagesCreateInput, imagesUncheckedCreateInput>
+    /**
+     * In case the images was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<imagesUpdateInput, imagesUncheckedUpdateInput>
+  }
+
+  /**
+   * images delete
+   */
+  export type imagesDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the images
+     */
+    select?: imagesSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: imagesInclude<ExtArgs> | null
+    /**
+     * Filter which images to delete.
+     */
+    where: imagesWhereUniqueInput
+  }
+
+  /**
+   * images deleteMany
+   */
+  export type imagesDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which images to delete
+     */
+    where?: imagesWhereInput
+  }
+
+  /**
+   * images.supplements
+   */
+  export type images$supplementsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the supplements
+     */
+    select?: supplementsSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: supplementsInclude<ExtArgs> | null
+    where?: supplementsWhereInput
+  }
+
+  /**
+   * images without action
+   */
+  export type imagesDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the images
+     */
+    select?: imagesSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: imagesInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model document_authors
+   */
+
+  export type AggregateDocument_authors = {
+    _count: Document_authorsCountAggregateOutputType | null
+    _avg: Document_authorsAvgAggregateOutputType | null
+    _sum: Document_authorsSumAggregateOutputType | null
+    _min: Document_authorsMinAggregateOutputType | null
+    _max: Document_authorsMaxAggregateOutputType | null
+  }
+
+  export type Document_authorsAvgAggregateOutputType = {
+    documentID: number | null
+    authorID: number | null
+  }
+
+  export type Document_authorsSumAggregateOutputType = {
+    documentID: number | null
+    authorID: number | null
+  }
+
+  export type Document_authorsMinAggregateOutputType = {
+    documentID: number | null
+    authorID: number | null
+  }
+
+  export type Document_authorsMaxAggregateOutputType = {
+    documentID: number | null
+    authorID: number | null
+  }
+
+  export type Document_authorsCountAggregateOutputType = {
+    documentID: number
+    authorID: number
+    _all: number
+  }
+
+
+  export type Document_authorsAvgAggregateInputType = {
+    documentID?: true
+    authorID?: true
+  }
+
+  export type Document_authorsSumAggregateInputType = {
+    documentID?: true
+    authorID?: true
+  }
+
+  export type Document_authorsMinAggregateInputType = {
+    documentID?: true
+    authorID?: true
+  }
+
+  export type Document_authorsMaxAggregateInputType = {
+    documentID?: true
+    authorID?: true
+  }
+
+  export type Document_authorsCountAggregateInputType = {
+    documentID?: true
+    authorID?: true
+    _all?: true
+  }
+
+  export type Document_authorsAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which document_authors to aggregate.
+     */
+    where?: document_authorsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of document_authors to fetch.
+     */
+    orderBy?: document_authorsOrderByWithRelationInput | document_authorsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: document_authorsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` document_authors from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` document_authors.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned document_authors
+    **/
+    _count?: true | Document_authorsCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: Document_authorsAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: Document_authorsSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: Document_authorsMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: Document_authorsMaxAggregateInputType
+  }
+
+  export type GetDocument_authorsAggregateType<T extends Document_authorsAggregateArgs> = {
+        [P in keyof T & keyof AggregateDocument_authors]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateDocument_authors[P]>
+      : GetScalarType<T[P], AggregateDocument_authors[P]>
+  }
+
+
+
+
+  export type document_authorsGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: document_authorsWhereInput
+    orderBy?: document_authorsOrderByWithAggregationInput | document_authorsOrderByWithAggregationInput[]
+    by: Document_authorsScalarFieldEnum[] | Document_authorsScalarFieldEnum
+    having?: document_authorsScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: Document_authorsCountAggregateInputType | true
+    _avg?: Document_authorsAvgAggregateInputType
+    _sum?: Document_authorsSumAggregateInputType
+    _min?: Document_authorsMinAggregateInputType
+    _max?: Document_authorsMaxAggregateInputType
+  }
+
+  export type Document_authorsGroupByOutputType = {
+    documentID: number
+    authorID: number
+    _count: Document_authorsCountAggregateOutputType | null
+    _avg: Document_authorsAvgAggregateOutputType | null
+    _sum: Document_authorsSumAggregateOutputType | null
+    _min: Document_authorsMinAggregateOutputType | null
+    _max: Document_authorsMaxAggregateOutputType | null
+  }
+
+  type GetDocument_authorsGroupByPayload<T extends document_authorsGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<Document_authorsGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof Document_authorsGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], Document_authorsGroupByOutputType[P]>
+            : GetScalarType<T[P], Document_authorsGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type document_authorsSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    documentID?: boolean
+    authorID?: boolean
+    documents?: boolean | documentsDefaultArgs<ExtArgs>
+    authors?: boolean | authorsDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["document_authors"]>
+
+
+  export type document_authorsSelectScalar = {
+    documentID?: boolean
+    authorID?: boolean
+  }
+
+  export type document_authorsInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    documents?: boolean | documentsDefaultArgs<ExtArgs>
+    authors?: boolean | authorsDefaultArgs<ExtArgs>
+  }
+
+  export type $document_authorsPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "document_authors"
+    objects: {
+      documents: Prisma.$documentsPayload<ExtArgs>
+      authors: Prisma.$authorsPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      documentID: number
+      authorID: number
+    }, ExtArgs["result"]["document_authors"]>
+    composites: {}
+  }
+
+  type document_authorsGetPayload<S extends boolean | null | undefined | document_authorsDefaultArgs> = $Result.GetResult<Prisma.$document_authorsPayload, S>
+
+  type document_authorsCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<document_authorsFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: Document_authorsCountAggregateInputType | true
+    }
+
+  export interface document_authorsDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['document_authors'], meta: { name: 'document_authors' } }
+    /**
+     * Find zero or one Document_authors that matches the filter.
+     * @param {document_authorsFindUniqueArgs} args - Arguments to find a Document_authors
+     * @example
+     * // Get one Document_authors
+     * const document_authors = await prisma.document_authors.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends document_authorsFindUniqueArgs>(args: SelectSubset<T, document_authorsFindUniqueArgs<ExtArgs>>): Prisma__document_authorsClient<$Result.GetResult<Prisma.$document_authorsPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one Document_authors that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {document_authorsFindUniqueOrThrowArgs} args - Arguments to find a Document_authors
+     * @example
+     * // Get one Document_authors
+     * const document_authors = await prisma.document_authors.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends document_authorsFindUniqueOrThrowArgs>(args: SelectSubset<T, document_authorsFindUniqueOrThrowArgs<ExtArgs>>): Prisma__document_authorsClient<$Result.GetResult<Prisma.$document_authorsPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first Document_authors that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {document_authorsFindFirstArgs} args - Arguments to find a Document_authors
+     * @example
+     * // Get one Document_authors
+     * const document_authors = await prisma.document_authors.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends document_authorsFindFirstArgs>(args?: SelectSubset<T, document_authorsFindFirstArgs<ExtArgs>>): Prisma__document_authorsClient<$Result.GetResult<Prisma.$document_authorsPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first Document_authors that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {document_authorsFindFirstOrThrowArgs} args - Arguments to find a Document_authors
+     * @example
+     * // Get one Document_authors
+     * const document_authors = await prisma.document_authors.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends document_authorsFindFirstOrThrowArgs>(args?: SelectSubset<T, document_authorsFindFirstOrThrowArgs<ExtArgs>>): Prisma__document_authorsClient<$Result.GetResult<Prisma.$document_authorsPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more Document_authors that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {document_authorsFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Document_authors
+     * const document_authors = await prisma.document_authors.findMany()
+     * 
+     * // Get first 10 Document_authors
+     * const document_authors = await prisma.document_authors.findMany({ take: 10 })
+     * 
+     * // Only select the `documentID`
+     * const document_authorsWithDocumentIDOnly = await prisma.document_authors.findMany({ select: { documentID: true } })
+     * 
+     */
+    findMany<T extends document_authorsFindManyArgs>(args?: SelectSubset<T, document_authorsFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$document_authorsPayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a Document_authors.
+     * @param {document_authorsCreateArgs} args - Arguments to create a Document_authors.
+     * @example
+     * // Create one Document_authors
+     * const Document_authors = await prisma.document_authors.create({
+     *   data: {
+     *     // ... data to create a Document_authors
+     *   }
+     * })
+     * 
+     */
+    create<T extends document_authorsCreateArgs>(args: SelectSubset<T, document_authorsCreateArgs<ExtArgs>>): Prisma__document_authorsClient<$Result.GetResult<Prisma.$document_authorsPayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many Document_authors.
+     * @param {document_authorsCreateManyArgs} args - Arguments to create many Document_authors.
+     * @example
+     * // Create many Document_authors
+     * const document_authors = await prisma.document_authors.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends document_authorsCreateManyArgs>(args?: SelectSubset<T, document_authorsCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a Document_authors.
+     * @param {document_authorsDeleteArgs} args - Arguments to delete one Document_authors.
+     * @example
+     * // Delete one Document_authors
+     * const Document_authors = await prisma.document_authors.delete({
+     *   where: {
+     *     // ... filter to delete one Document_authors
+     *   }
+     * })
+     * 
+     */
+    delete<T extends document_authorsDeleteArgs>(args: SelectSubset<T, document_authorsDeleteArgs<ExtArgs>>): Prisma__document_authorsClient<$Result.GetResult<Prisma.$document_authorsPayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one Document_authors.
+     * @param {document_authorsUpdateArgs} args - Arguments to update one Document_authors.
+     * @example
+     * // Update one Document_authors
+     * const document_authors = await prisma.document_authors.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends document_authorsUpdateArgs>(args: SelectSubset<T, document_authorsUpdateArgs<ExtArgs>>): Prisma__document_authorsClient<$Result.GetResult<Prisma.$document_authorsPayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more Document_authors.
+     * @param {document_authorsDeleteManyArgs} args - Arguments to filter Document_authors to delete.
+     * @example
+     * // Delete a few Document_authors
+     * const { count } = await prisma.document_authors.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends document_authorsDeleteManyArgs>(args?: SelectSubset<T, document_authorsDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Document_authors.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {document_authorsUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Document_authors
+     * const document_authors = await prisma.document_authors.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends document_authorsUpdateManyArgs>(args: SelectSubset<T, document_authorsUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one Document_authors.
+     * @param {document_authorsUpsertArgs} args - Arguments to update or create a Document_authors.
+     * @example
+     * // Update or create a Document_authors
+     * const document_authors = await prisma.document_authors.upsert({
+     *   create: {
+     *     // ... data to create a Document_authors
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Document_authors we want to update
+     *   }
+     * })
+     */
+    upsert<T extends document_authorsUpsertArgs>(args: SelectSubset<T, document_authorsUpsertArgs<ExtArgs>>): Prisma__document_authorsClient<$Result.GetResult<Prisma.$document_authorsPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of Document_authors.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {document_authorsCountArgs} args - Arguments to filter Document_authors to count.
+     * @example
+     * // Count the number of Document_authors
+     * const count = await prisma.document_authors.count({
+     *   where: {
+     *     // ... the filter for the Document_authors we want to count
+     *   }
+     * })
+    **/
+    count<T extends document_authorsCountArgs>(
+      args?: Subset<T, document_authorsCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], Document_authorsCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Document_authors.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {Document_authorsAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends Document_authorsAggregateArgs>(args: Subset<T, Document_authorsAggregateArgs>): Prisma.PrismaPromise<GetDocument_authorsAggregateType<T>>
+
+    /**
+     * Group by Document_authors.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {document_authorsGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends document_authorsGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: document_authorsGroupByArgs['orderBy'] }
+        : { orderBy?: document_authorsGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, document_authorsGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetDocument_authorsGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the document_authors model
+   */
+  readonly fields: document_authorsFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for document_authors.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__document_authorsClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    documents<T extends documentsDefaultArgs<ExtArgs> = {}>(args?: Subset<T, documentsDefaultArgs<ExtArgs>>): Prisma__documentsClient<$Result.GetResult<Prisma.$documentsPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    authors<T extends authorsDefaultArgs<ExtArgs> = {}>(args?: Subset<T, authorsDefaultArgs<ExtArgs>>): Prisma__authorsClient<$Result.GetResult<Prisma.$authorsPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the document_authors model
+   */ 
+  interface document_authorsFieldRefs {
+    readonly documentID: FieldRef<"document_authors", 'Int'>
+    readonly authorID: FieldRef<"document_authors", 'Int'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * document_authors findUnique
+   */
+  export type document_authorsFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the document_authors
+     */
+    select?: document_authorsSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: document_authorsInclude<ExtArgs> | null
+    /**
+     * Filter, which document_authors to fetch.
+     */
+    where: document_authorsWhereUniqueInput
+  }
+
+  /**
+   * document_authors findUniqueOrThrow
+   */
+  export type document_authorsFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the document_authors
+     */
+    select?: document_authorsSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: document_authorsInclude<ExtArgs> | null
+    /**
+     * Filter, which document_authors to fetch.
+     */
+    where: document_authorsWhereUniqueInput
+  }
+
+  /**
+   * document_authors findFirst
+   */
+  export type document_authorsFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the document_authors
+     */
+    select?: document_authorsSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: document_authorsInclude<ExtArgs> | null
+    /**
+     * Filter, which document_authors to fetch.
+     */
+    where?: document_authorsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of document_authors to fetch.
+     */
+    orderBy?: document_authorsOrderByWithRelationInput | document_authorsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for document_authors.
+     */
+    cursor?: document_authorsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` document_authors from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` document_authors.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of document_authors.
+     */
+    distinct?: Document_authorsScalarFieldEnum | Document_authorsScalarFieldEnum[]
+  }
+
+  /**
+   * document_authors findFirstOrThrow
+   */
+  export type document_authorsFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the document_authors
+     */
+    select?: document_authorsSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: document_authorsInclude<ExtArgs> | null
+    /**
+     * Filter, which document_authors to fetch.
+     */
+    where?: document_authorsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of document_authors to fetch.
+     */
+    orderBy?: document_authorsOrderByWithRelationInput | document_authorsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for document_authors.
+     */
+    cursor?: document_authorsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` document_authors from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` document_authors.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of document_authors.
+     */
+    distinct?: Document_authorsScalarFieldEnum | Document_authorsScalarFieldEnum[]
+  }
+
+  /**
+   * document_authors findMany
+   */
+  export type document_authorsFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the document_authors
+     */
+    select?: document_authorsSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: document_authorsInclude<ExtArgs> | null
+    /**
+     * Filter, which document_authors to fetch.
+     */
+    where?: document_authorsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of document_authors to fetch.
+     */
+    orderBy?: document_authorsOrderByWithRelationInput | document_authorsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing document_authors.
+     */
+    cursor?: document_authorsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` document_authors from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` document_authors.
+     */
+    skip?: number
+    distinct?: Document_authorsScalarFieldEnum | Document_authorsScalarFieldEnum[]
+  }
+
+  /**
+   * document_authors create
+   */
+  export type document_authorsCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the document_authors
+     */
+    select?: document_authorsSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: document_authorsInclude<ExtArgs> | null
+    /**
+     * The data needed to create a document_authors.
+     */
+    data: XOR<document_authorsCreateInput, document_authorsUncheckedCreateInput>
+  }
+
+  /**
+   * document_authors createMany
+   */
+  export type document_authorsCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many document_authors.
+     */
+    data: document_authorsCreateManyInput | document_authorsCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * document_authors update
+   */
+  export type document_authorsUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the document_authors
+     */
+    select?: document_authorsSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: document_authorsInclude<ExtArgs> | null
+    /**
+     * The data needed to update a document_authors.
+     */
+    data: XOR<document_authorsUpdateInput, document_authorsUncheckedUpdateInput>
+    /**
+     * Choose, which document_authors to update.
+     */
+    where: document_authorsWhereUniqueInput
+  }
+
+  /**
+   * document_authors updateMany
+   */
+  export type document_authorsUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update document_authors.
+     */
+    data: XOR<document_authorsUpdateManyMutationInput, document_authorsUncheckedUpdateManyInput>
+    /**
+     * Filter which document_authors to update
+     */
+    where?: document_authorsWhereInput
+  }
+
+  /**
+   * document_authors upsert
+   */
+  export type document_authorsUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the document_authors
+     */
+    select?: document_authorsSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: document_authorsInclude<ExtArgs> | null
+    /**
+     * The filter to search for the document_authors to update in case it exists.
+     */
+    where: document_authorsWhereUniqueInput
+    /**
+     * In case the document_authors found by the `where` argument doesn't exist, create a new document_authors with this data.
+     */
+    create: XOR<document_authorsCreateInput, document_authorsUncheckedCreateInput>
+    /**
+     * In case the document_authors was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<document_authorsUpdateInput, document_authorsUncheckedUpdateInput>
+  }
+
+  /**
+   * document_authors delete
+   */
+  export type document_authorsDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the document_authors
+     */
+    select?: document_authorsSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: document_authorsInclude<ExtArgs> | null
+    /**
+     * Filter which document_authors to delete.
+     */
+    where: document_authorsWhereUniqueInput
+  }
+
+  /**
+   * document_authors deleteMany
+   */
+  export type document_authorsDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which document_authors to delete
+     */
+    where?: document_authorsWhereInput
+  }
+
+  /**
+   * document_authors without action
+   */
+  export type document_authorsDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the document_authors
+     */
+    select?: document_authorsSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: document_authorsInclude<ExtArgs> | null
   }
 
 
@@ -7257,14 +8286,6 @@ export namespace Prisma {
   };
 
   export type AuthorsScalarFieldEnum = (typeof AuthorsScalarFieldEnum)[keyof typeof AuthorsScalarFieldEnum]
-
-
-  export const Document_authorsScalarFieldEnum: {
-    documentID: 'documentID',
-    authorID: 'authorID'
-  };
-
-  export type Document_authorsScalarFieldEnum = (typeof Document_authorsScalarFieldEnum)[keyof typeof Document_authorsScalarFieldEnum]
 
 
   export const Document_supplementsScalarFieldEnum: {
@@ -7317,12 +8338,29 @@ export namespace Prisma {
   export const SupplementsScalarFieldEnum: {
     supplementID: 'supplementID',
     name: 'name',
+    timestamp: 'timestamp'
+  };
+
+  export type SupplementsScalarFieldEnum = (typeof SupplementsScalarFieldEnum)[keyof typeof SupplementsScalarFieldEnum]
+
+
+  export const ImagesScalarFieldEnum: {
+    imageID: 'imageID',
+    supplementID: 'supplementID',
     image: 'image',
     imageName: 'imageName',
     timestamp: 'timestamp'
   };
 
-  export type SupplementsScalarFieldEnum = (typeof SupplementsScalarFieldEnum)[keyof typeof SupplementsScalarFieldEnum]
+  export type ImagesScalarFieldEnum = (typeof ImagesScalarFieldEnum)[keyof typeof ImagesScalarFieldEnum]
+
+
+  export const Document_authorsScalarFieldEnum: {
+    documentID: 'documentID',
+    authorID: 'authorID'
+  };
+
+  export type Document_authorsScalarFieldEnum = (typeof Document_authorsScalarFieldEnum)[keyof typeof Document_authorsScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -7393,7 +8431,7 @@ export namespace Prisma {
     shortAuthorFIO?: StringNullableFilter<"authors"> | string | null
     authorWorkPosition?: StringNullableFilter<"authors"> | string | null
     authorWorkplace?: StringNullableFilter<"authors"> | string | null
-    percentageContribution?: StringNullableFilter<"authors"> | string | null
+    percentageContribution?: IntNullableFilter<"authors"> | number | null
     authorNumber?: IntNullableFilter<"authors"> | number | null
     authorYearBirth?: IntNullableFilter<"authors"> | number | null
     contribution?: StringNullableFilter<"authors"> | string | null
@@ -7424,7 +8462,7 @@ export namespace Prisma {
     shortAuthorFIO?: StringNullableFilter<"authors"> | string | null
     authorWorkPosition?: StringNullableFilter<"authors"> | string | null
     authorWorkplace?: StringNullableFilter<"authors"> | string | null
-    percentageContribution?: StringNullableFilter<"authors"> | string | null
+    percentageContribution?: IntNullableFilter<"authors"> | number | null
     authorNumber?: IntNullableFilter<"authors"> | number | null
     authorYearBirth?: IntNullableFilter<"authors"> | number | null
     contribution?: StringNullableFilter<"authors"> | string | null
@@ -7459,57 +8497,11 @@ export namespace Prisma {
     shortAuthorFIO?: StringNullableWithAggregatesFilter<"authors"> | string | null
     authorWorkPosition?: StringNullableWithAggregatesFilter<"authors"> | string | null
     authorWorkplace?: StringNullableWithAggregatesFilter<"authors"> | string | null
-    percentageContribution?: StringNullableWithAggregatesFilter<"authors"> | string | null
+    percentageContribution?: IntNullableWithAggregatesFilter<"authors"> | number | null
     authorNumber?: IntNullableWithAggregatesFilter<"authors"> | number | null
     authorYearBirth?: IntNullableWithAggregatesFilter<"authors"> | number | null
     contribution?: StringNullableWithAggregatesFilter<"authors"> | string | null
     timestamp?: DateTimeNullableWithAggregatesFilter<"authors"> | Date | string | null
-  }
-
-  export type document_authorsWhereInput = {
-    AND?: document_authorsWhereInput | document_authorsWhereInput[]
-    OR?: document_authorsWhereInput[]
-    NOT?: document_authorsWhereInput | document_authorsWhereInput[]
-    documentID?: IntFilter<"document_authors"> | number
-    authorID?: IntFilter<"document_authors"> | number
-    documents?: XOR<DocumentsRelationFilter, documentsWhereInput>
-    authors?: XOR<AuthorsRelationFilter, authorsWhereInput>
-  }
-
-  export type document_authorsOrderByWithRelationInput = {
-    documentID?: SortOrder
-    authorID?: SortOrder
-    documents?: documentsOrderByWithRelationInput
-    authors?: authorsOrderByWithRelationInput
-  }
-
-  export type document_authorsWhereUniqueInput = Prisma.AtLeast<{
-    documentID_authorID?: document_authorsDocumentIDAuthorIDCompoundUniqueInput
-    AND?: document_authorsWhereInput | document_authorsWhereInput[]
-    OR?: document_authorsWhereInput[]
-    NOT?: document_authorsWhereInput | document_authorsWhereInput[]
-    documentID?: IntFilter<"document_authors"> | number
-    authorID?: IntFilter<"document_authors"> | number
-    documents?: XOR<DocumentsRelationFilter, documentsWhereInput>
-    authors?: XOR<AuthorsRelationFilter, authorsWhereInput>
-  }, "documentID_authorID">
-
-  export type document_authorsOrderByWithAggregationInput = {
-    documentID?: SortOrder
-    authorID?: SortOrder
-    _count?: document_authorsCountOrderByAggregateInput
-    _avg?: document_authorsAvgOrderByAggregateInput
-    _max?: document_authorsMaxOrderByAggregateInput
-    _min?: document_authorsMinOrderByAggregateInput
-    _sum?: document_authorsSumOrderByAggregateInput
-  }
-
-  export type document_authorsScalarWhereWithAggregatesInput = {
-    AND?: document_authorsScalarWhereWithAggregatesInput | document_authorsScalarWhereWithAggregatesInput[]
-    OR?: document_authorsScalarWhereWithAggregatesInput[]
-    NOT?: document_authorsScalarWhereWithAggregatesInput | document_authorsScalarWhereWithAggregatesInput[]
-    documentID?: IntWithAggregatesFilter<"document_authors"> | number
-    authorID?: IntWithAggregatesFilter<"document_authors"> | number
   }
 
   export type document_supplementsWhereInput = {
@@ -7769,19 +8761,17 @@ export namespace Prisma {
     NOT?: supplementsWhereInput | supplementsWhereInput[]
     supplementID?: IntFilter<"supplements"> | number
     name?: StringNullableFilter<"supplements"> | string | null
-    image?: BytesNullableFilter<"supplements"> | Buffer | null
-    imageName?: StringNullableFilter<"supplements"> | string | null
     timestamp?: DateTimeNullableFilter<"supplements"> | Date | string | null
     document_supplements?: Document_supplementsListRelationFilter
+    images?: ImagesListRelationFilter
   }
 
   export type supplementsOrderByWithRelationInput = {
     supplementID?: SortOrder
     name?: SortOrderInput | SortOrder
-    image?: SortOrderInput | SortOrder
-    imageName?: SortOrderInput | SortOrder
     timestamp?: SortOrderInput | SortOrder
     document_supplements?: document_supplementsOrderByRelationAggregateInput
+    images?: imagesOrderByRelationAggregateInput
   }
 
   export type supplementsWhereUniqueInput = Prisma.AtLeast<{
@@ -7790,17 +8780,14 @@ export namespace Prisma {
     OR?: supplementsWhereInput[]
     NOT?: supplementsWhereInput | supplementsWhereInput[]
     name?: StringNullableFilter<"supplements"> | string | null
-    image?: BytesNullableFilter<"supplements"> | Buffer | null
-    imageName?: StringNullableFilter<"supplements"> | string | null
     timestamp?: DateTimeNullableFilter<"supplements"> | Date | string | null
     document_supplements?: Document_supplementsListRelationFilter
+    images?: ImagesListRelationFilter
   }, "supplementID">
 
   export type supplementsOrderByWithAggregationInput = {
     supplementID?: SortOrder
     name?: SortOrderInput | SortOrder
-    image?: SortOrderInput | SortOrder
-    imageName?: SortOrderInput | SortOrder
     timestamp?: SortOrderInput | SortOrder
     _count?: supplementsCountOrderByAggregateInput
     _avg?: supplementsAvgOrderByAggregateInput
@@ -7815,9 +8802,110 @@ export namespace Prisma {
     NOT?: supplementsScalarWhereWithAggregatesInput | supplementsScalarWhereWithAggregatesInput[]
     supplementID?: IntWithAggregatesFilter<"supplements"> | number
     name?: StringNullableWithAggregatesFilter<"supplements"> | string | null
-    image?: BytesNullableWithAggregatesFilter<"supplements"> | Buffer | null
-    imageName?: StringNullableWithAggregatesFilter<"supplements"> | string | null
     timestamp?: DateTimeNullableWithAggregatesFilter<"supplements"> | Date | string | null
+  }
+
+  export type imagesWhereInput = {
+    AND?: imagesWhereInput | imagesWhereInput[]
+    OR?: imagesWhereInput[]
+    NOT?: imagesWhereInput | imagesWhereInput[]
+    imageID?: IntFilter<"images"> | number
+    supplementID?: IntNullableFilter<"images"> | number | null
+    image?: BytesNullableFilter<"images"> | Buffer | null
+    imageName?: StringNullableFilter<"images"> | string | null
+    timestamp?: DateTimeNullableFilter<"images"> | Date | string | null
+    supplements?: XOR<SupplementsNullableRelationFilter, supplementsWhereInput> | null
+  }
+
+  export type imagesOrderByWithRelationInput = {
+    imageID?: SortOrder
+    supplementID?: SortOrderInput | SortOrder
+    image?: SortOrderInput | SortOrder
+    imageName?: SortOrderInput | SortOrder
+    timestamp?: SortOrderInput | SortOrder
+    supplements?: supplementsOrderByWithRelationInput
+  }
+
+  export type imagesWhereUniqueInput = Prisma.AtLeast<{
+    imageID?: number
+    AND?: imagesWhereInput | imagesWhereInput[]
+    OR?: imagesWhereInput[]
+    NOT?: imagesWhereInput | imagesWhereInput[]
+    supplementID?: IntNullableFilter<"images"> | number | null
+    image?: BytesNullableFilter<"images"> | Buffer | null
+    imageName?: StringNullableFilter<"images"> | string | null
+    timestamp?: DateTimeNullableFilter<"images"> | Date | string | null
+    supplements?: XOR<SupplementsNullableRelationFilter, supplementsWhereInput> | null
+  }, "imageID">
+
+  export type imagesOrderByWithAggregationInput = {
+    imageID?: SortOrder
+    supplementID?: SortOrderInput | SortOrder
+    image?: SortOrderInput | SortOrder
+    imageName?: SortOrderInput | SortOrder
+    timestamp?: SortOrderInput | SortOrder
+    _count?: imagesCountOrderByAggregateInput
+    _avg?: imagesAvgOrderByAggregateInput
+    _max?: imagesMaxOrderByAggregateInput
+    _min?: imagesMinOrderByAggregateInput
+    _sum?: imagesSumOrderByAggregateInput
+  }
+
+  export type imagesScalarWhereWithAggregatesInput = {
+    AND?: imagesScalarWhereWithAggregatesInput | imagesScalarWhereWithAggregatesInput[]
+    OR?: imagesScalarWhereWithAggregatesInput[]
+    NOT?: imagesScalarWhereWithAggregatesInput | imagesScalarWhereWithAggregatesInput[]
+    imageID?: IntWithAggregatesFilter<"images"> | number
+    supplementID?: IntNullableWithAggregatesFilter<"images"> | number | null
+    image?: BytesNullableWithAggregatesFilter<"images"> | Buffer | null
+    imageName?: StringNullableWithAggregatesFilter<"images"> | string | null
+    timestamp?: DateTimeNullableWithAggregatesFilter<"images"> | Date | string | null
+  }
+
+  export type document_authorsWhereInput = {
+    AND?: document_authorsWhereInput | document_authorsWhereInput[]
+    OR?: document_authorsWhereInput[]
+    NOT?: document_authorsWhereInput | document_authorsWhereInput[]
+    documentID?: IntFilter<"document_authors"> | number
+    authorID?: IntFilter<"document_authors"> | number
+    documents?: XOR<DocumentsRelationFilter, documentsWhereInput>
+    authors?: XOR<AuthorsRelationFilter, authorsWhereInput>
+  }
+
+  export type document_authorsOrderByWithRelationInput = {
+    documentID?: SortOrder
+    authorID?: SortOrder
+    documents?: documentsOrderByWithRelationInput
+    authors?: authorsOrderByWithRelationInput
+  }
+
+  export type document_authorsWhereUniqueInput = Prisma.AtLeast<{
+    documentID_authorID?: document_authorsDocumentIDAuthorIDCompoundUniqueInput
+    AND?: document_authorsWhereInput | document_authorsWhereInput[]
+    OR?: document_authorsWhereInput[]
+    NOT?: document_authorsWhereInput | document_authorsWhereInput[]
+    documentID?: IntFilter<"document_authors"> | number
+    authorID?: IntFilter<"document_authors"> | number
+    documents?: XOR<DocumentsRelationFilter, documentsWhereInput>
+    authors?: XOR<AuthorsRelationFilter, authorsWhereInput>
+  }, "documentID_authorID">
+
+  export type document_authorsOrderByWithAggregationInput = {
+    documentID?: SortOrder
+    authorID?: SortOrder
+    _count?: document_authorsCountOrderByAggregateInput
+    _avg?: document_authorsAvgOrderByAggregateInput
+    _max?: document_authorsMaxOrderByAggregateInput
+    _min?: document_authorsMinOrderByAggregateInput
+    _sum?: document_authorsSumOrderByAggregateInput
+  }
+
+  export type document_authorsScalarWhereWithAggregatesInput = {
+    AND?: document_authorsScalarWhereWithAggregatesInput | document_authorsScalarWhereWithAggregatesInput[]
+    OR?: document_authorsScalarWhereWithAggregatesInput[]
+    NOT?: document_authorsScalarWhereWithAggregatesInput | document_authorsScalarWhereWithAggregatesInput[]
+    documentID?: IntWithAggregatesFilter<"document_authors"> | number
+    authorID?: IntWithAggregatesFilter<"document_authors"> | number
   }
 
   export type authorsCreateInput = {
@@ -7825,7 +8913,7 @@ export namespace Prisma {
     shortAuthorFIO?: string | null
     authorWorkPosition?: string | null
     authorWorkplace?: string | null
-    percentageContribution?: string | null
+    percentageContribution?: number | null
     authorNumber?: number | null
     authorYearBirth?: number | null
     contribution?: string | null
@@ -7839,7 +8927,7 @@ export namespace Prisma {
     shortAuthorFIO?: string | null
     authorWorkPosition?: string | null
     authorWorkplace?: string | null
-    percentageContribution?: string | null
+    percentageContribution?: number | null
     authorNumber?: number | null
     authorYearBirth?: number | null
     contribution?: string | null
@@ -7852,7 +8940,7 @@ export namespace Prisma {
     shortAuthorFIO?: NullableStringFieldUpdateOperationsInput | string | null
     authorWorkPosition?: NullableStringFieldUpdateOperationsInput | string | null
     authorWorkplace?: NullableStringFieldUpdateOperationsInput | string | null
-    percentageContribution?: NullableStringFieldUpdateOperationsInput | string | null
+    percentageContribution?: NullableIntFieldUpdateOperationsInput | number | null
     authorNumber?: NullableIntFieldUpdateOperationsInput | number | null
     authorYearBirth?: NullableIntFieldUpdateOperationsInput | number | null
     contribution?: NullableStringFieldUpdateOperationsInput | string | null
@@ -7866,7 +8954,7 @@ export namespace Prisma {
     shortAuthorFIO?: NullableStringFieldUpdateOperationsInput | string | null
     authorWorkPosition?: NullableStringFieldUpdateOperationsInput | string | null
     authorWorkplace?: NullableStringFieldUpdateOperationsInput | string | null
-    percentageContribution?: NullableStringFieldUpdateOperationsInput | string | null
+    percentageContribution?: NullableIntFieldUpdateOperationsInput | number | null
     authorNumber?: NullableIntFieldUpdateOperationsInput | number | null
     authorYearBirth?: NullableIntFieldUpdateOperationsInput | number | null
     contribution?: NullableStringFieldUpdateOperationsInput | string | null
@@ -7880,7 +8968,7 @@ export namespace Prisma {
     shortAuthorFIO?: string | null
     authorWorkPosition?: string | null
     authorWorkplace?: string | null
-    percentageContribution?: string | null
+    percentageContribution?: number | null
     authorNumber?: number | null
     authorYearBirth?: number | null
     contribution?: string | null
@@ -7892,7 +8980,7 @@ export namespace Prisma {
     shortAuthorFIO?: NullableStringFieldUpdateOperationsInput | string | null
     authorWorkPosition?: NullableStringFieldUpdateOperationsInput | string | null
     authorWorkplace?: NullableStringFieldUpdateOperationsInput | string | null
-    percentageContribution?: NullableStringFieldUpdateOperationsInput | string | null
+    percentageContribution?: NullableIntFieldUpdateOperationsInput | number | null
     authorNumber?: NullableIntFieldUpdateOperationsInput | number | null
     authorYearBirth?: NullableIntFieldUpdateOperationsInput | number | null
     contribution?: NullableStringFieldUpdateOperationsInput | string | null
@@ -7905,45 +8993,11 @@ export namespace Prisma {
     shortAuthorFIO?: NullableStringFieldUpdateOperationsInput | string | null
     authorWorkPosition?: NullableStringFieldUpdateOperationsInput | string | null
     authorWorkplace?: NullableStringFieldUpdateOperationsInput | string | null
-    percentageContribution?: NullableStringFieldUpdateOperationsInput | string | null
+    percentageContribution?: NullableIntFieldUpdateOperationsInput | number | null
     authorNumber?: NullableIntFieldUpdateOperationsInput | number | null
     authorYearBirth?: NullableIntFieldUpdateOperationsInput | number | null
     contribution?: NullableStringFieldUpdateOperationsInput | string | null
     timestamp?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  }
-
-  export type document_authorsCreateInput = {
-    documents: documentsCreateNestedOneWithoutDocument_authorsInput
-    authors: authorsCreateNestedOneWithoutDocument_authorsInput
-  }
-
-  export type document_authorsUncheckedCreateInput = {
-    documentID: number
-    authorID: number
-  }
-
-  export type document_authorsUpdateInput = {
-    documents?: documentsUpdateOneRequiredWithoutDocument_authorsNestedInput
-    authors?: authorsUpdateOneRequiredWithoutDocument_authorsNestedInput
-  }
-
-  export type document_authorsUncheckedUpdateInput = {
-    documentID?: IntFieldUpdateOperationsInput | number
-    authorID?: IntFieldUpdateOperationsInput | number
-  }
-
-  export type document_authorsCreateManyInput = {
-    documentID: number
-    authorID: number
-  }
-
-  export type document_authorsUpdateManyMutationInput = {
-
-  }
-
-  export type document_authorsUncheckedUpdateManyInput = {
-    documentID?: IntFieldUpdateOperationsInput | number
-    authorID?: IntFieldUpdateOperationsInput | number
   }
 
   export type document_supplementsCreateInput = {
@@ -8218,59 +9272,135 @@ export namespace Prisma {
 
   export type supplementsCreateInput = {
     name?: string | null
-    image?: Buffer | null
-    imageName?: string | null
     timestamp?: Date | string | null
     document_supplements?: document_supplementsCreateNestedManyWithoutSupplementsInput
+    images?: imagesCreateNestedManyWithoutSupplementsInput
   }
 
   export type supplementsUncheckedCreateInput = {
     supplementID?: number
     name?: string | null
-    image?: Buffer | null
-    imageName?: string | null
     timestamp?: Date | string | null
     document_supplements?: document_supplementsUncheckedCreateNestedManyWithoutSupplementsInput
+    images?: imagesUncheckedCreateNestedManyWithoutSupplementsInput
   }
 
   export type supplementsUpdateInput = {
     name?: NullableStringFieldUpdateOperationsInput | string | null
-    image?: NullableBytesFieldUpdateOperationsInput | Buffer | null
-    imageName?: NullableStringFieldUpdateOperationsInput | string | null
     timestamp?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     document_supplements?: document_supplementsUpdateManyWithoutSupplementsNestedInput
+    images?: imagesUpdateManyWithoutSupplementsNestedInput
   }
 
   export type supplementsUncheckedUpdateInput = {
     supplementID?: IntFieldUpdateOperationsInput | number
     name?: NullableStringFieldUpdateOperationsInput | string | null
-    image?: NullableBytesFieldUpdateOperationsInput | Buffer | null
-    imageName?: NullableStringFieldUpdateOperationsInput | string | null
     timestamp?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     document_supplements?: document_supplementsUncheckedUpdateManyWithoutSupplementsNestedInput
+    images?: imagesUncheckedUpdateManyWithoutSupplementsNestedInput
   }
 
   export type supplementsCreateManyInput = {
     supplementID?: number
     name?: string | null
-    image?: Buffer | null
-    imageName?: string | null
     timestamp?: Date | string | null
   }
 
   export type supplementsUpdateManyMutationInput = {
     name?: NullableStringFieldUpdateOperationsInput | string | null
-    image?: NullableBytesFieldUpdateOperationsInput | Buffer | null
-    imageName?: NullableStringFieldUpdateOperationsInput | string | null
     timestamp?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type supplementsUncheckedUpdateManyInput = {
     supplementID?: IntFieldUpdateOperationsInput | number
     name?: NullableStringFieldUpdateOperationsInput | string | null
+    timestamp?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type imagesCreateInput = {
+    image?: Buffer | null
+    imageName?: string | null
+    timestamp?: Date | string | null
+    supplements?: supplementsCreateNestedOneWithoutImagesInput
+  }
+
+  export type imagesUncheckedCreateInput = {
+    imageID?: number
+    supplementID?: number | null
+    image?: Buffer | null
+    imageName?: string | null
+    timestamp?: Date | string | null
+  }
+
+  export type imagesUpdateInput = {
     image?: NullableBytesFieldUpdateOperationsInput | Buffer | null
     imageName?: NullableStringFieldUpdateOperationsInput | string | null
     timestamp?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    supplements?: supplementsUpdateOneWithoutImagesNestedInput
+  }
+
+  export type imagesUncheckedUpdateInput = {
+    imageID?: IntFieldUpdateOperationsInput | number
+    supplementID?: NullableIntFieldUpdateOperationsInput | number | null
+    image?: NullableBytesFieldUpdateOperationsInput | Buffer | null
+    imageName?: NullableStringFieldUpdateOperationsInput | string | null
+    timestamp?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type imagesCreateManyInput = {
+    imageID?: number
+    supplementID?: number | null
+    image?: Buffer | null
+    imageName?: string | null
+    timestamp?: Date | string | null
+  }
+
+  export type imagesUpdateManyMutationInput = {
+    image?: NullableBytesFieldUpdateOperationsInput | Buffer | null
+    imageName?: NullableStringFieldUpdateOperationsInput | string | null
+    timestamp?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type imagesUncheckedUpdateManyInput = {
+    imageID?: IntFieldUpdateOperationsInput | number
+    supplementID?: NullableIntFieldUpdateOperationsInput | number | null
+    image?: NullableBytesFieldUpdateOperationsInput | Buffer | null
+    imageName?: NullableStringFieldUpdateOperationsInput | string | null
+    timestamp?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type document_authorsCreateInput = {
+    documents: documentsCreateNestedOneWithoutDocument_authorsInput
+    authors: authorsCreateNestedOneWithoutDocument_authorsInput
+  }
+
+  export type document_authorsUncheckedCreateInput = {
+    documentID: number
+    authorID: number
+  }
+
+  export type document_authorsUpdateInput = {
+    documents?: documentsUpdateOneRequiredWithoutDocument_authorsNestedInput
+    authors?: authorsUpdateOneRequiredWithoutDocument_authorsNestedInput
+  }
+
+  export type document_authorsUncheckedUpdateInput = {
+    documentID?: IntFieldUpdateOperationsInput | number
+    authorID?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type document_authorsCreateManyInput = {
+    documentID: number
+    authorID: number
+  }
+
+  export type document_authorsUpdateManyMutationInput = {
+
+  }
+
+  export type document_authorsUncheckedUpdateManyInput = {
+    documentID?: IntFieldUpdateOperationsInput | number
+    authorID?: IntFieldUpdateOperationsInput | number
   }
 
   export type IntFilter<$PrismaModel = never> = {
@@ -8350,6 +9480,7 @@ export namespace Prisma {
 
   export type authorsAvgOrderByAggregateInput = {
     authorID?: SortOrder
+    percentageContribution?: SortOrder
     authorNumber?: SortOrder
     authorYearBirth?: SortOrder
   }
@@ -8382,6 +9513,7 @@ export namespace Prisma {
 
   export type authorsSumOrderByAggregateInput = {
     authorID?: SortOrder
+    percentageContribution?: SortOrder
     authorNumber?: SortOrder
     authorYearBirth?: SortOrder
   }
@@ -8452,41 +9584,6 @@ export namespace Prisma {
   export type DocumentsRelationFilter = {
     is?: documentsWhereInput
     isNot?: documentsWhereInput
-  }
-
-  export type AuthorsRelationFilter = {
-    is?: authorsWhereInput
-    isNot?: authorsWhereInput
-  }
-
-  export type document_authorsDocumentIDAuthorIDCompoundUniqueInput = {
-    documentID: number
-    authorID: number
-  }
-
-  export type document_authorsCountOrderByAggregateInput = {
-    documentID?: SortOrder
-    authorID?: SortOrder
-  }
-
-  export type document_authorsAvgOrderByAggregateInput = {
-    documentID?: SortOrder
-    authorID?: SortOrder
-  }
-
-  export type document_authorsMaxOrderByAggregateInput = {
-    documentID?: SortOrder
-    authorID?: SortOrder
-  }
-
-  export type document_authorsMinOrderByAggregateInput = {
-    documentID?: SortOrder
-    authorID?: SortOrder
-  }
-
-  export type document_authorsSumOrderByAggregateInput = {
-    documentID?: SortOrder
-    authorID?: SortOrder
   }
 
   export type SupplementsRelationFilter = {
@@ -8666,18 +9763,19 @@ export namespace Prisma {
     metadataID?: SortOrder
   }
 
-  export type BytesNullableFilter<$PrismaModel = never> = {
-    equals?: Buffer | BytesFieldRefInput<$PrismaModel> | null
-    in?: Buffer[] | null
-    notIn?: Buffer[] | null
-    not?: NestedBytesNullableFilter<$PrismaModel> | Buffer | null
+  export type ImagesListRelationFilter = {
+    every?: imagesWhereInput
+    some?: imagesWhereInput
+    none?: imagesWhereInput
+  }
+
+  export type imagesOrderByRelationAggregateInput = {
+    _count?: SortOrder
   }
 
   export type supplementsCountOrderByAggregateInput = {
     supplementID?: SortOrder
     name?: SortOrder
-    image?: SortOrder
-    imageName?: SortOrder
     timestamp?: SortOrder
   }
 
@@ -8688,20 +9786,62 @@ export namespace Prisma {
   export type supplementsMaxOrderByAggregateInput = {
     supplementID?: SortOrder
     name?: SortOrder
-    image?: SortOrder
-    imageName?: SortOrder
     timestamp?: SortOrder
   }
 
   export type supplementsMinOrderByAggregateInput = {
     supplementID?: SortOrder
     name?: SortOrder
+    timestamp?: SortOrder
+  }
+
+  export type supplementsSumOrderByAggregateInput = {
+    supplementID?: SortOrder
+  }
+
+  export type BytesNullableFilter<$PrismaModel = never> = {
+    equals?: Buffer | BytesFieldRefInput<$PrismaModel> | null
+    in?: Buffer[] | null
+    notIn?: Buffer[] | null
+    not?: NestedBytesNullableFilter<$PrismaModel> | Buffer | null
+  }
+
+  export type SupplementsNullableRelationFilter = {
+    is?: supplementsWhereInput | null
+    isNot?: supplementsWhereInput | null
+  }
+
+  export type imagesCountOrderByAggregateInput = {
+    imageID?: SortOrder
+    supplementID?: SortOrder
     image?: SortOrder
     imageName?: SortOrder
     timestamp?: SortOrder
   }
 
-  export type supplementsSumOrderByAggregateInput = {
+  export type imagesAvgOrderByAggregateInput = {
+    imageID?: SortOrder
+    supplementID?: SortOrder
+  }
+
+  export type imagesMaxOrderByAggregateInput = {
+    imageID?: SortOrder
+    supplementID?: SortOrder
+    image?: SortOrder
+    imageName?: SortOrder
+    timestamp?: SortOrder
+  }
+
+  export type imagesMinOrderByAggregateInput = {
+    imageID?: SortOrder
+    supplementID?: SortOrder
+    image?: SortOrder
+    imageName?: SortOrder
+    timestamp?: SortOrder
+  }
+
+  export type imagesSumOrderByAggregateInput = {
+    imageID?: SortOrder
     supplementID?: SortOrder
   }
 
@@ -8713,6 +9853,41 @@ export namespace Prisma {
     _count?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedBytesNullableFilter<$PrismaModel>
     _max?: NestedBytesNullableFilter<$PrismaModel>
+  }
+
+  export type AuthorsRelationFilter = {
+    is?: authorsWhereInput
+    isNot?: authorsWhereInput
+  }
+
+  export type document_authorsDocumentIDAuthorIDCompoundUniqueInput = {
+    documentID: number
+    authorID: number
+  }
+
+  export type document_authorsCountOrderByAggregateInput = {
+    documentID?: SortOrder
+    authorID?: SortOrder
+  }
+
+  export type document_authorsAvgOrderByAggregateInput = {
+    documentID?: SortOrder
+    authorID?: SortOrder
+  }
+
+  export type document_authorsMaxOrderByAggregateInput = {
+    documentID?: SortOrder
+    authorID?: SortOrder
+  }
+
+  export type document_authorsMinOrderByAggregateInput = {
+    documentID?: SortOrder
+    authorID?: SortOrder
+  }
+
+  export type document_authorsSumOrderByAggregateInput = {
+    documentID?: SortOrder
+    authorID?: SortOrder
   }
 
   export type document_authorsCreateNestedManyWithoutAuthorsInput = {
@@ -8779,34 +9954,6 @@ export namespace Prisma {
     update?: document_authorsUpdateWithWhereUniqueWithoutAuthorsInput | document_authorsUpdateWithWhereUniqueWithoutAuthorsInput[]
     updateMany?: document_authorsUpdateManyWithWhereWithoutAuthorsInput | document_authorsUpdateManyWithWhereWithoutAuthorsInput[]
     deleteMany?: document_authorsScalarWhereInput | document_authorsScalarWhereInput[]
-  }
-
-  export type documentsCreateNestedOneWithoutDocument_authorsInput = {
-    create?: XOR<documentsCreateWithoutDocument_authorsInput, documentsUncheckedCreateWithoutDocument_authorsInput>
-    connectOrCreate?: documentsCreateOrConnectWithoutDocument_authorsInput
-    connect?: documentsWhereUniqueInput
-  }
-
-  export type authorsCreateNestedOneWithoutDocument_authorsInput = {
-    create?: XOR<authorsCreateWithoutDocument_authorsInput, authorsUncheckedCreateWithoutDocument_authorsInput>
-    connectOrCreate?: authorsCreateOrConnectWithoutDocument_authorsInput
-    connect?: authorsWhereUniqueInput
-  }
-
-  export type documentsUpdateOneRequiredWithoutDocument_authorsNestedInput = {
-    create?: XOR<documentsCreateWithoutDocument_authorsInput, documentsUncheckedCreateWithoutDocument_authorsInput>
-    connectOrCreate?: documentsCreateOrConnectWithoutDocument_authorsInput
-    upsert?: documentsUpsertWithoutDocument_authorsInput
-    connect?: documentsWhereUniqueInput
-    update?: XOR<XOR<documentsUpdateToOneWithWhereWithoutDocument_authorsInput, documentsUpdateWithoutDocument_authorsInput>, documentsUncheckedUpdateWithoutDocument_authorsInput>
-  }
-
-  export type authorsUpdateOneRequiredWithoutDocument_authorsNestedInput = {
-    create?: XOR<authorsCreateWithoutDocument_authorsInput, authorsUncheckedCreateWithoutDocument_authorsInput>
-    connectOrCreate?: authorsCreateOrConnectWithoutDocument_authorsInput
-    upsert?: authorsUpsertWithoutDocument_authorsInput
-    connect?: authorsWhereUniqueInput
-    update?: XOR<XOR<authorsUpdateToOneWithWhereWithoutDocument_authorsInput, authorsUpdateWithoutDocument_authorsInput>, authorsUncheckedUpdateWithoutDocument_authorsInput>
   }
 
   export type documentsCreateNestedOneWithoutDocument_supplementsInput = {
@@ -8986,6 +10133,13 @@ export namespace Prisma {
     connect?: document_supplementsWhereUniqueInput | document_supplementsWhereUniqueInput[]
   }
 
+  export type imagesCreateNestedManyWithoutSupplementsInput = {
+    create?: XOR<imagesCreateWithoutSupplementsInput, imagesUncheckedCreateWithoutSupplementsInput> | imagesCreateWithoutSupplementsInput[] | imagesUncheckedCreateWithoutSupplementsInput[]
+    connectOrCreate?: imagesCreateOrConnectWithoutSupplementsInput | imagesCreateOrConnectWithoutSupplementsInput[]
+    createMany?: imagesCreateManySupplementsInputEnvelope
+    connect?: imagesWhereUniqueInput | imagesWhereUniqueInput[]
+  }
+
   export type document_supplementsUncheckedCreateNestedManyWithoutSupplementsInput = {
     create?: XOR<document_supplementsCreateWithoutSupplementsInput, document_supplementsUncheckedCreateWithoutSupplementsInput> | document_supplementsCreateWithoutSupplementsInput[] | document_supplementsUncheckedCreateWithoutSupplementsInput[]
     connectOrCreate?: document_supplementsCreateOrConnectWithoutSupplementsInput | document_supplementsCreateOrConnectWithoutSupplementsInput[]
@@ -8993,8 +10147,11 @@ export namespace Prisma {
     connect?: document_supplementsWhereUniqueInput | document_supplementsWhereUniqueInput[]
   }
 
-  export type NullableBytesFieldUpdateOperationsInput = {
-    set?: Buffer | null
+  export type imagesUncheckedCreateNestedManyWithoutSupplementsInput = {
+    create?: XOR<imagesCreateWithoutSupplementsInput, imagesUncheckedCreateWithoutSupplementsInput> | imagesCreateWithoutSupplementsInput[] | imagesUncheckedCreateWithoutSupplementsInput[]
+    connectOrCreate?: imagesCreateOrConnectWithoutSupplementsInput | imagesCreateOrConnectWithoutSupplementsInput[]
+    createMany?: imagesCreateManySupplementsInputEnvelope
+    connect?: imagesWhereUniqueInput | imagesWhereUniqueInput[]
   }
 
   export type document_supplementsUpdateManyWithoutSupplementsNestedInput = {
@@ -9011,6 +10168,20 @@ export namespace Prisma {
     deleteMany?: document_supplementsScalarWhereInput | document_supplementsScalarWhereInput[]
   }
 
+  export type imagesUpdateManyWithoutSupplementsNestedInput = {
+    create?: XOR<imagesCreateWithoutSupplementsInput, imagesUncheckedCreateWithoutSupplementsInput> | imagesCreateWithoutSupplementsInput[] | imagesUncheckedCreateWithoutSupplementsInput[]
+    connectOrCreate?: imagesCreateOrConnectWithoutSupplementsInput | imagesCreateOrConnectWithoutSupplementsInput[]
+    upsert?: imagesUpsertWithWhereUniqueWithoutSupplementsInput | imagesUpsertWithWhereUniqueWithoutSupplementsInput[]
+    createMany?: imagesCreateManySupplementsInputEnvelope
+    set?: imagesWhereUniqueInput | imagesWhereUniqueInput[]
+    disconnect?: imagesWhereUniqueInput | imagesWhereUniqueInput[]
+    delete?: imagesWhereUniqueInput | imagesWhereUniqueInput[]
+    connect?: imagesWhereUniqueInput | imagesWhereUniqueInput[]
+    update?: imagesUpdateWithWhereUniqueWithoutSupplementsInput | imagesUpdateWithWhereUniqueWithoutSupplementsInput[]
+    updateMany?: imagesUpdateManyWithWhereWithoutSupplementsInput | imagesUpdateManyWithWhereWithoutSupplementsInput[]
+    deleteMany?: imagesScalarWhereInput | imagesScalarWhereInput[]
+  }
+
   export type document_supplementsUncheckedUpdateManyWithoutSupplementsNestedInput = {
     create?: XOR<document_supplementsCreateWithoutSupplementsInput, document_supplementsUncheckedCreateWithoutSupplementsInput> | document_supplementsCreateWithoutSupplementsInput[] | document_supplementsUncheckedCreateWithoutSupplementsInput[]
     connectOrCreate?: document_supplementsCreateOrConnectWithoutSupplementsInput | document_supplementsCreateOrConnectWithoutSupplementsInput[]
@@ -9023,6 +10194,68 @@ export namespace Prisma {
     update?: document_supplementsUpdateWithWhereUniqueWithoutSupplementsInput | document_supplementsUpdateWithWhereUniqueWithoutSupplementsInput[]
     updateMany?: document_supplementsUpdateManyWithWhereWithoutSupplementsInput | document_supplementsUpdateManyWithWhereWithoutSupplementsInput[]
     deleteMany?: document_supplementsScalarWhereInput | document_supplementsScalarWhereInput[]
+  }
+
+  export type imagesUncheckedUpdateManyWithoutSupplementsNestedInput = {
+    create?: XOR<imagesCreateWithoutSupplementsInput, imagesUncheckedCreateWithoutSupplementsInput> | imagesCreateWithoutSupplementsInput[] | imagesUncheckedCreateWithoutSupplementsInput[]
+    connectOrCreate?: imagesCreateOrConnectWithoutSupplementsInput | imagesCreateOrConnectWithoutSupplementsInput[]
+    upsert?: imagesUpsertWithWhereUniqueWithoutSupplementsInput | imagesUpsertWithWhereUniqueWithoutSupplementsInput[]
+    createMany?: imagesCreateManySupplementsInputEnvelope
+    set?: imagesWhereUniqueInput | imagesWhereUniqueInput[]
+    disconnect?: imagesWhereUniqueInput | imagesWhereUniqueInput[]
+    delete?: imagesWhereUniqueInput | imagesWhereUniqueInput[]
+    connect?: imagesWhereUniqueInput | imagesWhereUniqueInput[]
+    update?: imagesUpdateWithWhereUniqueWithoutSupplementsInput | imagesUpdateWithWhereUniqueWithoutSupplementsInput[]
+    updateMany?: imagesUpdateManyWithWhereWithoutSupplementsInput | imagesUpdateManyWithWhereWithoutSupplementsInput[]
+    deleteMany?: imagesScalarWhereInput | imagesScalarWhereInput[]
+  }
+
+  export type supplementsCreateNestedOneWithoutImagesInput = {
+    create?: XOR<supplementsCreateWithoutImagesInput, supplementsUncheckedCreateWithoutImagesInput>
+    connectOrCreate?: supplementsCreateOrConnectWithoutImagesInput
+    connect?: supplementsWhereUniqueInput
+  }
+
+  export type NullableBytesFieldUpdateOperationsInput = {
+    set?: Buffer | null
+  }
+
+  export type supplementsUpdateOneWithoutImagesNestedInput = {
+    create?: XOR<supplementsCreateWithoutImagesInput, supplementsUncheckedCreateWithoutImagesInput>
+    connectOrCreate?: supplementsCreateOrConnectWithoutImagesInput
+    upsert?: supplementsUpsertWithoutImagesInput
+    disconnect?: supplementsWhereInput | boolean
+    delete?: supplementsWhereInput | boolean
+    connect?: supplementsWhereUniqueInput
+    update?: XOR<XOR<supplementsUpdateToOneWithWhereWithoutImagesInput, supplementsUpdateWithoutImagesInput>, supplementsUncheckedUpdateWithoutImagesInput>
+  }
+
+  export type documentsCreateNestedOneWithoutDocument_authorsInput = {
+    create?: XOR<documentsCreateWithoutDocument_authorsInput, documentsUncheckedCreateWithoutDocument_authorsInput>
+    connectOrCreate?: documentsCreateOrConnectWithoutDocument_authorsInput
+    connect?: documentsWhereUniqueInput
+  }
+
+  export type authorsCreateNestedOneWithoutDocument_authorsInput = {
+    create?: XOR<authorsCreateWithoutDocument_authorsInput, authorsUncheckedCreateWithoutDocument_authorsInput>
+    connectOrCreate?: authorsCreateOrConnectWithoutDocument_authorsInput
+    connect?: authorsWhereUniqueInput
+  }
+
+  export type documentsUpdateOneRequiredWithoutDocument_authorsNestedInput = {
+    create?: XOR<documentsCreateWithoutDocument_authorsInput, documentsUncheckedCreateWithoutDocument_authorsInput>
+    connectOrCreate?: documentsCreateOrConnectWithoutDocument_authorsInput
+    upsert?: documentsUpsertWithoutDocument_authorsInput
+    connect?: documentsWhereUniqueInput
+    update?: XOR<XOR<documentsUpdateToOneWithWhereWithoutDocument_authorsInput, documentsUpdateWithoutDocument_authorsInput>, documentsUncheckedUpdateWithoutDocument_authorsInput>
+  }
+
+  export type authorsUpdateOneRequiredWithoutDocument_authorsNestedInput = {
+    create?: XOR<authorsCreateWithoutDocument_authorsInput, authorsUncheckedCreateWithoutDocument_authorsInput>
+    connectOrCreate?: authorsCreateOrConnectWithoutDocument_authorsInput
+    upsert?: authorsUpsertWithoutDocument_authorsInput
+    connect?: authorsWhereUniqueInput
+    update?: XOR<XOR<authorsUpdateToOneWithWhereWithoutDocument_authorsInput, authorsUpdateWithoutDocument_authorsInput>, authorsUncheckedUpdateWithoutDocument_authorsInput>
   }
 
   export type NestedIntFilter<$PrismaModel = never> = {
@@ -9216,114 +10449,6 @@ export namespace Prisma {
     authorID?: IntFilter<"document_authors"> | number
   }
 
-  export type documentsCreateWithoutDocument_authorsInput = {
-    timestamp?: Date | string | null
-    document_supplements?: document_supplementsCreateNestedManyWithoutDocumentsInput
-    documents_metadates?: documents_metadatesCreateNestedOneWithoutDocumentsInput
-  }
-
-  export type documentsUncheckedCreateWithoutDocument_authorsInput = {
-    documentID?: number
-    metadataID?: number | null
-    timestamp?: Date | string | null
-    document_supplements?: document_supplementsUncheckedCreateNestedManyWithoutDocumentsInput
-  }
-
-  export type documentsCreateOrConnectWithoutDocument_authorsInput = {
-    where: documentsWhereUniqueInput
-    create: XOR<documentsCreateWithoutDocument_authorsInput, documentsUncheckedCreateWithoutDocument_authorsInput>
-  }
-
-  export type authorsCreateWithoutDocument_authorsInput = {
-    authorFIO?: string | null
-    shortAuthorFIO?: string | null
-    authorWorkPosition?: string | null
-    authorWorkplace?: string | null
-    percentageContribution?: string | null
-    authorNumber?: number | null
-    authorYearBirth?: number | null
-    contribution?: string | null
-    timestamp?: Date | string | null
-  }
-
-  export type authorsUncheckedCreateWithoutDocument_authorsInput = {
-    authorID?: number
-    authorFIO?: string | null
-    shortAuthorFIO?: string | null
-    authorWorkPosition?: string | null
-    authorWorkplace?: string | null
-    percentageContribution?: string | null
-    authorNumber?: number | null
-    authorYearBirth?: number | null
-    contribution?: string | null
-    timestamp?: Date | string | null
-  }
-
-  export type authorsCreateOrConnectWithoutDocument_authorsInput = {
-    where: authorsWhereUniqueInput
-    create: XOR<authorsCreateWithoutDocument_authorsInput, authorsUncheckedCreateWithoutDocument_authorsInput>
-  }
-
-  export type documentsUpsertWithoutDocument_authorsInput = {
-    update: XOR<documentsUpdateWithoutDocument_authorsInput, documentsUncheckedUpdateWithoutDocument_authorsInput>
-    create: XOR<documentsCreateWithoutDocument_authorsInput, documentsUncheckedCreateWithoutDocument_authorsInput>
-    where?: documentsWhereInput
-  }
-
-  export type documentsUpdateToOneWithWhereWithoutDocument_authorsInput = {
-    where?: documentsWhereInput
-    data: XOR<documentsUpdateWithoutDocument_authorsInput, documentsUncheckedUpdateWithoutDocument_authorsInput>
-  }
-
-  export type documentsUpdateWithoutDocument_authorsInput = {
-    timestamp?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    document_supplements?: document_supplementsUpdateManyWithoutDocumentsNestedInput
-    documents_metadates?: documents_metadatesUpdateOneWithoutDocumentsNestedInput
-  }
-
-  export type documentsUncheckedUpdateWithoutDocument_authorsInput = {
-    documentID?: IntFieldUpdateOperationsInput | number
-    metadataID?: NullableIntFieldUpdateOperationsInput | number | null
-    timestamp?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    document_supplements?: document_supplementsUncheckedUpdateManyWithoutDocumentsNestedInput
-  }
-
-  export type authorsUpsertWithoutDocument_authorsInput = {
-    update: XOR<authorsUpdateWithoutDocument_authorsInput, authorsUncheckedUpdateWithoutDocument_authorsInput>
-    create: XOR<authorsCreateWithoutDocument_authorsInput, authorsUncheckedCreateWithoutDocument_authorsInput>
-    where?: authorsWhereInput
-  }
-
-  export type authorsUpdateToOneWithWhereWithoutDocument_authorsInput = {
-    where?: authorsWhereInput
-    data: XOR<authorsUpdateWithoutDocument_authorsInput, authorsUncheckedUpdateWithoutDocument_authorsInput>
-  }
-
-  export type authorsUpdateWithoutDocument_authorsInput = {
-    authorFIO?: NullableStringFieldUpdateOperationsInput | string | null
-    shortAuthorFIO?: NullableStringFieldUpdateOperationsInput | string | null
-    authorWorkPosition?: NullableStringFieldUpdateOperationsInput | string | null
-    authorWorkplace?: NullableStringFieldUpdateOperationsInput | string | null
-    percentageContribution?: NullableStringFieldUpdateOperationsInput | string | null
-    authorNumber?: NullableIntFieldUpdateOperationsInput | number | null
-    authorYearBirth?: NullableIntFieldUpdateOperationsInput | number | null
-    contribution?: NullableStringFieldUpdateOperationsInput | string | null
-    timestamp?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  }
-
-  export type authorsUncheckedUpdateWithoutDocument_authorsInput = {
-    authorID?: IntFieldUpdateOperationsInput | number
-    authorFIO?: NullableStringFieldUpdateOperationsInput | string | null
-    shortAuthorFIO?: NullableStringFieldUpdateOperationsInput | string | null
-    authorWorkPosition?: NullableStringFieldUpdateOperationsInput | string | null
-    authorWorkplace?: NullableStringFieldUpdateOperationsInput | string | null
-    percentageContribution?: NullableStringFieldUpdateOperationsInput | string | null
-    authorNumber?: NullableIntFieldUpdateOperationsInput | number | null
-    authorYearBirth?: NullableIntFieldUpdateOperationsInput | number | null
-    contribution?: NullableStringFieldUpdateOperationsInput | string | null
-    timestamp?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  }
-
   export type documentsCreateWithoutDocument_supplementsInput = {
     timestamp?: Date | string | null
     document_authors?: document_authorsCreateNestedManyWithoutDocumentsInput
@@ -9344,17 +10469,15 @@ export namespace Prisma {
 
   export type supplementsCreateWithoutDocument_supplementsInput = {
     name?: string | null
-    image?: Buffer | null
-    imageName?: string | null
     timestamp?: Date | string | null
+    images?: imagesCreateNestedManyWithoutSupplementsInput
   }
 
   export type supplementsUncheckedCreateWithoutDocument_supplementsInput = {
     supplementID?: number
     name?: string | null
-    image?: Buffer | null
-    imageName?: string | null
     timestamp?: Date | string | null
+    images?: imagesUncheckedCreateNestedManyWithoutSupplementsInput
   }
 
   export type supplementsCreateOrConnectWithoutDocument_supplementsInput = {
@@ -9399,17 +10522,15 @@ export namespace Prisma {
 
   export type supplementsUpdateWithoutDocument_supplementsInput = {
     name?: NullableStringFieldUpdateOperationsInput | string | null
-    image?: NullableBytesFieldUpdateOperationsInput | Buffer | null
-    imageName?: NullableStringFieldUpdateOperationsInput | string | null
     timestamp?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    images?: imagesUpdateManyWithoutSupplementsNestedInput
   }
 
   export type supplementsUncheckedUpdateWithoutDocument_supplementsInput = {
     supplementID?: IntFieldUpdateOperationsInput | number
     name?: NullableStringFieldUpdateOperationsInput | string | null
-    image?: NullableBytesFieldUpdateOperationsInput | Buffer | null
-    imageName?: NullableStringFieldUpdateOperationsInput | string | null
     timestamp?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    images?: imagesUncheckedUpdateManyWithoutSupplementsNestedInput
   }
 
   export type document_authorsCreateWithoutDocumentsInput = {
@@ -9676,6 +10797,29 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type imagesCreateWithoutSupplementsInput = {
+    image?: Buffer | null
+    imageName?: string | null
+    timestamp?: Date | string | null
+  }
+
+  export type imagesUncheckedCreateWithoutSupplementsInput = {
+    imageID?: number
+    image?: Buffer | null
+    imageName?: string | null
+    timestamp?: Date | string | null
+  }
+
+  export type imagesCreateOrConnectWithoutSupplementsInput = {
+    where: imagesWhereUniqueInput
+    create: XOR<imagesCreateWithoutSupplementsInput, imagesUncheckedCreateWithoutSupplementsInput>
+  }
+
+  export type imagesCreateManySupplementsInputEnvelope = {
+    data: imagesCreateManySupplementsInput | imagesCreateManySupplementsInput[]
+    skipDuplicates?: boolean
+  }
+
   export type document_supplementsUpsertWithWhereUniqueWithoutSupplementsInput = {
     where: document_supplementsWhereUniqueInput
     update: XOR<document_supplementsUpdateWithoutSupplementsInput, document_supplementsUncheckedUpdateWithoutSupplementsInput>
@@ -9690,6 +10834,183 @@ export namespace Prisma {
   export type document_supplementsUpdateManyWithWhereWithoutSupplementsInput = {
     where: document_supplementsScalarWhereInput
     data: XOR<document_supplementsUpdateManyMutationInput, document_supplementsUncheckedUpdateManyWithoutSupplementsInput>
+  }
+
+  export type imagesUpsertWithWhereUniqueWithoutSupplementsInput = {
+    where: imagesWhereUniqueInput
+    update: XOR<imagesUpdateWithoutSupplementsInput, imagesUncheckedUpdateWithoutSupplementsInput>
+    create: XOR<imagesCreateWithoutSupplementsInput, imagesUncheckedCreateWithoutSupplementsInput>
+  }
+
+  export type imagesUpdateWithWhereUniqueWithoutSupplementsInput = {
+    where: imagesWhereUniqueInput
+    data: XOR<imagesUpdateWithoutSupplementsInput, imagesUncheckedUpdateWithoutSupplementsInput>
+  }
+
+  export type imagesUpdateManyWithWhereWithoutSupplementsInput = {
+    where: imagesScalarWhereInput
+    data: XOR<imagesUpdateManyMutationInput, imagesUncheckedUpdateManyWithoutSupplementsInput>
+  }
+
+  export type imagesScalarWhereInput = {
+    AND?: imagesScalarWhereInput | imagesScalarWhereInput[]
+    OR?: imagesScalarWhereInput[]
+    NOT?: imagesScalarWhereInput | imagesScalarWhereInput[]
+    imageID?: IntFilter<"images"> | number
+    supplementID?: IntNullableFilter<"images"> | number | null
+    image?: BytesNullableFilter<"images"> | Buffer | null
+    imageName?: StringNullableFilter<"images"> | string | null
+    timestamp?: DateTimeNullableFilter<"images"> | Date | string | null
+  }
+
+  export type supplementsCreateWithoutImagesInput = {
+    name?: string | null
+    timestamp?: Date | string | null
+    document_supplements?: document_supplementsCreateNestedManyWithoutSupplementsInput
+  }
+
+  export type supplementsUncheckedCreateWithoutImagesInput = {
+    supplementID?: number
+    name?: string | null
+    timestamp?: Date | string | null
+    document_supplements?: document_supplementsUncheckedCreateNestedManyWithoutSupplementsInput
+  }
+
+  export type supplementsCreateOrConnectWithoutImagesInput = {
+    where: supplementsWhereUniqueInput
+    create: XOR<supplementsCreateWithoutImagesInput, supplementsUncheckedCreateWithoutImagesInput>
+  }
+
+  export type supplementsUpsertWithoutImagesInput = {
+    update: XOR<supplementsUpdateWithoutImagesInput, supplementsUncheckedUpdateWithoutImagesInput>
+    create: XOR<supplementsCreateWithoutImagesInput, supplementsUncheckedCreateWithoutImagesInput>
+    where?: supplementsWhereInput
+  }
+
+  export type supplementsUpdateToOneWithWhereWithoutImagesInput = {
+    where?: supplementsWhereInput
+    data: XOR<supplementsUpdateWithoutImagesInput, supplementsUncheckedUpdateWithoutImagesInput>
+  }
+
+  export type supplementsUpdateWithoutImagesInput = {
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    timestamp?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    document_supplements?: document_supplementsUpdateManyWithoutSupplementsNestedInput
+  }
+
+  export type supplementsUncheckedUpdateWithoutImagesInput = {
+    supplementID?: IntFieldUpdateOperationsInput | number
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    timestamp?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    document_supplements?: document_supplementsUncheckedUpdateManyWithoutSupplementsNestedInput
+  }
+
+  export type documentsCreateWithoutDocument_authorsInput = {
+    timestamp?: Date | string | null
+    document_supplements?: document_supplementsCreateNestedManyWithoutDocumentsInput
+    documents_metadates?: documents_metadatesCreateNestedOneWithoutDocumentsInput
+  }
+
+  export type documentsUncheckedCreateWithoutDocument_authorsInput = {
+    documentID?: number
+    metadataID?: number | null
+    timestamp?: Date | string | null
+    document_supplements?: document_supplementsUncheckedCreateNestedManyWithoutDocumentsInput
+  }
+
+  export type documentsCreateOrConnectWithoutDocument_authorsInput = {
+    where: documentsWhereUniqueInput
+    create: XOR<documentsCreateWithoutDocument_authorsInput, documentsUncheckedCreateWithoutDocument_authorsInput>
+  }
+
+  export type authorsCreateWithoutDocument_authorsInput = {
+    authorFIO?: string | null
+    shortAuthorFIO?: string | null
+    authorWorkPosition?: string | null
+    authorWorkplace?: string | null
+    percentageContribution?: number | null
+    authorNumber?: number | null
+    authorYearBirth?: number | null
+    contribution?: string | null
+    timestamp?: Date | string | null
+  }
+
+  export type authorsUncheckedCreateWithoutDocument_authorsInput = {
+    authorID?: number
+    authorFIO?: string | null
+    shortAuthorFIO?: string | null
+    authorWorkPosition?: string | null
+    authorWorkplace?: string | null
+    percentageContribution?: number | null
+    authorNumber?: number | null
+    authorYearBirth?: number | null
+    contribution?: string | null
+    timestamp?: Date | string | null
+  }
+
+  export type authorsCreateOrConnectWithoutDocument_authorsInput = {
+    where: authorsWhereUniqueInput
+    create: XOR<authorsCreateWithoutDocument_authorsInput, authorsUncheckedCreateWithoutDocument_authorsInput>
+  }
+
+  export type documentsUpsertWithoutDocument_authorsInput = {
+    update: XOR<documentsUpdateWithoutDocument_authorsInput, documentsUncheckedUpdateWithoutDocument_authorsInput>
+    create: XOR<documentsCreateWithoutDocument_authorsInput, documentsUncheckedCreateWithoutDocument_authorsInput>
+    where?: documentsWhereInput
+  }
+
+  export type documentsUpdateToOneWithWhereWithoutDocument_authorsInput = {
+    where?: documentsWhereInput
+    data: XOR<documentsUpdateWithoutDocument_authorsInput, documentsUncheckedUpdateWithoutDocument_authorsInput>
+  }
+
+  export type documentsUpdateWithoutDocument_authorsInput = {
+    timestamp?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    document_supplements?: document_supplementsUpdateManyWithoutDocumentsNestedInput
+    documents_metadates?: documents_metadatesUpdateOneWithoutDocumentsNestedInput
+  }
+
+  export type documentsUncheckedUpdateWithoutDocument_authorsInput = {
+    documentID?: IntFieldUpdateOperationsInput | number
+    metadataID?: NullableIntFieldUpdateOperationsInput | number | null
+    timestamp?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    document_supplements?: document_supplementsUncheckedUpdateManyWithoutDocumentsNestedInput
+  }
+
+  export type authorsUpsertWithoutDocument_authorsInput = {
+    update: XOR<authorsUpdateWithoutDocument_authorsInput, authorsUncheckedUpdateWithoutDocument_authorsInput>
+    create: XOR<authorsCreateWithoutDocument_authorsInput, authorsUncheckedCreateWithoutDocument_authorsInput>
+    where?: authorsWhereInput
+  }
+
+  export type authorsUpdateToOneWithWhereWithoutDocument_authorsInput = {
+    where?: authorsWhereInput
+    data: XOR<authorsUpdateWithoutDocument_authorsInput, authorsUncheckedUpdateWithoutDocument_authorsInput>
+  }
+
+  export type authorsUpdateWithoutDocument_authorsInput = {
+    authorFIO?: NullableStringFieldUpdateOperationsInput | string | null
+    shortAuthorFIO?: NullableStringFieldUpdateOperationsInput | string | null
+    authorWorkPosition?: NullableStringFieldUpdateOperationsInput | string | null
+    authorWorkplace?: NullableStringFieldUpdateOperationsInput | string | null
+    percentageContribution?: NullableIntFieldUpdateOperationsInput | number | null
+    authorNumber?: NullableIntFieldUpdateOperationsInput | number | null
+    authorYearBirth?: NullableIntFieldUpdateOperationsInput | number | null
+    contribution?: NullableStringFieldUpdateOperationsInput | string | null
+    timestamp?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type authorsUncheckedUpdateWithoutDocument_authorsInput = {
+    authorID?: IntFieldUpdateOperationsInput | number
+    authorFIO?: NullableStringFieldUpdateOperationsInput | string | null
+    shortAuthorFIO?: NullableStringFieldUpdateOperationsInput | string | null
+    authorWorkPosition?: NullableStringFieldUpdateOperationsInput | string | null
+    authorWorkplace?: NullableStringFieldUpdateOperationsInput | string | null
+    percentageContribution?: NullableIntFieldUpdateOperationsInput | number | null
+    authorNumber?: NullableIntFieldUpdateOperationsInput | number | null
+    authorYearBirth?: NullableIntFieldUpdateOperationsInput | number | null
+    contribution?: NullableStringFieldUpdateOperationsInput | string | null
+    timestamp?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type document_authorsCreateManyAuthorsInput = {
@@ -9767,6 +11088,13 @@ export namespace Prisma {
     documentID: number
   }
 
+  export type imagesCreateManySupplementsInput = {
+    imageID?: number
+    image?: Buffer | null
+    imageName?: string | null
+    timestamp?: Date | string | null
+  }
+
   export type document_supplementsUpdateWithoutSupplementsInput = {
     documents?: documentsUpdateOneRequiredWithoutDocument_supplementsNestedInput
   }
@@ -9777,6 +11105,26 @@ export namespace Prisma {
 
   export type document_supplementsUncheckedUpdateManyWithoutSupplementsInput = {
     documentID?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type imagesUpdateWithoutSupplementsInput = {
+    image?: NullableBytesFieldUpdateOperationsInput | Buffer | null
+    imageName?: NullableStringFieldUpdateOperationsInput | string | null
+    timestamp?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type imagesUncheckedUpdateWithoutSupplementsInput = {
+    imageID?: IntFieldUpdateOperationsInput | number
+    image?: NullableBytesFieldUpdateOperationsInput | Buffer | null
+    imageName?: NullableStringFieldUpdateOperationsInput | string | null
+    timestamp?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type imagesUncheckedUpdateManyWithoutSupplementsInput = {
+    imageID?: IntFieldUpdateOperationsInput | number
+    image?: NullableBytesFieldUpdateOperationsInput | Buffer | null
+    imageName?: NullableStringFieldUpdateOperationsInput | string | null
+    timestamp?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
 
@@ -9805,10 +11153,6 @@ export namespace Prisma {
      */
     export type authorsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = authorsDefaultArgs<ExtArgs>
     /**
-     * @deprecated Use document_authorsDefaultArgs instead
-     */
-    export type document_authorsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = document_authorsDefaultArgs<ExtArgs>
-    /**
      * @deprecated Use document_supplementsDefaultArgs instead
      */
     export type document_supplementsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = document_supplementsDefaultArgs<ExtArgs>
@@ -9824,6 +11168,14 @@ export namespace Prisma {
      * @deprecated Use supplementsDefaultArgs instead
      */
     export type supplementsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = supplementsDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use imagesDefaultArgs instead
+     */
+    export type imagesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = imagesDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use document_authorsDefaultArgs instead
+     */
+    export type document_authorsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = document_authorsDefaultArgs<ExtArgs>
 
   /**
    * Batch Payload for updateMany & deleteMany & createMany

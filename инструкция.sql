@@ -43,13 +43,14 @@ CREATE OR REPLACE TABLE documents_metadates (
 );
 
 -- Таблица авторов
+DROP TABLE authors;
 CREATE OR REPLACE TABLE authors (
                                     authorID INT PRIMARY KEY AUTO_INCREMENT,
                                     authorFIO TEXT,
                                     shortAuthorFIO TEXT,
                                     authorWorkPosition TEXT,
                                     authorWorkplace TEXT,
-                                    percentageContribution TEXT,
+                                    percentageContribution INT,
                                     authorNumber INT,
                                     authorYearBirth INT,
                                     contribution TEXT,
@@ -57,14 +58,24 @@ CREATE OR REPLACE TABLE authors (
 );
 
 -- Таблица приложений
+SELECT * FROM supplements;
 CREATE OR REPLACE TABLE supplements (
                                         supplementID INT PRIMARY KEY AUTO_INCREMENT,
                                         name TEXT,
-                                        image LONGBLOB,
-                                        imageName TEXT,
                                         timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
+SELECT * FROM images;
+CREATE OR REPLACE TABLE images (
+                                    imageID INT PRIMARY KEY AUTO_INCREMENT,
+                                    supplementID INT,
+                                    image LONGBLOB,
+                                    imageName TEXT,
+                                    FOREIGN KEY (supplementID) REFERENCES supplements(supplementID),
+                                    timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+SELECT * FROM documents;
 CREATE OR REPLACE TABLE documents (
                                       documentID INT PRIMARY KEY AUTO_INCREMENT,
                                       metadataID INT,
@@ -82,6 +93,7 @@ CREATE OR REPLACE TABLE document_authors (
 );
 
 -- Промежуточная таблица для связи документов и приложений
+SELECT * FROM document_supplements;
 CREATE OR REPLACE TABLE document_supplements (
                                                  documentID INT,
                                                  supplementID INT,
@@ -93,13 +105,18 @@ CREATE OR REPLACE TABLE document_supplements (
 CREATE DATABASE IF NOT EXISTS documents_main;
 USE documents_main;
 
+SELECT * FROM documents;
 CREATE OR REPLACE TABLE documents (
                                       id INT AUTO_INCREMENT PRIMARY KEY,
                                       name VARCHAR(255),
                                       document_content LONGBLOB,
-                                      timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+                                      timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                                      db_document_id INT,
+                                      FOREIGN KEY (db_document_id) REFERENCES documents_db.documents(documentID) ON DELETE CASCADE
 );
 
+
+SELECT * FROM
 --запускаем dbindex.js
 
 --роуты

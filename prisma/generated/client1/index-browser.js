@@ -132,11 +132,6 @@ exports.Prisma.AuthorsScalarFieldEnum = {
   timestamp: 'timestamp'
 };
 
-exports.Prisma.Document_authorsScalarFieldEnum = {
-  documentID: 'documentID',
-  authorID: 'authorID'
-};
-
 exports.Prisma.Document_supplementsScalarFieldEnum = {
   documentID: 'documentID',
   supplementID: 'supplementID'
@@ -178,9 +173,20 @@ exports.Prisma.Documents_metadatesScalarFieldEnum = {
 exports.Prisma.SupplementsScalarFieldEnum = {
   supplementID: 'supplementID',
   name: 'name',
+  timestamp: 'timestamp'
+};
+
+exports.Prisma.ImagesScalarFieldEnum = {
+  imageID: 'imageID',
+  supplementID: 'supplementID',
   image: 'image',
   imageName: 'imageName',
   timestamp: 'timestamp'
+};
+
+exports.Prisma.Document_authorsScalarFieldEnum = {
+  documentID: 'documentID',
+  authorID: 'authorID'
 };
 
 exports.Prisma.SortOrder = {
@@ -196,11 +202,12 @@ exports.Prisma.NullsOrder = {
 
 exports.Prisma.ModelName = {
   authors: 'authors',
-  document_authors: 'document_authors',
   document_supplements: 'document_supplements',
   documents: 'documents',
   documents_metadates: 'documents_metadates',
-  supplements: 'supplements'
+  supplements: 'supplements',
+  images: 'images',
+  document_authors: 'document_authors'
 };
 
 /**
