@@ -12,12 +12,18 @@ module.exports = {
                 data.supplements,
                 files
             )
-            console.dir(supplements, { depth: null });
 
-            const content = fs.readFileSync(
+            
+            const content = data.authorNumbers.length > 1 ? 
+            fs.readFileSync(
+                path.resolve('templates/proposal_template_with_many_authors.docx'),
+                'binary'
+            ) :
+            fs.readFileSync(
                 path.resolve('templates/proposal_template.docx'),
                 'binary'
-            )
+            ) 
+
             const zip = new PizZip(content)
 
             const opts = {
@@ -36,6 +42,7 @@ module.exports = {
                 modules: [new ImageModule(opts)],
             })
 
+            
             doc.render({
                 orgName: data.orgName,
                 boss: data.boss,
@@ -80,7 +87,6 @@ module.exports = {
 
             const fileName = `Рационализаторское предложение.docx`
             const outputPath = path.resolve(generatedDir, fileName)
-
             fs.writeFileSync(outputPath, buf)
 
             // Пример удаления всех загруженных файлов
